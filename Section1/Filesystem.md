@@ -17,17 +17,21 @@ A good place to start is figuring out where we are:
 ```bash
 $ pwd
 ```
-`pwd` shows us the *p*resent *w*orking *d*irectory. My result looks like this:
+
+`pwd` shows us the **p**resent **w**orking **d**irectory. My result looks like
+this:
 
 ```bash
 /Users/patrick
 ```
+
 If all of your files were all together in one big pile, it would be difficult
 to find and organize your computer. Luckily, the filesystem has a way of
 helping you sort everything. In addition to files, your filesystem has
 directories (also known as folders). These directories can hold files and even
 more folders to help you keep track of everything. You may already be familiar
-with your Documents or Downloads folders, but your computer actually has thousands.
+with your Documents or Downloads folders, but your computer actually has
+thousands.
 
 These earliest lessons serve a dual purpose. The aim is to introduce a number
 of necessary tools before we jump in, but also to become familiar with some of
@@ -60,6 +64,7 @@ details to notice here. (And if you don't get all of them now, that's fine.
 You'll learn more as we keep going).
 
 ### Paths
+
 Our tree structure defines a unique path from wherever you are to any other
 file. Suppose we wanted to know where song.mp3 was. Looking at the picture
 above, we can say:
@@ -82,8 +87,8 @@ we just have to say:
 * Move down to song.mp3
 
 Which translates nicely to `./song.mp3`. We can do even better in this specific
-example by just using `song.mp3` because the computer already knows where we are
-but this is good to know.
+example by just using `song.mp3` because the computer already knows where we
+are but this is good to know.
 
 Our second special name is `..`, which means the parent of where we are. The
 directions to resume.doc would be:
@@ -97,6 +102,7 @@ way of describing how to move around the filesystem, and we will see how to
 exploit them shortly.
 
 ### Trees are Recursive
+
 If we cut off any branch and just examine it, we can see that it is still a
 tree. We even include a single leaf in our definition of trees. This property
 leads to a simple design. A nice example of this is moving entire chunks of the
@@ -116,15 +122,17 @@ files by changing one little line. This is a major win for us. Also relative
 paths...
 
 ### Files Can't Have Children
+
 In the tree jargon, files are leaves. In the same way that real leaves can't
 have branches coming out of them, files can't have directories or other files
 below them. Files exist to hold data, while directories exist to keep things in
 order.
 
 ### Directories are Infinite
-To complement files not having any children, directories can have as many as you
-want. (Probably like 2^32 or something...) Expanding on the example above, you
-could have:
+
+To complement files not having any children, directories can have as many as
+you want. (Probably like 2^32 or something...) Expanding on the example above,
+you could have:
 
                                   Home
           _________________________|______________________________
@@ -134,8 +142,8 @@ could have:
 Here we have four child directories and a file. But you could have however many
 make sense for you. You might be someone who takes pictures all day, in which
 case you could have thousands of pictures in your Pictures folder. Or you might
-have a set of directories within Pictures for Family, Vacation, Work, etc. which
-help you keep track of all your photos.
+have a set of directories within Pictures for Family, Vacation, Work, etc.
+which help you keep track of all your photos.
 
 ## Basic Commands
 
@@ -147,7 +155,7 @@ tree that has Downloads as a child of Documents.
 $ ls <path>
 ```
 
-*L*i*s*t the contents of the given directory at <path>. With no argument,
+**L**i**s**t the contents of the given directory at <path>. With no argument,
 list the contents of the present working directory.
 
 Possibly the most useful command, `ls` shows you what files and folders are
@@ -159,7 +167,7 @@ Downloads with `ls Documents/Downloads`, but this quickly gets out of hand.
 cd <path>
 ```
 
-*C*hange *d*rectory. With no argument, move to the user's home directory.
+**C**hange **d**irectory. With no argument, move to the user's home directory.
 
 `cd` is the solution to our issue above. Instead of referencing
 `Documents/Downloads/song.mp3`, we can first move: `cd Documents/Downloads`,
@@ -185,7 +193,7 @@ already. This is the quickest way to create a file.
 mkdir <path>
 ```
 
-*M*a*k*e *dir*ectories.
+**M**a**k**e **dir**ectories.
 
 As simple as they come, this command creates a directory at the given path
 location.
@@ -194,29 +202,30 @@ location.
 rm <path>
 ```
 
-*R*e*m*ove files.
+**R**e**m**ove files.
 
 This is our first command that has a real chance of causing damage. Sometimes
-it is smart enough to double check that you really want to delete some important
-file, but most of the time it will just erase it forever. This is not intended
-as a scare tactic, I just want to make it clear that we are taking the training
-wheels off. It is up to you to ask yourself "Am I sure?" before using `rm`.
+it is smart enough to double check that you really want to delete some
+important file, but most of the time it will just erase it forever. This is not
+intended as a scare tactic, I just want to make it clear that we are taking the
+training wheels off. It is up to you to ask yourself "Am I sure?" before using
+`rm`.
 
 ```bash
 rmdir <path>
 ```
 
-*R*e*m*ove *dir*ectories.
+**R**e**m**ove **dir**ectories.
 
-Almost as easy as `mkdir`, `rmdir` has the one "gotcha" that the directory
-must be empty for you to delete it. You can do this by deleting all the files
-within first.
+Almost as easy as `mkdir`, `rmdir` has the one "gotcha" that the directory must
+be empty for you to delete it. You can do this by deleting all the files within
+first.
 
 ```bash
 mv <source> <destination>
 ```
 
-*M*o*v*e files.
+**M**o**v**e files.
 
 This moves the file at the `<source>` path to `<destination>`. As an example,
 (with Home as our `pwd`) `mv Documents/Downloads Downloads`. This command will
@@ -237,23 +246,26 @@ for both), so we have to change the name of the old one. We can do that with
 cp
 ```
 
-*C*o*p*y files.
+**C**o**p**y files.
 
 This is almost identical to `mv`, but it doesn't change the original file.
-Using the example above, `cp Documents/resume.doc Documents/oldresume.doc` results in both `resume.doc` and `oldresume.doc` existing within `Documents`.
+Using the example above, `cp Documents/resume.doc Documents/oldresume.doc`
+results in both `resume.doc` and `oldresume.doc` existing within `Documents`.
 
 ```bash
 man <command>
 ```
 
-Format and display the on-line *man*ual pages.
+Format and display the on-line **man**ual pages.
 
 This is how you learn more about commands or check how they work. If you try
-`man man` you'll see that I shamelessly copied some of my descriptions from
-the man pages for the above commands. `man` should always be your first stop if
-you have any questions about commands.
+`man man` you'll see that I shamelessly copied some of my descriptions from the
+man pages for the above commands. `man` should always be your first stop if you
+have any questions about commands.
 
 Once you are in a man page, you can move up and down with "j" and "k", and quit
 with "q". This actually opens a program called "less" (a joke on the earlier
 program "more"...). Also this style of movement will come up again, so keep it
 in mind.
+
+[python]()
