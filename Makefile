@@ -10,7 +10,7 @@
 # Pandoc
 PANDOC=/usr/local/bin/pandoc
 PANDOC_OPTIONS=--smart
-PANDOC_HTML_OPTIONS=--standalone --to html5
+PANDOC_HTML_OPTIONS=--standalone --to html5 # --css file.css
 
 # Files
 SRC := $(wildcard */*.md)

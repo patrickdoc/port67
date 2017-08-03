@@ -125,3 +125,8 @@ exactly as much space as your cursor. This leads to some nice looking style
 choices and convenient movement. If you type some random lines of text and
 then spend some time moving around it in normal mode, you'll notice that it is
 very easy to tell what characters are above and below each other.
+
+We'll come back to Vim a couple times to give you some upgrades once you've
+earned them ;)
+
+[ExecutingPython]()
