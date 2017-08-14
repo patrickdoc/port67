@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <title>SOMETHING - $pagetitle$</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../css/site.css">
+</head>
+<body>
+  <header>
+    <p>Welcome!</p>
+  </header>
+  <section id="flex-container">
+
+    <section class="sidebar">
+      <nav>
+        <ul>
+          <li>Home</li>
+          <li>About</li>
+          <li>Stuff</li>
+        </ul>
+      </nav>
+  
+      $if(toc)$
+      <div id="toc">
+$toc$
+      </div>
+      $endif$
+    </section>
+  
+    <main>
+    <article>
+$body$
+    </article>
+    </main>
+  
+    <aside class="sidebar">
+      <div id="reference">
+        <p>Reference thingy</p>
+      </div>
+    </aside>
+  
+  </section>
+
+  <footer>
+    <p>Copyright, me, source</p>
+  </footer>
+
+</body>
+</html>

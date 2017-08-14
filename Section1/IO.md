@@ -105,4 +105,4 @@ Next up, we are going to be talking about "things" in programming languages. In
 particular, we are going to find out the difference between ``a``, ``'a'``,
 ``[a]``, and more.
 
-[Binary]()
+[Types](Types.html)
