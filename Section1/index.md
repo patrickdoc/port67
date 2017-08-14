@@ -8,8 +8,5 @@ Vim.md
 ExecutingPython.md
 IO.md
 Types.md
-
-index.md
 ControlFlow.md
-Interpreted.md
-Project.md
+Refelection.md
