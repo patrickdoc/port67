@@ -1,3 +1,7 @@
+---
+title: The Filesystem
+---
+
 # The Filesystem
 
 All of the information on your computer needs to be kept somewhere. When you

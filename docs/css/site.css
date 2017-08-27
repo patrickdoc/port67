@@ -1,6 +1,13 @@
+header, footer {
+    background-color: #DDD;
+}
+
 body {
     margin: 0;
     padding: 0;
+    font-family: 'Lora', serif;
+    font-size: 20px;
+    line-height: 140%;
 }
 
 #flex-container {
@@ -9,7 +16,7 @@ body {
     justify-content: space-between;
     width: 100%;
     height: auto;
-    background-color: #DDD;
+    background-color: #FFF;
 }
 
 .sidebar  {
@@ -23,4 +30,8 @@ main {
     display: inline-block;
     width: 50%;
     max-width: 750px;
+}
+
+code {
+    font-family: 'Inconsolata', monospace;
 }
