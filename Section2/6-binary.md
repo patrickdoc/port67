@@ -119,7 +119,7 @@ yplus = y + y
 ```
 
 Try to guess what the values of ``xplus`` and ``yplus`` are. For the first
-case, it is relatively straightforward. ``1 + 1 = 2``. (Practise adding in
+case, it is relatively straightforward. ``1 + 1 = 2``. (Practice adding in
 binary by hand to make sure that it works. Just remember to carry the 1.) But
 figuring out what ``'a' + 'a'`` means is less clear. The people who made Python
 decided that the best thing to do would be to make this work in a reasonable
@@ -129,6 +129,6 @@ seems unlikely that the average programmer wants that to be the outcome.
 Instead they guessed that people probably wanted the characters to be stuck
 together. A reasonable guess.
 
-Next time, an brief encyclopedia of types.
+Next time, a brief encyclopedia of types.
 
 [Interpreted]()

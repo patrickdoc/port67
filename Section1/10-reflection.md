@@ -102,7 +102,7 @@ int main(int argc, char **argv) {
 
     i = 1 + 1.5;
     // i == 2
-    return i;
+    return 0;
 }
 ```
 
