@@ -1,3 +1,7 @@
+---
+title: The Terminal
+---
+
 # The Terminal
 
 ## A Bit of History
@@ -59,6 +63,10 @@ letters, than bash probably responded with:
 
 This means that bash expected you to give it a real command, but it was unable
 to find a command with that name. So let's try a real command:
+
+.. date
+    lol
+    lol2
 
 ```bash
 $ date
