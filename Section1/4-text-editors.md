@@ -56,12 +56,12 @@ application, possibly with an error message.
 In all three of these cases, the files are exactly the same. They are
 completely blank, like sheets of paper. By adding the extension, we are telling
 the computer what it should expect to be written in those files. As such, it
-finds a proper application to read that content. Browsers are made to view HTML,
-photo applications know how to read PNG's, and so on. Some of these formats, like
-HTML, are completely readable by humans. They will look like words and symbols that
-you could type if you wanted to. Other formats, like PNG's, are farther along in
-the conversion to electricity. Often they will be simple binary strings of 0's and
-1's.
+finds a proper application to read that content. Browsers are made to view
+HTML, photo applications know how to read PNG's, and so on. Some of these
+formats, like HTML, are completely readable by humans. They will look like
+words and symbols that you could type if you wanted to. Other formats, like
+PNG's, are farther along in the conversion to electricity. Often they will be
+simple binary strings of 0's and 1's.
 
 Luckily for us, programming languages are both human readable and typeable.
 However, we now need a tool to edit these files. We want to write `plain text`

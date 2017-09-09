@@ -50,7 +50,7 @@ The type of `circumference` is: given a `float`, return a `float`.
 One of the first powers we gain from this is the ability to move code around.
 Often, I like to have my `main` function at the top. But if it relies on other
 functions in the file, I have to put it below them. With these function
-"headers" or declarations, I can put the bodies below my `main` function.
+declarations or "headers", I can put the bodies below my `main` function.
 
 ```c
 float circumference(float radius);
