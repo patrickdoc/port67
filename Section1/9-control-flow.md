@@ -99,8 +99,8 @@ format,
 ```
 
 This represents the numbers 1, 2, and 3 in that order. This is a new type,
-called ``'list'``. Python's lists can contain any number (including 0, the
-empty list []) of values, be they variables, strings, ints, floats, etc.
+called ``'list'``. Python's lists can contain any number of values (including 0,
+the empty list []), be they variables, strings, ints, floats, etc.
 
 The ``for`` statement then looks like this,
 
