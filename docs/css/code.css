@@ -4,11 +4,12 @@ table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
 table.sourceCode { width: 100%; line-height: 100%; background-color: #f1f1f1; color: #cccccc; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
 td.sourceCode { padding-left: 5px; }
+pre.sourceCode { padding: 5px 15px; }
 
 pre, code { color: #535146; background-color: #f1f1f1; }
 code > span.kw { color: #70adae; } /* Keyword */
 code > span.dt { color: #6684e1; } /* DataType */
-code > span.dv { color: #dcdccc; } /* DecVal */
+code > span.dv { color: #e44031; } /* DecVal */
 code > span.bn { color: #dca3a3; } /* BaseN */
 code > span.fl { color: #e44031; } /* Float */
 code > span.ch { color: #8079a7; } /* Char */
