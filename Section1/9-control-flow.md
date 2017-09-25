@@ -140,7 +140,7 @@ def main():
         for g in guessed_vals:
             print "You have guessed: ", g
 
-        print "You have ", num_guesses, " guesses left"
+        print "You have", num_guesses, "guesses left"
 
         x = input("Guess: ")
 

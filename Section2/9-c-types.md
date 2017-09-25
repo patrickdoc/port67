@@ -11,7 +11,7 @@ value of variables into the string, but types play a role in how they are
 printed. In general, `printf` can be given a string with a number of format
 specifiers, and a variable for every format specifier. For example,
 
-```
+```c
 #include <stdio.h>
 
 int main(int argc, char **argv) {
@@ -35,7 +35,7 @@ different types should be. Specific examples below should help.
 A `char` is a single byte encoded using ASCII. To set a `char`, it is best to
 use a single character with single quotes `'a'`.
 
-```
+```c
 #include <stdio.h>
 
 int main(int argc, char **argv) {
@@ -52,7 +52,7 @@ represent 256 different values.
 
 `unsigned` is the standard decimal translation we have been using.
 
-```
+```c
 #include <stdio.h>
 
 int main(int argc, char **argv) {
@@ -88,7 +88,7 @@ negative numbers. The size is the same, and the range just shifts halfway into
 the negatives, -32,768 - 32,767 for 2 byte `int`'s or -2,147,483,648 -
 2,147,483,647 for 4 bytes.
 
-```
+```c
 #include <stdio.h>
 
 int main(int argc, char **argv) {
@@ -108,7 +108,7 @@ rationals between them. If you give me `0.3` and 0.4`, I can start by listing
 `0.31`, 0.311`, `0.3111`, and keep going forever. Floating point numbers have a
 lot to cover!
 
-```
+```c
 #include <stdio.h>
 
 int main(int argc, char **argv) {
@@ -144,7 +144,7 @@ at some point.
 I promised we would mess with some wrong types, so here we go. Let's think about
 this piece of code,
 
-```
+```c
 #include <stdio.h>
 
 int main(int argc, char **argv) {
@@ -157,7 +157,7 @@ int main(int argc, char **argv) {
 To us, the conversion to an `int` is clear, just drop the numbers after the
 decimal. Let's try just telling `printf` to print `x` as if it were an `int`.
 
-```
+```c
 #include <stdio.h>
 
 int main(int argc, char **argv) {
@@ -168,7 +168,7 @@ int main(int argc, char **argv) {
 }
 ```
 
-```
+```bash
 $ gcc types.c
 $ ./a.out
 x takes up 4 byte(s)
@@ -185,7 +185,7 @@ In C we can "cast" types. To "cast" `x` as an `int`, we do this: `(int) x`. This
 tells C that it needs to read `x` as if it were an `int` instead of whatever it
 is. Let's try properly casting `x`.
 
-```
+```c
 #include <stdio.h>
 
 int main(int argc, char **argv) {
@@ -197,7 +197,7 @@ int main(int argc, char **argv) {
 }
 ```
 
-```
+```bash
 $ gcc types.c
 $ ./a.out
 x takes up 4 byte(s)
@@ -212,7 +212,7 @@ be a float.
 
 How about `char`?
 
-```
+```c
 #include <stdio.h>
 
 int main(int argc, char **argv) {
@@ -225,7 +225,7 @@ int main(int argc, char **argv) {
 }
 ```
 
-```
+```bash
 $ gcc types.c
 $ ./a.out
 x takes up 4 byte(s)
