@@ -140,7 +140,7 @@ addresses. To make sure this system really works, let's try with `int`'s:
 
 For some hypothetical array `int my_array[] = { 74, 42 };`, our indexing system
 works perfectly. Assuming `int`'s are 4 bytes long, if we start at 50 the next
-int will be at address 54. Hopefully this makes you appreciate the simple
+`int` will be at address 54. Hopefully this makes you appreciate the simple
 `array[1]` syntax! If you had to calculate the size inside every time and track
 addresses, things would get complicated fast.
 
@@ -230,7 +230,7 @@ arg2 + 0 * sizeof(char *)
 We've successfully made it down to `'b'`! And if we eliminate the intermediate
 variable, it's actually a nice syntax: `argv[1][0]`. Read from right to left,
 that says "take the first element of the second element of `argv`". Which,
-filling in our types, says "take the first letter of the second string of
+filling in our types, says "take the first character of the second string of
 `argv`". Which is pretty easy!
 
 Note: Pointers are one of the biggest humps to get over when learning C. Don't
