@@ -1,1 +1,6 @@
 docs/html
+*a.out
+*.py
+*.c
+*.s
+*.sh

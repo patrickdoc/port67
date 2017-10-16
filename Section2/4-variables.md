@@ -115,3 +115,5 @@ As a quick summary, we see that there was only 1 warning generated when reading
 our code. This number can sometimes be inflated when a single error causes a
 large number of warnings. Finding the root of your problems just takes
 practice.
+
+[Functions](5-functions.html)

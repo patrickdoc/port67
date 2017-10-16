@@ -64,10 +64,6 @@ letters, than bash probably responded with:
 This means that bash expected you to give it a real command, but it was unable
 to find a command with that name. So let's try a real command:
 
-.. date
-    lol
-    lol2
-
 ```bash
 $ date
 Tue Jul 11 16:59:52 CDT 2017
@@ -77,4 +73,4 @@ Tue Jul 11 16:59:52 CDT 2017
 computers. There is a nice bunch of commands to go through next, but we'll need
 to learn a bit about the filesystem first.
 
-[filesystem](Filesystem.html)
+[The Filesystem](2-filesystem.html)

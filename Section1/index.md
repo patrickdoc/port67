@@ -1,12 +1,23 @@
-Python and Terminal
+Python and the Terminal
 
-1-terminal.md
-2-filesystem.md
-3-python.md (REPL)
-4-textEditors.md (Types of files?)
-5-vim.md
-6-executingPython.md (Add python to file with vim)
-7-iO.md (input)
-8-types.md (int float bool)
-9-controlFlow.md (if while for)
-10-refelection.md (Differences)
+[The Terminal](1-terminal.html)
+
+[The Filesystem](2-filesystem.html)
+
+[Python](3-python.html)
+
+[Text Editors](4-text-editors.html)
+
+[Vim](5-vim.html)
+
+[Executing Python](6-executing-python.html)
+
+[Input Output](7-io.html)
+
+[Types](8-types.html)
+
+[Control Flow](9-control-flow.html)
+
+[A Reflection](10-reflection.html)
+
+[Fun](Fun/index.html)

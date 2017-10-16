@@ -90,4 +90,4 @@ with, so I'll end this here. In fact, one of the most Google'd questions about
 programming is "How do I exit Vim?" So I'll wait until next time to suggest
 opening it.
 
-[Vim](Vim.html)
+[Vim](5-vim.html)

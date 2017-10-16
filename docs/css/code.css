@@ -6,7 +6,7 @@ td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
 td.sourceCode { padding-left: 5px; }
 pre.sourceCode { padding: 5px 15px; }
 
-pre, code { color: #535146; background-color: #f1f1f1; }
+pre, code { color: #535146; background-color: #f1f1f1; line-height: 100%; }
 code > span.kw { color: #70adae; } /* Keyword */
 code > span.dt { color: #6684e1; } /* DataType */
 code > span.dv { color: #e44031; } /* DecVal */

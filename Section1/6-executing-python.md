@@ -130,4 +130,4 @@ Unfortunately, we need one more piece before our script is really useful. Right
 now it calculates the answer, but doesn't do anything with it. Next time, we
 are going to learn how to talk to Python and make it talk back.
 
-[IO](IO.html)
+[Input Output](7-io.html)

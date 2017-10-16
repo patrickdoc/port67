@@ -272,4 +272,4 @@ with "q". This actually opens a program called "less" (a joke on the earlier
 program "more"...). Also this style of movement will come up again, so keep it
 in mind.
 
-[python](Python.html)
+[Python](3-python.html)

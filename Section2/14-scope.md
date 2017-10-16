@@ -312,3 +312,5 @@ measure of its quality.
 This post has grown quite lengthy due to the pictures, but I haven't even made
 it to the heap yet! Next time, we will solve the problem of passing new data
 back up to `main`.
+
+[Variable Scope 2](15-scope2.html)

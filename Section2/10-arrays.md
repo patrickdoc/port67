@@ -148,3 +148,5 @@ array, we start at the beginning and move over `0*sizeof(type)`, where `type` is
 the type of elements in the array. To get the last value in the array, we start
 at the beginning and move over `(length - 1)*sizeof(type)`, where `length` is
 the number of elements in the array.
+
+[Strings](11-strings.html)

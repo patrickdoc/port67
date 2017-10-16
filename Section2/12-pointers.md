@@ -236,3 +236,5 @@ filling in our types, says "take the first character of the second string of
 Note: Pointers are one of the biggest humps to get over when learning C. Don't
 worry if you don't understand them just yet. We will use them non-stop going
 forward, so you will get all the practice you could ever want.
+
+[Stack vs. Heap](13-stack-vs-heap.html)

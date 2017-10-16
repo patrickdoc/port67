@@ -119,4 +119,4 @@ hands dirty with C. We need to learn all the bits that Python is hiding from
 us. Once we know those, we can come back to Python or any other language and
 make better design choices.
 
-[Done?]()
+[Fun](Fun/index.html)

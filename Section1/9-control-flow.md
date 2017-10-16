@@ -23,7 +23,7 @@ if x:
 
 In many cases, names in computer science are not terribly helpful, but in this
 case reading this code aloud should tell you what it does: "if x (is True),
-(then) print "x is True"".
+(then) print 'x is True'".
 
 But what is ``x``? Remembering types from last time, ``x`` is anything that
 can be converted into a Boolen (or truth value). There is a function ``==``
@@ -178,3 +178,5 @@ requires seeing a large amount of unreadable code. That way you can see for
 yourself what does and doesn't work. For now the most important idea is
 understanding how the program runs. Once you get a good handle on that, you can
 start to see patterns and apply some of the tools that people have made to help.
+
+[A Reflection](10-reflection.html)

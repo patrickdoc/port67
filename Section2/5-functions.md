@@ -103,3 +103,5 @@ float circumference(float radius) {
     return 2 * radius * 3.14159;
 }
 ```
+
+[Binary](6-binary.html)

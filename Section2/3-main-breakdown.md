@@ -143,3 +143,5 @@ Argument 4: test
 
 You should try getting rid of that horrible grammar mistake `There are 1
 arguments`. All it takes is an `if` statement, which you know all about!
+
+[Variables](4-variables.html)

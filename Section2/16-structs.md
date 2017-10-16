@@ -24,7 +24,8 @@ these high scores, so let's create a new `struct` that holds them.
 struct HighScore {
     char initials[4]; // 3 initial ID, like AAA
     int score;        // The high score
-}; ```
+};
+```
 
 This is a simple struct, but it helps us with a couple things. First, we can
 return this struct from functions. If we didn't have this, we wouldn't be able
@@ -244,3 +245,5 @@ hs + 4
 ```
 
 Our `.` is just simple addition to find the field in memory.
+
+[Input Output](17-io.html)

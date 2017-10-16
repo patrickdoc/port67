@@ -102,3 +102,5 @@ TypeError: unsupported operand type(s) for +: 'int' and 'str'
 ```
 
 Notice that our error is easy to see without even running the code.
+
+[Control Flow](9-control-flow.html)

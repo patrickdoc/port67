@@ -146,3 +146,5 @@ Our usual rule of summing all the bits multiplied by powers of two won't work
 because that number will always be positive. You will have to come up with a way
 to indicate a number is negative. Also note that we will probably want to be
 able to store both positive and negative numbers in the same type.
+
+[Interpreting Memory](8-interpreting-memory.html)

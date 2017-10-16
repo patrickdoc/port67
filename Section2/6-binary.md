@@ -123,4 +123,4 @@ hold billions and billions of bytes. And they fit in your pocket!
 I realize we are quite a distance from the idea of types that we started with.
 We just need one more piece to figure this out: memory.
 
-[Types]()
+[Memory](7-memory.html)

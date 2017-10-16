@@ -245,4 +245,4 @@ it is best that you have some idea of how it works. Programming is all about
 choosing the best tool for the job, so you need to know about everything you have
 access to.
 
-[arrays]()
+[Arrays](10-arrays.html)

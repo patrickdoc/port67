@@ -210,4 +210,4 @@ and then tell Python where it is. Luckily, we have permanent storage called the
 filesystem. Next time, we are going to create a file and fill it with Python
 code.
 
-[Text Editors](TextEditors.html)
+[Text Editors](4-text-editors.html)
