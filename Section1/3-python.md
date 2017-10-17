@@ -1,3 +1,7 @@
+---
+title: Python
+...
+
 # Python
 
 Now that we have enough knowledge to be dangerous, we can try out our first

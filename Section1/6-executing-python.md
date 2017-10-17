@@ -1,3 +1,7 @@
+---
+title: Executing Python
+...
+
 # Putting Python in a File and Executing It
 
 So far we have just used a Python interpreter, but Python is more traditionally

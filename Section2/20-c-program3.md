@@ -1,3 +1,7 @@
+---
+title: C Program 3
+...
+
 # Accepting Commands
 
 The last major component of our game will be an interface for accepting

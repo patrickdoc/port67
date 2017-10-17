@@ -1,3 +1,7 @@
+---
+title: Vim
+...
+
 # Vim
 
 If you are using the same directory as last time (something like ~/Projects)

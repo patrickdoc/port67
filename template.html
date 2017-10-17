@@ -4,28 +4,28 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>SOMETHING - $pagetitle$</title>
   <meta name="author" content="Patrick Dougherty">
-  <link rel="stylesheet" href="../../css/site.css">
-  <link rel="stylesheet" href="../../css/code.css">
+  <title>$pagetitle$ - Port67</title>
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="stylesheet" href="/css/code.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
 </head>
 <body>
-  <header>
-    <p>Welcome!</p>
-  </header>
-  <section id="flex-container">
 
+  <header>
+    <nav>
+      <ul>
+        <li><p>Welcome!</p></li>
+        <li><a href="/support.html">Support</a></li>
+        <li><a href="/README.html">README</a></li>
+        <li><a href="/index.html">Home</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="flex-container">
     <section class="sidebar">
-      <nav>
-        <ul>
-          <li><a href="../index.html">Home</a></li>
-          <li><a href="../README.html">README</a></li>
-          <li><a href="../support.html">Support</a></li>
-        </ul>
-      </nav>
-  
 $if(toc)$
       <div id="toc">
 $toc$
@@ -48,7 +48,7 @@ $body$
   </section>
 
   <footer>
-    <p>Copyright, me, source</p>
+    <p>© 2017 Patrick Dougherty</p><a href="https://github.com/patrickdoc/Guide">source</a>
   </footer>
 
 </body>

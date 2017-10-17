@@ -1,3 +1,7 @@
+---
+title: Bash Tips
+...
+
 # Bash
 
 ## .bashrc / .bash\_profile

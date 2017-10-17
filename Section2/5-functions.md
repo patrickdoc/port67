@@ -1,3 +1,7 @@
+---
+title: Function Headers
+...
+
 # Function Headers
 
 If we were limited to only using a `main` function, C would become unreadable

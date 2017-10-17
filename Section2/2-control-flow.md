@@ -1,3 +1,7 @@
+---
+title: Control Flow
+...
+
 # Control Flow
 
 Control flow is very similar in C to what we have seen in Python. The syntax is

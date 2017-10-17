@@ -1,3 +1,7 @@
+---
+title: Section 1
+...
+
 Python and the Terminal
 
 [The Terminal](1-terminal.html)

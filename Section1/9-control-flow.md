@@ -1,3 +1,7 @@
+---
+title: Control Flow
+...
+
 # Control Flow
 
 Our programs so far have been somewhat lackluster. One of the most glaring

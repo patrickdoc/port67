@@ -1,3 +1,7 @@
+---
+title: Support
+...
+
 # Contact and Support
 
 ## Support

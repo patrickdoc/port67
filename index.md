@@ -1,3 +1,7 @@
+---
+title: Home
+...
+
 # The Way Computers Work
 
 Hello

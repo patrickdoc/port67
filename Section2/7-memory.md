@@ -1,3 +1,7 @@
+---
+title: Memory
+...
+
 # Memory
 
 When you ask the computer to store a value, like `x = 10;`, it needs to find

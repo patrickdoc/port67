@@ -1,3 +1,7 @@
+---
+title: FizzBuzz
+...
+
 # FizzBuzz
 
 The `FizzBuzz` problem is a classic exercise in CS. It is based on a children's

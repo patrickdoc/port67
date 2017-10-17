@@ -1,3 +1,7 @@
+---
+title: C Program
+...
+
 # A Program in C
 
 I've presented an enormous amount of information in this section without

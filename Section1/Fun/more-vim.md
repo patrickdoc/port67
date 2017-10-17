@@ -1,3 +1,7 @@
+---
+title: Vim Tips
+...
+
 # More Vim Stuff
 
 ## Searching with /

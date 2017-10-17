@@ -1,3 +1,7 @@
+---
+title: Arrays
+...
+
 # Arrays
 
 From our basic types of `char`, `unsigned`, `int`, and `float`, we can construct

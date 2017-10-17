@@ -1,3 +1,7 @@
+---
+title: A Reflection
+...
+
 # Reflecting on Python
 
 What we have seen so far of Python is by no means the whole language. Yet it

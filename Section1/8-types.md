@@ -1,3 +1,7 @@
+---
+title: Types
+...
+
 # Types
 
 One of the features that differentiates programming languages is how they

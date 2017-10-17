@@ -1,3 +1,7 @@
+---
+title: Text Editors
+...
+
 # Text Editors (maybe Files?)
 
 From here on out, we are going to be making files and folders somewhat

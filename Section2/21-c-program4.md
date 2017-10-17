@@ -1,3 +1,7 @@
+---
+title: C Program 4
+...
+
 # The Final Product
 
 All that's left for us to do is assemble all of the pieces. The way I have done

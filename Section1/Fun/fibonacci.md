@@ -1,3 +1,7 @@
+---
+title: Fibonacci
+...
+
 # Fibonacci
 
 The fibonacci sequence is another classic programming task. It is useful because

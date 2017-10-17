@@ -1,3 +1,7 @@
+---
+title: Pointers
+...
+
 # Scope
 
 We have almost covered everything we need to understand the declaration of the

@@ -1,3 +1,7 @@
+---
+title: Scope
+...
+
 # Scope
 
 Our next task is to see how the stack and heap affect you when programming. The

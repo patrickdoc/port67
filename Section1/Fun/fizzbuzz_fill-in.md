@@ -1,3 +1,7 @@
+---
+title: FizzBuzz (Fill-in)
+...
+
 # FizzBuzz (Fill-in)
 
 Problem statement:

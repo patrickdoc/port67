@@ -1,3 +1,7 @@
+---
+title: Interpreted vs. Compiled
+...
+
 # Compiling
 
 I briefly displayed a C "Hello, world!" program for you before, but here it is

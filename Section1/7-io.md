@@ -1,3 +1,7 @@
+---
+title: Input and Output
+...
+
 # Input/Output
 
 Last time we ended with this program,

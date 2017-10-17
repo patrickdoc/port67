@@ -1,3 +1,7 @@
+---
+title: Variables
+...
+
 # Variable Declarations
 
 Working with variables in C has a few more rules than in Python. Take this

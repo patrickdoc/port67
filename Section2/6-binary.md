@@ -1,3 +1,7 @@
+---
+title: Binary
+...
+
 # Why Types?
 
 Although we have talked about types, first in Python and now in C, I haven't

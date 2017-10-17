@@ -1,3 +1,7 @@
+---
+title: C Types
+...
+
 # Types in C
 
 After last time, I hope that you are starting to get a feel for what types are.

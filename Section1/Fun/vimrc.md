@@ -1,3 +1,7 @@
+---
+title: Vimrc
+...
+
 # Vimrc
 
 The default Vim settings are fine, but don't give you very many of the nice

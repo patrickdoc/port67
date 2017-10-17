@@ -1,3 +1,7 @@
+---
+title: Python Fun
+...
+
 # Fun
 
 I'm could call this section homework or exercises, but that would make it less

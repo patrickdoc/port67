@@ -1,3 +1,7 @@
+---
+title: Stack vs. Heap
+...
+
 # Stack vs. Heap
 
 Now, at this point you may be thinking to yourself: "why do we need pointers?"

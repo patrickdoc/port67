@@ -1,3 +1,7 @@
+---
+title: FizzBuzz (Reading)
+...
+
 # FizzBuzz (Reading)
 
 Problem statement:

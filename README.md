@@ -1,3 +1,7 @@
+---
+title: README
+...
+
 # README
 
 First off, welcome! For whatever amount of time you decide to spend here, I hope

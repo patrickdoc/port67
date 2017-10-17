@@ -1,3 +1,7 @@
+---
+title: A Reflection
+...
+
 # Reflection on C
 
 We've covered an enormous amount of material in this section. I certainly don't

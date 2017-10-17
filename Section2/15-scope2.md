@@ -1,3 +1,7 @@
+---
+title: The Heap
+...
+
 # Scope 2: The Heap
 
 Our problems last time were focused around modifying somethin that already

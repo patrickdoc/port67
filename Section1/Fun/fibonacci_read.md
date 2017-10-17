@@ -1,3 +1,7 @@
+---
+title: Fibonacci (Reading)
+...
+
 # Fibonacci (Reading)
 
 Problem statement:

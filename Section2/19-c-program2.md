@@ -1,3 +1,7 @@
+---
+title: C Program 2
+...
+
 # Adding a Robot
 
 With the map done, we now need a character to wander around it.

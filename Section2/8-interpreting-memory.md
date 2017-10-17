@@ -1,3 +1,7 @@
+---
+title: Interpreting Memory
+...
+
 # Interpreting Memory
 
 Hopefully you've thought a bit about the problem I posed last time. I am going

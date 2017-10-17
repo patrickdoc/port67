@@ -1,3 +1,7 @@
+---
+title: Structs
+...
+
 # Data Structures
 
 One of the main jobs of programs and programming languages is to represent data.

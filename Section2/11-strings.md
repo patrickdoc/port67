@@ -1,3 +1,7 @@
+---
+title: Strings
+...
+
 # Strings
 
 C does not have a special `string` type. Instead, it just uses a list of
