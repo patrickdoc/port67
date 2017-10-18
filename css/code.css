@@ -4,9 +4,11 @@ table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
 table.sourceCode { width: 100%; line-height: 100%; background-color: #f1f1f1; color: #cccccc; }
 td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
 td.sourceCode { padding-left: 5px; }
-pre.sourceCode { padding: 5px 15px; }
+pre.sourceCode { padding: 5px 10px; }
 
 pre, code { color: #535146; background-color: #f1f1f1; line-height: 100%; }
+pre code { padding: 0; }
+code { padding: 0 5px; }
 code > span.kw { color: #70adae; } /* Keyword */
 code > span.dt { color: #6684e1; } /* DataType */
 code > span.dv { color: #e44031; } /* DecVal */
@@ -17,7 +19,7 @@ code > span.st { color: #9053d2; } /* String */
 code > span.co { color: #7f9f7f; } /* Comment */
 code > span.ot { color: #efef8f; } /* Other */
 code > span.al { color: #ffcfaf; } /* Alert */
-code > span.fu { color: #efef8f; } /* Function */
+code > span.fu { color: #6684e1; } /* Function */
 code > span.er { color: #c3bf9f; } /* Error */
 code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
 code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
@@ -26,9 +28,9 @@ code > span.vs { color: #cc9393; } /* VerbatimString */
 code > span.ss { color: #cc9393; } /* SpecialString */
 code > span.im { } /* Import */
 code > span.va { } /* Variable */
-code > span.cf { color: #f0dfaf; } /* ControlFlow */
+code > span.cf { color: #70adae; } /* ControlFlow */
 code > span.op { color: #be8c44; } /* Operator */
-code > span.bu { } /* BuiltIn */
+code > span.bu { color: #6684e1; } /* BuiltIn */
 code > span.ex { } /* Extension */
 code > span.pp { color: #e44031; } /* Preprocessor */
 code > span.at { } /* Attribute */

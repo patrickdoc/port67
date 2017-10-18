@@ -5,12 +5,22 @@ html {
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Lora', serif;
-    font-size: 20px;
-    line-height: 140%;
+    display: -webkit-flex;
     display: flex;
     height: 100%;
     flex-direction: column;
+    font-family: 'Lora', serif;
+    font-size: 21px;
+    line-height: 142%;
+}
+
+h1 {
+    font-size: 34px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 24px;
 }
 
 nav ul {
@@ -61,8 +71,11 @@ nav li a {
 
 main {
     display: inline-block;
-    width: 50%;
-    max-width: 750px;
+    width: 750px;
+}
+
+p {
+    margin: 1.3em 0;
 }
 
 code {
