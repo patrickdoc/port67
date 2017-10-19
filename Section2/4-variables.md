@@ -26,14 +26,14 @@ ensure that something reasonable occurs.
 The first option is to initialize the variable at declaration. You can declare
 and set `x` in one fell swoop,
 
-```
+```c
 float x = 3.14;
 ```
 
 If you don't know the value you want `x` to have at that time, you can always
 set it to some default and then check for that default before you use it.
 
-```
+```c
 float x = 0;
 
 // A bunch of code...
@@ -49,7 +49,7 @@ if (x == 0) {
 The second solution to this problem is to use the `-Wall` flag to your compiler.
 This flag tells the compiler to warn you about every place in your code that
 something fishy is happening. Modern compilers are actually quite good at
-spotting bugs like these, so I would recommend **always** using `-Wall`. As
+spotting bugs like these, so I would recommend *always* using `-Wall`. As
 an example, let's look at this program that uses an undefined `x`.
 
 ```c

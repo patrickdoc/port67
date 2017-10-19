@@ -15,23 +15,23 @@ more.
 
 A brief overview of the equation will help us determine how to structure our
 program:
-```none
-                                   |\
-                                   | \ c
-                                 a |  \
-                                   |___\
-                                     b
-```
+
+                               |\
+                               | \ c
+                             a |  \
+                               |___\
+                                 b
+
 Working from my stunning graphic, we have the two sides, of length `a` and `b`,
 as well as a hypotenuse of size `c`. We really want to find `c` and not `c^2`,
 so let's rearrange the equation a little bit: `\sqrt{a^2 + b^2} = c`. If we
 flip the sides (`c = \sqrt{a^2 + b^2}`), we have something awfully similar to
 a variable assignment.
 
-Thinking back to our circumference example, our variable fall into two groups:
-those we are given (often called parameters or arguements), and those we want
+Thinking back to our circumference example, our variables fall into two groups:
+those we are given (often called parameters or arguments), and those we want
 to find. In this case, `a` and `b` are going to be our arguments, and `c` our
-return value. Now that we know where everything goes, our function mostly jsut
+return value. Now that we know where everything goes, our function mostly just
 falls into place.
 
 Using our knowledge of Vim, we can write and save a function in a file. After

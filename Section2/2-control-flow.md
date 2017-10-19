@@ -7,7 +7,7 @@ title: Control Flow
 Control flow is very similar in C to what we have seen in Python. The syntax is
 a little bit different, but you'll start to get a feel for it.
 
-# If
+## If
 
 One of the clearest differences is the mandatory brackets and parenthesis.
 
@@ -89,7 +89,7 @@ if (x == 1) {
 }
 ```
 
-# While
+## While
 
 While loops are identical save the syntax. We just have to add in some `{}`'s.
 
@@ -105,7 +105,7 @@ I've thrown in a new operator here too. While C does support the `x += 1`
 method of incrementing `x`, adding 1 to a variable is so common that it has
 special syntax. `x++` increases the value of `x` by 1.
 
-# For
+## For
 
 For loops are fairly different in C. They are much closer to a while loop than
 to Python's for loop. When we start using them more heavily, we will see why

@@ -178,7 +178,8 @@ adding 1 should work exactly as it does normally, that it, `-128 + 1 = -127`,
 The 2's complement rules handle all of this for us. Let's check various
 examples:
 
-```                 0 + 1
+```
+                    0 + 1
     +---+---+---+---+   +---+---+---+---+
     | 0 | 0 | 0 | 0 |   | 0 | 0 | 0 | 1 | = 1
     +---+---+---+---+   +---+---+---+---+
@@ -214,7 +215,8 @@ examples:
 ```
 
 
-```                -1 + 1
+```
+                   -1 + 1
     +---+---+---+---+   +---+---+---+---+
     | 0 | 0 | 0 | 0 |   | 0 | 0 | 0 | 0 | = 0
     +---+---+---+---+   +---+---+---+---+

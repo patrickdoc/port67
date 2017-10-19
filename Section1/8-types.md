@@ -5,7 +5,7 @@ title: Types
 # Types
 
 One of the features that differentiates programming languages is how they
-handle "types". Type systems are a set of rules that control how you are
+handle "types." Type systems are a set of rules that control how you are
 allowed to use different values. When you tell the computer to run your program,
 it doesn't check to make sure that what you are doing is sensible. It just runs
 your set of instructions until it reaches the end or causes an error. Type
@@ -32,7 +32,7 @@ catch. Accidentally using the wrong variable is often a source of difficult to
 find bugs. Luckily, types help us in many cases, like this one! Let's look at
 what the error is telling us,
 
-```
+```python
 TypeError: unsupported operand type(s) for +: 'int' and 'str'
 ```
 

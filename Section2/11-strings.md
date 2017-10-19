@@ -12,7 +12,7 @@ so it's important to get to know them (and their pitfalls).
 `printf` uses one of these features. Using the tools from last time, let's
 create a string:
 
-```
+```c
 char my_string[] = "Hello";
 
 printf("my_string contains the string: %s\n", my_string);
@@ -58,7 +58,7 @@ will be a string, but how big? My first name requires seven letters. But someone
 named Alice would only need 5. Instead of trying to fit these names perfectly,
 we can just declare:
 
-```
+```c
 char my_name[50];
 ```
 
@@ -86,8 +86,8 @@ Just like `\n`, `\0` is a special character. It means the byte composed entirely
 of zeros. The slash is important. If we didn't have it, we would never be able
 to print the character 0. To maybe make this clearer:
 
-```
-char zero_string[] = "After 0, things print, but after \0 nothing does";
+```c
+char zero_string[] = "After 0, things print, but after \0 nothing";
 printf("%s\n", zero_string);
 ```
 
@@ -102,7 +102,7 @@ end of the string. Our string is just an array, so let's try to read the value
 at the end. Remembering how array access works from last time, we want the sixth
 character, so we use `my_string[6-1]` to access it:
 
-```
+```c
 printf("The final byte is %d!\n", my_string[5]);
 ```
 
@@ -111,7 +111,7 @@ Now I cheated a little bit here. I used `%d` even though I wanted to print out a
 byte. When we read that block as an `int` using `%d`, we see that the byte is in
 fact all 0's. Try with `%c` to see what happens.
 
-Strings are a tricky part of C. They are the source of many **huge** security
+Strings are a tricky part of C. They are the source of many *huge* security
 issues. However, knowing how and why everything works is the best way I know of
 avoiding these traps. Whenever you have an issue with strings, you should ask
 yourself if you are holding up your end of the bargain. Do all of your strings

@@ -22,7 +22,7 @@ program is equivalent to,
 >>> print x
 ```
 
-C, on the other hand, does not work like this. In C, there is **always** a
+C, on the other hand, does not work like this. In C, there is *always* a
 `main` function that looks like this,
 
 ```c

@@ -6,7 +6,7 @@ td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; }
 td.sourceCode { padding-left: 5px; }
 pre.sourceCode { padding: 5px 10px; }
 
-pre, code { color: #535146; background-color: #f1f1f1; line-height: 100%; }
+pre, code { color: #535146; background-color: #f1f1f1; line-height: 103%; }
 pre code { padding: 0; }
 code { padding: 0 5px; }
 code > span.kw { color: #70adae; } /* Keyword */
@@ -26,7 +26,7 @@ code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
 code > span.sc { color: #b65465; } /* SpecialChar */
 code > span.vs { color: #cc9393; } /* VerbatimString */
 code > span.ss { color: #cc9393; } /* SpecialString */
-code > span.im { } /* Import */
+code > span.im { color: #9053d2; } /* Import */
 code > span.va { } /* Variable */
 code > span.cf { color: #70adae; } /* ControlFlow */
 code > span.op { color: #be8c44; } /* Operator */
@@ -38,3 +38,7 @@ code > span.do { color: #7f9f7f; } /* Documentation */
 code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
 code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
 code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+
+.note, .note > code {
+    background-color: #99e59e;
+}

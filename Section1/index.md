@@ -10,7 +10,7 @@ Python and the Terminal
 
 [Python](3-python.html)
 
-[Text Editors](4-text-editors.html)
+[Files](4-files.html)
 
 [Vim](5-vim.html)
 

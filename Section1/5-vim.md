@@ -4,8 +4,8 @@ title: Vim
 
 # Vim
 
-If you are using the same directory as last time (something like ~/Projects)
-and you still have the `test.txt`, `text.png`, and `test.html`, feel free to
+If you are using the same directory as last time (something like `~/Projects`)
+and you still have the `text.png` and `test.html` files, feel free to
 **r**e**m**ove them. As hinted at last time, we are going to fill a file using
 Vim. So make a file with a nice name, perhaps `learnvim.txt`. (Remember
 `touch`)
@@ -67,7 +67,6 @@ you list more on the command line).
 ```bash
 $ cat learnvim.txt
 Hello, world!
-
 ```
 
 Great, it worked! If you were to quit the terminal, restart your computer, or
@@ -75,7 +74,7 @@ even physically move your hard drive to a new computer, that file would still
 be there and still say "Hello, world!". If that isn't magic, I don't know what
 is.
 
-## Some more intro Vim
+## More Intro Vim
 
 While I technically taught you enough to use Vim, it would a mistake to leave
 you with effectively 0 knowledge of `Normal` mode. Especially after telling

@@ -56,7 +56,7 @@ appropriate for your computer, any of these should work:
 
 ```bash
 $ ./a.out
-$ ../c/a.out         # Assuming you followed my structure given above
+$ ../c/a.out         # Assuming you followed my structure above
 $ ~/Projects/c/a.out # Same as above
 $ /Users/USERNAME/Projects/c/a.out # On Macs
 $ /home/USERNAME/Projects/c/a.out  # On Linux
@@ -91,12 +91,12 @@ int main(int argc, char **argv) {
 
 `\n` is a special character. The `\` indicates that the next character should
 be treated specially. This helps us in a couple tricky situations. The first is
-the newline. If you were to include a new line by using the `enter/return` key,
+the newline. If you were to include a new line by using the enter/return key,
 your program's formatting would get messed up. So we just use `\n`. Sometimes
 you might want to print the `"` character in your string. If you left it bare,
 C would assume it was the end of the string you wanted to print, and the rest
 would just confuse it. With `\"` though, it is clear what you mean. Just note
-that this also means you haev to use `\\` to print `\`.
+that this also means you have to use `\\` to print `\`.
 
 As an example, we can print a variety of things.
 
@@ -132,7 +132,7 @@ line 2
 >>>
 ```
 
-The design choice that Python made was to simply assume that you **always**
+The design choice that Python made was to simply assume that you *always*
 want a newline at the end of the strings you print. Which is a reasonably fair
 assumption, but does hide things from us. C assumes nothing, which is both a
 blessing and a curse.

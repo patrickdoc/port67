@@ -43,10 +43,10 @@ print x
 ```
 
 ```note
-Printing in Python is one of the most visible differences between Python2 and
-Python3. In 2, we use `print stuff`. Whereas in Python3, print became just
-a regular function: `print(stuff)`. All you need to remember is to use
-parentheses for 3, and don't for 2.
+Printing in Python is one of the most visible differences between
+Python2 and Python3. In 2, we use `print stuff`. Whereas in Python3,
+print became just a regular function: `print(stuff)`. All you need
+to remember is to use parentheses for 3, and don't for 2.
 ```
 
 Now we can ask python to read our file as input instead of typing into the REPL.

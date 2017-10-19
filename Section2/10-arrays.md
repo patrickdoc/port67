@@ -51,7 +51,7 @@ Because we know how big a `char` is, we know how big a `my_array` is: `3 *
 sizeof(char)`. In this case, `my_array` is 3 bytes. We can even check this to
 make sure I know what I am talking about.
 
-```
+```c
 int main(int argc, char **argv) {
 
     char my_array[3];
@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
 The `sizeof` keyword in C takes a variable or type and returns the number of
 bytes it takes up. Running our code, we see:
 
-```
+```bash
 $ ./a.out
 my_array is 3 bytes long
 ```
@@ -80,7 +80,7 @@ now!
 
 We can initialize the values of an array just like so:
 
-```
+```c
 unsigned my_array[3] = {74, 11, 9};
 ```
 
@@ -92,7 +92,7 @@ have to.
 
 To access values, we use a very similar syntax:
 
-```
+```c
 unsigned first  = my_array[0];
 unsigned second = my_array[1];
 unsigned third  = my_array[2];

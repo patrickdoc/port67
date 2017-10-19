@@ -39,11 +39,11 @@ finally to ``True``. If we were to flip the 1 and 0, we would have ``(0 > 1)
 == True``, which evaluates to ``False == True``, and finally ``False``.
 
 ```note
-I would suggest playing with ``==`` in the REPL, as
-it often has unexpected values. For instance, try comparing all the different
-pairs of ``True``/``1``/``1.0``/``0``. ``1 == 1.0`` gives you True, which is
-good because they really are the same number. But try checking ``1 == True`` and
-``1.0 == True``.
+I would suggest playing with == in the REPL, as it often has
+unexpected values. For instance, try comparing all the different
+pairs of True/1/1.0/0. 1 == 1.0 gives you True, which is good
+because they really are the same number.  But try checking
+1 == True and 1.0 == True.
 ```
 
 This brings up a point of style. While ``if 1:`` is valid Python, it is not
@@ -139,8 +139,9 @@ def main():
     guessed_vals = []
     while (num_guesses > 0):
 
-        # We don't want the player wasting guesses they have already
-        # tried, so we tell them what their earlier guesses were.
+        # We don't want the player wasting guesses they have
+        # already tried, so we tell them what their earlier
+        # guesses were.
         for g in guessed_vals:
             print "You have guessed: ", g
 
@@ -150,12 +151,12 @@ def main():
 
         if x < secret:
             print "Too low!"
-        # "Else if" lets us chain together multiple if statements
+        # "else if" lets us chain together multiple if statements
         elif x > secret:
             print "Too high!"
         else:
             print "You got it!"
-            # Immediately exit the while loop because the game is over
+            # Immediately exit the while loop, the game is over
             break
 
         num_guesses -= 1

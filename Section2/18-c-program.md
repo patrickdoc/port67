@@ -95,7 +95,7 @@ we have 5 arrays and each holds 5 ints, then we can hold 25 ints.
 
 To check that this variable is what we think it is, let's do a sanity check.
 
-```
+```c
 #include <stdio.h>
 
 int main(int argc, char **argv) {
