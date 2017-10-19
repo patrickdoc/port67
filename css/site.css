@@ -64,7 +64,6 @@ nav li a {
 }
 
 .sidebar  {
-    width: 25%;
     min-width: 225px;
     max-width: 300px;
 }
@@ -72,6 +71,26 @@ nav li a {
 main {
     display: inline-block;
     width: 750px;
+    flex-grow: 1;
+}
+
+article {
+    width: 750px;
+    margin: auto;
+}
+
+@media all and (max-width: 975px) {
+    .sidebar {
+        display: none;
+    }
+
+    main, article {
+        width: 100%;
+    }
+
+    article {
+        max-width: 750px;
+    }
 }
 
 p {
