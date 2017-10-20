@@ -1,5 +1,6 @@
 ---
 title: Home
+toc:
 ...
 
 # The Way Computers Work

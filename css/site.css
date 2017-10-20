@@ -5,13 +5,16 @@ html {
 body {
     margin: 0;
     padding: 0;
-    display: -webkit-flex;
-    display: flex;
-    height: 100%;
-    flex-direction: column;
     font-family: 'Lora', serif;
     font-size: 21px;
     line-height: 142%;
+    height: 100%;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex: 1 0 auto;
+    flex: 1 0 auto;
+    -webkit-flex-direction: column;
+    flex-direction: column;
 }
 
 h1 {
@@ -58,28 +61,35 @@ nav li a {
     display: flex;
     flex: 1;
     justify-content: space-between;
-    width: 100%;
-    height: 100%;
     background-color: #FFF;
 }
 
 .sidebar  {
+    display: -webkit-flex;
+    display: flex;
     min-width: 225px;
     max-width: 300px;
 }
 
+#toc {
+    position: fixed;
+    width: 225px;
+}
+
 main {
-    display: inline-block;
+    display: -webkit-flex;
+    display: flex;
     width: 750px;
-    flex-grow: 1;
+    -webkit-flex: 1 0 auto;
+    flex: 1 0 auto;
 }
 
 article {
     width: 750px;
-    margin: auto;
+    margin: 0 auto;
 }
 
-@media all and (max-width: 975px) {
+@media all and (max-width: 985px) {
     .sidebar {
         display: none;
     }
@@ -102,6 +112,8 @@ code {
 }
 
 footer {
+    display: -webkit-flex;
+    display: flex;
     background-color: #DDD;
     font-size: 75%;
 }

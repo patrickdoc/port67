@@ -7,8 +7,8 @@ td.sourceCode { padding-left: 5px; }
 pre.sourceCode { padding: 5px 10px; }
 
 pre, code { color: #535146; background-color: #f1f1f1; line-height: 103%; }
-pre code { padding: 0; }
-code { padding: 0 5px; }
+pre code { padding: 0; white-space: pre; }
+code { padding: 0 5px; white-space: nowrap; }
 code > span.kw { color: #70adae; } /* Keyword */
 code > span.dt { color: #6684e1; } /* DataType */
 code > span.dv { color: #e44031; } /* DecVal */
