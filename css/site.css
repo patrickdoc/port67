@@ -1,125 +1,53 @@
-html {
-    height: 100%;
-}
-
-body {
+html, body {
     margin: 0;
     padding: 0;
-    font-family: 'Lora', serif;
-    font-size: 21px;
-    line-height: 142%;
     height: 100%;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex: 1 0 auto;
-    flex: 1 0 auto;
-    -webkit-flex-direction: column;
-    flex-direction: column;
 }
 
 h1 {
-    font-size: 34px;
     text-align: center;
 }
 
-h2 {
-    font-size: 24px;
+#main-flex {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-nav ul {
+header, footer {
+    background: #DDD;
+}
+
+header, article, footer {
+    display: flex;
+    justify-content: center;
+}
+
+article {
+    flex: 1;
+}
+
+#head, #content, #foot {
+    width: 750px;
+}
+
+#head, #foot {
+    display: flex;
+    justify-content: flex-end;
     margin: 0;
     padding: 0;
-    list-style-type: none;
-    background-color: #DDD;
-    overflow: hidden;
+    list-style: none;
 }
 
-nav li:first-child {
-    float: left;
+
+#head li:first-child, #foot li:first-child {
+    margin-right: auto;
 }
 
-nav li p {
+#head a, #foot a {
     display: block;
-    text-align: center;
-    padding: 14px 16px;
-    margin: 0;
-}
-
-nav li {
-    float: right;
-}
-
-nav li a {
-    display: block;
-    text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
 
-#flex-container {
-    display: -webkit-flex;
-    display: flex;
-    flex: 1;
-    justify-content: space-between;
-    background-color: #FFF;
-}
 
-.sidebar  {
-    display: -webkit-flex;
-    display: flex;
-    min-width: 225px;
-    max-width: 300px;
-}
-
-#toc {
-    position: fixed;
-    width: 225px;
-}
-
-main {
-    display: -webkit-flex;
-    display: flex;
-    width: 750px;
-    -webkit-flex: 1 0 auto;
-    flex: 1 0 auto;
-}
-
-article {
-    width: 750px;
-    margin: 0 auto;
-}
-
-@media all and (max-width: 985px) {
-    .sidebar {
-        display: none;
-    }
-
-    main, article {
-        width: 100%;
-    }
-
-    article {
-        max-width: 750px;
-    }
-}
-
-p {
-    margin: 1.3em 0;
-}
-
-code {
-    font-family: 'Inconsolata', monospace;
-}
-
-footer {
-    display: -webkit-flex;
-    display: flex;
-    background-color: #DDD;
-    font-size: 75%;
-}
-
-footer p, footer a {
-    padding: 0 16px;
-    margin: 0;
-    display: inline;
-}

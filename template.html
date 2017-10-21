@@ -13,45 +13,39 @@
 </head>
 <body>
 
+  <div id="main-flex">
+
   <header>
-    <nav>
-      <ul>
-        <li><p>Port67</p></li>
-        <li><a href="/support.html">Support</a></li>
-        <li><a href="/README.html">README</a></li>
-        <li><a href="/index.html">Home</a></li>
-      </ul>
-    </nav>
+    <ul id="head">
+      <li><a href="/index.html">Port67</a></li>
+      <li><a href="/index.html">Home</a></li>
+      <li><a href="/README.html">README</a></li>
+      <li><a href="/support.html">Support</a></li>
+    </ul>
   </header>
 
-  <section id="flex-container">
-$if(toc)$
-    <section class="sidebar">
-      <div id="toc">
-$toc$
-      </div>
-    </section>
-$endif$
-  
-    <main>
-    <article>
-$body$
-    </article>
-    </main>
-  
 <!--
-    <aside class="sidebar">
-      <div id="reference">
-        <p>Reference thingy</p>
-      </div>
-    </aside>
+$if(toc)$
+  <div id="toc">
+$toc$
+  </div>
+$endif$
 -->
   
-  </section>
-
+  <article>
+    <div id="content">
+$body$
+    </div>
+  </article>
+  
   <footer>
-    <p>© 2017 Patrick Dougherty</p><a href="https://github.com/patrickdoc/Guide">source</a>
+    <ul id="foot">
+      <li><a>© 2017 Patrick Dougherty</a></li>
+      <li><a href="https://github.com/patrickdoc/Guide">source</a></li>
+    </ul>
   </footer>
+
+  </div>
 
 </body>
 </html>
