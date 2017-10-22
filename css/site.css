@@ -1,21 +1,18 @@
-html, body {
+/* Structure */
+html, #main-flex {
     margin: 0;
     padding: 0;
     height: 100%;
 }
 
-h1 {
-    text-align: center;
-}
-
 #main-flex {
     display: flex;
     flex-direction: column;
-    height: 100%;
 }
 
 header, footer {
     background: #DDD;
+    flex: none;
 }
 
 header, article, footer {
@@ -24,11 +21,12 @@ header, article, footer {
 }
 
 article {
-    flex: 1;
+    flex: 1 0 auto;
 }
 
 #head, #content, #foot {
-    width: 750px;
+    max-width: 750px;
+    flex: 1 0 auto;
 }
 
 #head, #foot {
@@ -38,7 +36,6 @@ article {
     padding: 0;
     list-style: none;
 }
-
 
 #head li:first-child, #foot li:first-child {
     margin-right: auto;
@@ -50,4 +47,8 @@ article {
     text-decoration: none;
 }
 
+/* Styling */
 
+h1 {
+    text-align: center;
+}
