@@ -8,6 +8,9 @@ html, #main-flex {
 #main-flex {
     display: flex;
     flex-direction: column;
+    font-family: 'Lora', serif;
+    font-size: 21px;
+    line-height: 142%;
 }
 
 header, footer {
@@ -50,5 +53,44 @@ article {
 /* Styling */
 
 h1 {
+    font-size: 34px;
     text-align: center;
 }
+
+h2 {
+    font-size: 24px;
+}
+
+code {
+    font-family: 'Inconsolata', monospace;
+}
+
+p {
+    margin: 1.3em 0;
+}
+
+footer {
+    font-size: 80%;
+}
+
+/*
+#toc {
+    position: fixed;
+    width: 225px;
+    transform: translate(-225px);
+}
+
+@media all and (max-width: 985px) {
+    .sidebar {
+        display: none;
+    }
+
+    main, article {
+        width: 100%;
+    }
+
+    article {
+        max-width: 750px;
+    }
+}
+*/
