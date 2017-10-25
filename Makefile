@@ -18,10 +18,22 @@ SRC := $(foreach sec, $(SECTIONS), $(wildcard $(sec)/*.md) $(wildcard $(sec)/Fun
 DST = $(SRC:%.md=docs/%.html)
 
 
-.PHONY: html clean show
+.PHONY: html clean show index readme support
 
-html: $(DST)
+html: $(DST) index readme support
 	cp -r css docs/
+
+index: Top/index.md template.html
+	@mkdir -p docs
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_HTML_OPTIONS) -o docs/index.html $<
+
+readme: Top/README.md template.html
+	@mkdir -p docs
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_HTML_OPTIONS) -o docs/README.html $<
+
+support: Top/support.md template.html
+	@mkdir -p docs
+	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_HTML_OPTIONS) -o docs/support.html $<
 
 # Pattern matching
 docs/%.html: %.md template.html

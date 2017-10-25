@@ -1,51 +1,45 @@
-# Read Me First #
+# Port 67 Source
 
-## For those learning for the first time
+This is the source for the content of [port67.org](https://port67.org).
 
-The purpose of these lessons is not to teach you how to program. The purpose is
-to teach you how to learn. It is not possible to include here (or in any
-curriculum) the entirety of computer science. However, there is a point from
-which it is possible to reach almost anywhere you want to go. I hope to lead
-you there.
+## Why a Separate Source?
 
-This collection is not a tutorial; I am not walking you through making a
-specific program or product. I have laid a path with a distant target in mind,
-but I also hope to serve those who want to wander off. There will be a fair bit of optional material along the way, and perhaps even some pointers about where
-to go next if you want to continue following that idea. But you are always welcome back if you get stuck.
+I want to provide a space for discussion without opening a free comment
+section. I welcome and encourage critiques about the site, but I do not
+want that to be part of the experience for the reader. Instead, you are
+welcome to open issues here where we can freely debate the relative merits
+of the content.
 
-This will not be fast. There is an essentially infinite amount of material, and
-I am not one for leaving interesting ideas unmentioned. I am merely offering
-this knowledge though. You are free (and perhaps encouraged) to skim the parts
-that are less interesting to you. Some of these you may have to come back to,
-but others may never come up again in the context of your interests.
+This also allows me to keep my opinions mostly out of the site. While I
+obviously will be biased in the way I present the material, I am working
+to avoid a lot of the garbage that often comes up around these sorts of
+topics.
 
-Finally, good luck. If you need me, you can reach me at <email>.
+Take, for instance, JavaScript. I have a long list of complaints about it, but
+it obviously is a powerful and popular tool. If I were to present it on the
+site, I would aim to fairly assess its strengths and weaknesses. However, here
+I would feel less inclined to sing its praises. Please call me out if you see
+something that is unfair to a language or technology. I am actively working to
+avoid it, but I am sure it will slip through sometimes.
 
-## For those who have been around the block
+I will do my best to write high quality code in every language, but I am not
+perfect. If you see code that could be simplified or written more
+idiomatically, let me know! There will be times that I deliberately write code
+poorly though, so read through to the conclusion before posting here. If you
+think that code is more misleading than helpful, let me know!
 
-This is my effort to create a curriculum that is comprehensive, untainted with
-the rejection and derision of the unknown, and accessible. I aim to avoid any
-indication of popular ideas like "Git is hard" or "Javascript is garbage."
-Those are easy answers to hard questions about design. They also ingore the
-truths of the utility of these tools. For better or for worse, Git and
-Javascript are omni-present in our lives. Without proper discussion, we will
-not grow and learn from our mistakes.
+I really do want to hear from you. I want to create a reliable and thorough
+source of information, but I don't know everything. I've written a fair bit of
+C code, but even just working to create the intro to C I learned things. Did
+you know:
 
-I hope to provide a separate space for discussion on github. That way, we can
-avoid the above without being completely in a bubble.
+```c
+sizeof('a') == sizeof(int)
+```
 
+I certainly didn't. I'm sure there are things that I believe that simply
+aren't true. I do my best to test the things I say, but I know different
+platforms have surprising differences. This repo can be just as useful for
+details as the site is for broad topics. Come, share your knowledge!
 
-## FIGURE OUT WHERE TO PUT
-
-I hope to always provide at least some explanation, and more resources if you
-want to know more. I hope to never wave my hands and jsutify something with
-just "because." I do not want this to be like math.
-
-One of the unfortunate facts about the state of computers right now is that
-they are fairly different. The three big players in desktops and laptops are
-Microsoft Windows, Apple's OSX or macOS (we are in a transition period), and
-Linux. MacOS and Linux share an ancestor, and so they are similar enough that
-this intro can cover both of them. Windows is not similar enough that I can
-teach all three at once. I will choose macOS/Linux for now, and hopefully add
-support for Windows later. Luckily, once we start getting into the meat of
-things, the differences will matter less.
+:)
