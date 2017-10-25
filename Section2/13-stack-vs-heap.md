@@ -47,15 +47,13 @@ int main(int argc, char **argv) {
 
 One the three variables are declared, our stack would look like this:
 
-```
-                        +------------+
-                        |     10     |
-                        +------------+
-                        |     'a'    |
-                        +------------+
-                        |     5.0    |
-                        +------------+
-```
+    +------------+
+    |     10     |
+    +------------+
+    |     'a'    |
+    +------------+
+    |     5.0    |
+    +------------+
 
 Just like trees, our stacks are upside-down. Also, it is standard to display
 the heap and the stack vertically. Because I have no particular reason not to, I
@@ -112,28 +110,25 @@ int main(int argc, char **argv) {
 In the above, I have invented a keyword `heap` that forces our values to be on
 the heap. This is not a real thing, but it will illustrate the idea.
 
+    +-------------+
+    |    stack    |
+    +-------------+
 
-```
-                        +------------+
-                        |    stack   |
-                        +------------+
+          ...
 
-                             ...
-
-                        +------------+
-                        |     5.0    |
-                        +------------+
-                        |     'a'    |
-                        +------------+
-                        |            |
-                        +------------+
-                        |            |
-                        +------------+
-                        |            |
-                        +------------+
-                        |     10     |
-                        +------------+
-```
+    +-------------+
+    |     5.0     |
+    +-------------+
+    |     'a'     |
+    +-------------+
+    |             |
+    +-------------+
+    |             |
+    +-------------+
+    |             |
+    +-------------+
+    |      10     |
+    +-------------+
 
 In the standard picture, the stack is at the top, and grows downward, while the
 heap is at the bottom and grows upward. As you can see, our heap is not as
@@ -143,27 +138,25 @@ spaces.
 This is why we need pointers! To help us find things in the stack. If we add
 some addresses to our heap:
 
-```
-                        +------------+
-                        |    stack   |
-                        +------------+
-
-                             ...
-
-                        +------------+
-                     73 |     5.0    |
-                        +------------+
-                     72 |     'a'    |
-                        +------------+
-                        |            |
-                        +------------+
-                        |            |
-                        +------------+
-                      4 |            |
-                        +------------+
-                      0 |     10     |
-                        +------------+
-```
+      +-------------+ 
+      |    stack    | 
+      +-------------+ 
+                     
+            ...       
+                     
+      +-------------+ 
+    73|     5.0     | 
+      +-------------+ 
+    72|     'a'     | 
+      +-------------+ 
+      |             | 
+      +-------------+ 
+      |             | 
+      +-------------+ 
+     4|             | 
+      +-------------+ 
+     0|      10     | 
+      +-------------+ 
 
 We can see that this is just a vertical picture of what we had with our array of
 strings last time. The nice thing about the heap is that the computer can put

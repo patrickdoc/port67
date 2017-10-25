@@ -34,12 +34,10 @@ values of a type in arrays, so it might be our inclination to imagine `argv` as
 an array of strings. Ignoring the first element of the array for the sake of
 brevity, let's look at this hypothetical.
 
-```
-                                     argv
-  +========+========+========+========+========+========+========+========+
-  |   'a'  |  '\0'  |   'b'  |  '\0'  |   'a'  |   'r'  |   'g'  |  '\0'  |
-  +========+========+========+========+========+========+========+========+
-```
+                                       argv
+    +========+========+========+========+========+========+========+========+
+    |   'a'  |  '\0'  |   'b'  |  '\0'  |   'a'  |   'r'  |   'g'  |  '\0'  |
+    +========+========+========+========+========+========+========+========+
 
 Remember that each `char` takes up exactly one byte. So our variable `argv` is 8
 bytes. As `argv` is an array, it would be ideal if we could get the first
@@ -76,15 +74,13 @@ if we stored the programs boxes in different areas of a warehouse instead of
 just the 8 we had in front of us. In picture form:
 
 
-```
-   +===+====+                    +===+====+              +===+===+===+====+
-   |'a'|'\0'|                    |'b'|'\0'|              |'a'|'r'|'g'|'\0'|
-   +===+====+                    +===+====+              +===+===+===+====+
-      \ /                           \ /                         \ /
-+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-| | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
-+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-```
+       +===+====+        +===+====+              +===+===+===+====+
+       |'a'|'\0'|        |'b'|'\0'|              |'a'|'r'|'g'|'\0'|
+       +===+====+        +===+====+              +===+===+===+====+
+          \ /               \ /                         \ /
+    +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
+    | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
+    +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
 
 I've squished things down a bit to fit in the picture, but hopefully it makes
 sense. The big row across the bottom is a portion of memory. The boxes are not
@@ -99,48 +95,42 @@ simple, we just number the bytes from 0 to the total number of bytes that the
 memory can hold. Let's add some addresses to our data:
 
 
-```
-     37  38                       105  106                987 988 989  990
-   +===+====+                    +===+====+              +===+===+===+====+
-   |'a'|'\0'|                    |'b'|'\0'|              |'a'|'r'|'g'|'\0'|
-   +===+====+                    +===+====+              +===+===+===+====+
-      \ /                           \ /                         \ /
-+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-| | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
-+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-```
+         37  38             105  106                987 988 989  990
+       +===+====+          +===+====+              +===+===+===+====+
+       |'a'|'\0'|          |'b'|'\0'|              |'a'|'r'|'g'|'\0'|
+       +===+====+          +===+====+              +===+===+===+====+
+          \ /                 \ /                         \ /
+    +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
+    | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
+    +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
 
 Great! Now, instead of storing the strings themselves, we can just store their
 addresses. When I first introduced arrays, I added a little arrow at the
 beginning. This arrow is exactly the same as our addresses. So now let's revisit
 that picture with our new information.
 
-```
-       my_array = 37
-          |
-          V
-          +========+========+
-          |   'a'  |  '\0'  |
-          +========+========+
-                   ^
-                   |
-            my_array + 1*sizeof(char) = 38
-```
+    my_array = 37
+       |
+       V
+       +========+========+
+       |   'a'  |  '\0'  |
+       +========+========+
+                ^
+                |
+         my_array + 1*sizeof(char) = 38
 
 So our previous picture was actually perfectly accurate, we just didn't have the
 addresses. To make sure this system really works, let's try with `int`'s:
  
-```
-       my_array = 50
-          |
-          V
-          +========+========+
-          |   74   |   42   |
-          +========+========+
-                   ^
-                   |
-            my_array + 1*sizeof(int) = 54
-```
+    my_array = 50
+       |
+       V
+       +========+========+
+       |   74   |   42   |
+       +========+========+
+                ^
+                |
+         my_array + 1*sizeof(int) = 54
 
 For some hypothetical array `int my_array[] = { 74, 42 };`, our indexing system
 works perfectly. Assuming `int`'s are 4 bytes long, if we start at 50 the next
@@ -152,12 +142,10 @@ Back to our string problem, we need a way to describe the difference between a
 value like `'a'`, and the address of that value, 37. This is why we introduce
 the `*` symbol. Again, a picture should help.
 
-```
-   char *ptr               char x
-   +========+            +========+
-   |   37   | ---------->|   'a'  | 
-   +========+            +========+
-```
+    char *ptr               char x
+    +========+            +========+
+    |   37   | ---------->|   'a'  | 
+    +========+            +========+
 
 We call these addresses "pointers" because they "point" to the value in memory.
 So `char *ptr = 37;` means that `ptr` is holding the address of some `char`. We
@@ -165,9 +153,11 @@ can now use `ptr` like an array. so:
 
 ```c
 ptr[0] = 'a';   // The value at address 37
-ptr[1] = '\0';  // The value at address 38 (because 37 + sizeof(char) = 38)
-ptr[2] = ???;   // DANGER: This is past the end of our string! C let's us do
-                // this, but the value is undefined. It can be anything!
+ptr[1] = '\0';  // The value at address 38
+                // (because 37 + sizeof(char) = 38)
+ptr[2] = ???;   // DANGER: This is past the end of our string!
+                // C let's us do this, but the value is undefined.
+                // It can be anything!
 ```
 
 Like we talked about before, there is no way to just know the length of a
@@ -183,24 +173,22 @@ If a `char *` is a list of `char`'s, then a `char **` is a list of lists of
 looking for! This is a tough concept to explain in words, so here is another
 picture:
 
-```
-   char **argv (pointer to list of strings)
-     +====+
-     | 60 |-------
-     +====+      |
-                 v  char *strs (pointers to lists of chars)
-                 +===+===+===+
-                 | 37|105|987|
-                 +===+===+===+                             (list of chars)
-     37  38       60   |   76     105  106                987 988 989  990
-   +===+====+          |         +===+====+              +===+===+===+====+
-   |'a'|'\0'|          |         |'b'|'\0'|              |'a'|'r'|'g'|'\0'|
-   +===+====+          |         +===+====+              +===+===+===+====+
-      \ /             \ /           \ /                         \ /
-+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-| | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
-+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
-```
+       char **argv (pointer to list of strings)
+         +====+
+         | 60 |-------
+         +====+      |
+                     v  char *strs (pointers to lists of chars)
+                     +===+===+===+
+                     | 37|105|987|
+                     +===+===+===+                     (list of chars)
+         37  38       60   |   76     105  106        987 988 989  990
+       +===+====+          |         +===+====+      +===+===+===+====+
+       |'a'|'\0'|          |         |'b'|'\0'|      |'a'|'r'|'g'|'\0'|
+       +===+====+          |         +===+====+      +===+===+===+====+
+          \ /             \ /           \ /                 \ /
+    +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
+    | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | | |
+    +=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+
 
 This is not the easiest picture to understand, however you should spend some
 time with it. One major win we get from this pointer business is that `argv[1]`

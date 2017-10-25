@@ -16,11 +16,11 @@ more.
 A brief overview of the equation will help us determine how to structure our
 program:
 
-                               |\
-                               | \ c
-                             a |  \
-                               |___\
-                                 b
+      |\
+      | \ c
+    a |  \
+      |___\
+        b
 
 Working from my stunning graphic, we have the two sides, of length `a` and `b`,
 as well as a hypotenuse of size `c`. We really want to find `c` and not `c^2`,

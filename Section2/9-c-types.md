@@ -128,14 +128,12 @@ bits in the exponent and fraction depends on the implementation. In real
 `float`'s, there are 8 exponent bits and 23 fraction bits. Let's say for our
 purpose that there are 4 exponent bits and 3 fraction bits.
 
-```
-                            1101 0110
-                sign: 1     exponent: 1010      fraction: 110
-                        sign * fraction^exponent
-                        -1   * 110 e (1010)
-                        -1   * 6  * 10^(-6)
-                            -0.000006
-```
+                1101 0110
+    sign: 1     exponent: 1010      fraction: 110
+            sign * fraction^exponent
+            -1   * 110 e (1010)
+            -1   * 6  * 10^(-6)
+                -0.000006
 
 It's not essential that you know exactly how floating point works, but it is a
 pretty amazing idea. In practice, you typically won't have to worry about

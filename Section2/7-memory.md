@@ -16,12 +16,10 @@ We are going to play the role of the computer managing memory to get a feel of
 how the pieces fit together. For simplicities sake, let's manage a single byte
 of memory. That means we need 8 boxes that can each hold 1 bit.
 
-```
                    One Byte
     +---+---+---+---+   +---+---+---+---+
     |   |   |   |   |   |   |   |   |   |
     +---+---+---+---+   +---+---+---+---+
-```
 
 Alright, we are now in charge of these 8 boxes. I've split them up into groups
 of 4 to make it a little easier on the eyes and keep with the traditional
@@ -30,23 +28,19 @@ formatting of a byte.
 Our first task is to store the number 10. As mentioned above, we can write this
 as `1010`. Let's put it in our boxes.
 
-```
                                 x
     +---+---+---+---+   +---+---+---+---+
     |   |   |   |   |   | 1 | 0 | 1 | 0 |
     +---+---+---+---+   +---+---+---+---+
-```
 
 We now get two more requests: `y = 0;` and `z = 6;`. We are tight on
 space, but we can just fit them both.
 
 
-```
     |     z     | y |   |       x       |
     +---+---+---+---+   +---+---+---+---+
     | 1 | 1 | 0 | 0 |   | 1 | 0 | 1 | 0 |
     +---+---+---+---+   +---+---+---+---+
-```
 
 Hopefully my art is clear. We are storing these numbers right next to each
 other, but keeping track of which bits belong to which. If these were real
@@ -62,12 +56,10 @@ help us. `x` now needs 5 bits, but we don't have any room for another bit.
 How do we solve this problem? We might consider kicking `y` out. In that case we
 could do this:
 
-```
     |     z     |           x           |
     +---+---+---+---+   +---+---+---+---+
     | 1 | 1 | 0 | 1 |   | 1 | 0 | 1 | 0 |
     +---+---+---+---+   +---+---+---+---+
-```
 
 But if the program comes and asks for the value of `y`, what are we supposed to
 do? We haven't lived up to our side of the deal. `y` is no longer in our storage
@@ -92,12 +84,10 @@ but she tried to use 5.
 Our programmer would also have another issue. Under our new rules, every
 variable gets 4 bits. This means our memory looks like this:
 
-```
     |       y       |   |       x       |
     +---+---+---+---+   +---+---+---+---+
     | 0 | 0 | 0 | 1 |   | 1 | 0 | 1 | 0 |
     +---+---+---+---+   +---+---+---+---+
-```
 
 There's no more room for `z`! It seems like our "solution" has only caused more
 problems! However, our rules actually helpful. Imagine if instead of causing the
@@ -115,12 +105,10 @@ matter to us right now). Types let us specify the range of values that our
 variables can hold. Using our example, let's define the types `small` and
 `large`. When a program says `small x = 10;`, we fill in memory like this:
 
-```
                         |       x       |
     +---+---+---+---+   +---+---+---+---+
     |   |   |   |   |   | 1 | 0 | 1 | 0 |
     +---+---+---+---+   +---+---+---+---+
-```
 
 If they try to set `small x = 24`, we send them an error that says they only get
 4 bits.
@@ -128,12 +116,10 @@ If they try to set `small x = 24`, we send them an error that says they only get
 If they need to store numbers between 0 and 255 (`0000 0000` to `1111 1111`),
 they can ask for `large x = 24`. In which case we set aside 8 bits for them.
 
-```
     |                 x                 |
     +---+---+---+---+   +---+---+---+---+
     | 0 | 0 | 0 | 1 |   | 1 | 0 | 0 | 0 |
     +---+---+---+---+   +---+---+---+---+
-```
 
 If they need numbers bigger than that, they have to buy us some more boxes!
 

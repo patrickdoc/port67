@@ -22,7 +22,7 @@ The very first information printed ("Python X.Y.Z") is the ``version``
 information. The numbers indicate decreasing levels of change, so ``X.Y.7`` and
 ``X.Y.8`` would be very similar, while ``2.Y.Z`` and ``3.Y.Z`` would have major
 differeces.  One downside of Python is that (at the time of writing) it is in a
-transition period from Python 2 (i.e. versions like ``2.X.Y``) to Python 3. 
+transition period from Python 2 (i.e. versions like ``2.X.Y``) to Python 3.
 Most systems come with Python 2 installed, but most people are moving to
 3. We won't run into many of the differences right now, so it doesn't matter
 which you have. However, when changes do pop up, I will do my best to make a
@@ -50,7 +50,7 @@ Great, we have found a secret calculator on your computer! Computers were, to
 a large extent, created to do math. As a result, they are very good at it.
 However, they can do much more than simple arithmetic. We are going to look at
 two features in particular that will become invaluable tools: variables and
-functions. 
+functions.
 
 ## Variables
 
@@ -209,7 +209,7 @@ We are going to quit out of Python for a moment to motivate our next topic.
 You can stop Python by either typing `Ctrl-D` (Control and d at the same
 time) or by typing `quit()`. If we start up python again, we will find
 something upsetting. All of our hard work is gone! `pi` is no longer defined
-and we can't call our `circumference` function. 
+and we can't call our `circumference` function.
 
 This is because we were just using a Python Read-Evaluate-Print-Loop (REPL).
 This interactive mode just runs the code you give it and then waits for more.

@@ -83,7 +83,7 @@ information. Reading compiler output is sometimes easy and sometimes a bit
 misleading. I will try to run you into many of these warnings so you get
 practice with them.
 
-```
+```bash
 undefined_x.c:5:9: warning:
 ```
 
@@ -92,7 +92,7 @@ This piece is extremely useful. It tells you
 file with `vim`, you can jump right to that line by typing `:line_number`. In
 our case, `:5`.
 
-```
+```bash
 warning: variable `x` is uninitialized when used here
 ```
 
@@ -100,7 +100,7 @@ Perfect, it caught exactly the error we hoped it would. I used `x` without
 initializing it to any value. Then I tried to use it, even though I had never
 given it a value.
 
-```
+```bash
 undefined_x.c:4:12: note: initialize the variable 'x' to silence this warning
     float x;
            ^
@@ -111,7 +111,7 @@ The compiler went above and beyond here to offer a solution to our problem. And
 notice, it was the first option I gave above. These suggestions are not always
 great, but they are usually good starting points for fixing your code.
 
-```
+```bash
 1 warning generated.
 ```
 

@@ -1,13 +1,15 @@
 /* Structure */
 html, #main-flex {
+    height: 100%;
     margin: 0;
     padding: 0;
-    height: 100%;
 }
 
 #main-flex {
     display: flex;
+    display: -webkit-flex;
     flex-direction: column;
+    -webkit-flex-direction: column;
     font-family: 'Lora', serif;
     font-size: 21px;
     line-height: 142%;
@@ -16,46 +18,55 @@ html, #main-flex {
 header, footer {
     background: #DDD;
     flex: none;
+    -webkit-flex: none;
 }
 
 header, section, footer {
     display: flex;
+    display: -webkit-flex;
     justify-content: center;
+    -webkit-justify-content;
 }
 
 section {
     flex: 1 0 auto;
+    -webkit-flex: 1 0 auto;
 }
 
-#head, #content, #foot {
-    width: 750px;
+.center-col {
     flex: 0 0 auto;
+    -webkit-flex: 0 0 auto;
+    width: 750px;
 }
 
 #head, #foot {
     display: flex;
+    display: -webkit-flex;
     justify-content: flex-end;
+    -webkit-justify-content: flex-end;
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
+#head li, #foot li {
+    margin-left: 32px;
+}
+
 #head li:first-child, #foot li:first-child {
+    margin-left: 0;
     margin-right: auto;
 }
 
 #head a, #foot a {
     display: block;
-    padding: 14px 16px;
+    padding: 14px 0;
     text-decoration: none;
 }
 
 .left, .right {
     flex: 1;
-}
-
-#toc-buffer {
-    width: 300px;
+    -webkit-flex: 1;
 }
 
 /* Styling */
@@ -87,5 +98,18 @@ footer {
     transform: translate(-300px);
 }
 
-@media all and (max-width: 1350px) {
+@media all and (max-width: 1060px) {
+    .left, .right {
+        min-width: 5px;
+    }
+
+    #toc {
+        display: none;
+    }
+
+    .center-col {
+        flex: 0 1 auto;
+        -webkit-flex: 0 1 auto;
+        min-width: 0;
+    }
 }

@@ -130,37 +130,33 @@ pointer to it, and we can change it's value. But we don't know how the type is
 stored in memory or how it is interpreted. Luckily, we have all the pieces to
 understand it, so lets take a look.
 
-```
-                  struct HighScore
-          +=====+=====+=====+=====+=====+
-          | int |char |char |char |char |
-          +=====+=====+=====+=====+=====+
-   bytes:    4     1     1     1     1    =     8
-```
+                   struct HighScore
+           +=====+=====+=====+=====+=====+
+           | int |char |char |char |char |
+           +=====+=====+=====+=====+=====+
+    bytes:    4     1     1     1     1    =     8
 
 Our struct contains 8 bytes of data. If we ask C how big it is with,
 
-```
+```c
 printf("Size of HighScore is: %zu\n", sizeof(HighScore));
 ```
 
 We will see that C thinks it is 8 bytes too. What if our initials only had two
 characters though? We can check this by just changing the field declaration,
 
-```
+```c
 char initials[3];
 ```
 
 Now if we run exactly the same code, we get output of... 8. But why? Our struct
 should look like this in memory,
 
-```
-              struct HighScore
-          +=====+=====+=====+=====+
-          | int |char |char |char |
-          +=====+=====+=====+=====+
-   bytes:    4     1     1     1    =   7
-```
+               struct HighScore
+           +=====+=====+=====+=====+
+           | int |char |char |char |
+           +=====+=====+=====+=====+
+    bytes:    4     1     1     1    =   7
 
 There are only seven bytes of data, so why does our struct use eight? There is
 an idea called "alignment" that is causing this. It is easiest for the computer
@@ -168,27 +164,23 @@ if it can access multi-byte values (like `int`'s) at multiples of their size.
 Since our `int` is four bytes, it should start at address 0,4,8,12,16 ... and so
 on. If we had a pair of our structs in an array, they would line up like this,
 
-```
-        struct HighScore        struct HighScore
-    +=====+=====+=====+=====+=====+=====+=====+=====+
-    | int |char |char |char | int |char |char |char |
-    +=====+=====+=====+=====+=====+=====+=====+=====+
-bytes: 4     1     1     1     4     1     1     1
-addr:  0     4     5     6     7     11    12    13
-```
+            struct HighScore        struct HighScore
+        +=====+=====+=====+=====+=====+=====+=====+=====+
+        | int |char |char |char | int |char |char |char |
+        +=====+=====+=====+=====+=====+=====+=====+=====+
+    bytes: 4     1     1     1     4     1     1     1
+    addr:  0     4     5     6     7     11    12    13
 
 Unfortunately, 7 is not a multiple of 4, so this won't work. We have to "pad"
 the struct to fill out to a multiple of 8. In this case, we just have to include
 and extra byte of all 0's. With the padding, our pair looks like this.
 
-```
-           struct HighScore       |      struct HighScore       |
-    +=====+=====+=====+=====+=====+=====+=====+=====+=====+=====+
-    | int |char |char |char |  0  | int |char |char |char |  0  |
-    +=====+=====+=====+=====+=====+=====+=====+=====+=====+=====+
-bytes: 4     1     1     1     1     4     1     1     1     1
-addr:  0     4     5     6     7     8     12    13    14    15
-```
+               struct HighScore       |      struct HighScore       |
+        +=====+=====+=====+=====+=====+=====+=====+=====+=====+=====+
+        | int |char |char |char |  0  | int |char |char |char |  0  |
+        +=====+=====+=====+=====+=====+=====+=====+=====+=====+=====+
+    bytes: 4     1     1     1     1     4     1     1     1     1
+    addr:  0     4     5     6     7     8     12    13    14    15
 
 Now things line up properly, but we do waste 2 bytes. Ordering structures to
 pack them as tightly as possible is usually not very important, but it is good
@@ -207,14 +199,12 @@ How many bytes will this struct require? We still only have 7 bytes of data. But
 since we have to line up the `int` after we already put one `char`, this
 structure takes up twelve bytes.
 
-```
-                              struct HighScore
-          +=====+=====+=====+=====+=====+=====+=====+=====+=====+
-          |char |  0  |  0  |  0  | int |char |char |  0  |  0  |
-          +=====+=====+=====+=====+=====+=====+=====+=====+=====+
-   bytes:    1     1     1     1     4     1     1     1     1   =  12
-   total:    0     1     2     3     4     8     9     10    11
-```
+                               struct HighScore
+           +=====+=====+=====+=====+=====+=====+=====+=====+=====+
+           |char |  0  |  0  |  0  | int |char |char |  0  |  0  |
+           +=====+=====+=====+=====+=====+=====+=====+=====+=====+
+    bytes:    1     1     1     1     4     1     1     1     1   =  12
+    total:    0     1     2     3     4     8     9     10    11
 
 Just by moving one little `char`, we now have five wasted bytes instead of 1. If
 you start working with big data, this can add up!
@@ -233,20 +223,16 @@ struct HighScore {
 
 We can calculate the offsets at compile time.
 
-```
-hs.score
-hs + offset(score)
-hs + 0
-hs
-```
+    hs.score
+    hs + offset(score)
+    hs + 0
+    hs
 
 and for the initials
 
-```
-hs.initials
-hs + offset(initials)
-hs + 4
-```
+    hs.initials
+    hs + offset(initials)
+    hs + 4
 
 Our `.` is just simple addition to find the field in memory.
 

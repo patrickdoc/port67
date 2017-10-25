@@ -9,7 +9,7 @@ more types. The first we have access to is the "array". In C, an "array" is a
 group of values all lined up next to each other. Declaring a new array variable
 is easy:
 
-```
+```c
 char my_array[3];
 ```
 
@@ -22,7 +22,6 @@ each of them.
 In the upcoming pictures, I am going to introduce this shorthand for all of our
 sanity.
 
-```
                     char
     +---+---+---+---+   +---+---+---+---+
     | 1 | 0 | 0 | 1 |   | 1 | 0 | 0 | 0 |
@@ -32,7 +31,6 @@ sanity.
                   +========+
                   |  char  |
                   +========+
-```
 
 I am going to compress a type's bit representation into this smaller box so that
 I can include multiple next to each other in a reasonable amount of space.
@@ -40,12 +38,10 @@ I can include multiple next to each other in a reasonable amount of space.
 Back to our array, what does it look like? Well, it is 3 `char`'s perfectly
 lined up in memory.
 
-```
-                    my_array
-          +========+========+========+
-          |  char  |  char  |  char  |
-          +========+========+========+
-```
+              my_array
+    +========+========+========+
+    |  char  |  char  |  char  |
+    +========+========+========+
 
 Because we know how big a `char` is, we know how big a `my_array` is: `3 *
 sizeof(char)`. In this case, `my_array` is 3 bytes. We can even check this to
@@ -101,45 +97,40 @@ unsigned third  = my_array[2];
 This can be a point of confusion, so let's take a second to understand it. When
 we count the elements of an array, we start at 0. Here's the picture again:
 
-```
-          |         my_array         |
-          +========+========+========+
-          |  char  |  char  |  char  |
-          +========+========+========+
-          |  first | second | third  |
-```
+    |         my_array         |
+    +========+========+========+
+    |  char  |  char  |  char  |
+    +========+========+========+
+    |  first | second | third  |
 
 The value we give within the `[]`'s is an "index". It represents some element
 within the array. `my_array` tells us where the start, and then the index tells
 us how much to move over. Let's update our picture:
 
-```
-       my_array
-          |
-          V
-          +========+========+========+
-          |  char  |  char  |  char  |
-          +========+========+========+
-                            ^
-                            |
-                     my_array + 2*sizeof(char)
-```
+    my_array
+       |
+       V
+       +========+========+========+
+       |  char  |  char  |  char  |
+       +========+========+========+
+                         ^
+                         |
+                  my_array + 2*sizeof(char)
 
 So our index tells the computer how much to move over. The nifty thing is that
 this syntax works even if we change types, and therefore size of elements in the
 array.
 
-```
-       my_array
-          |
-          V
-          +========+========+========+
-          |   int  |   int  |   int  |
-          +========+========+========+
-                            ^
-                            |
-                     my_array + 2*sizeof(int)
-```
+    my_array
+       |
+       V
+       +========+========+========+
+       |   int  |   int  |   int  |
+       +========+========+========+
+                         ^
+                         |
+                  my_array + 2*sizeof(int)
+
 
 As you can see, our picture is exactly the same! Because the compiler knows the
 type of the elements in the array, it can adjust however it needs to. This takes

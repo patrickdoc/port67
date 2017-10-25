@@ -42,10 +42,10 @@ of necessary tools before we jump in, but also to become familiar with some of
 the recurring themes. As such, we are going to take a minute to talk about
 trees.
 
-                                    |
-                                   / \
-                                  /\ /\
-                                 o  oo o
+       |
+      / \
+     /\ /\
+    o  oo o
 
 
 Computer science trees are almost all bark and almost always upside-down.
@@ -54,11 +54,11 @@ Computer science trees are almost all bark and almost always upside-down.
 We use the term tree as "something with branches and leaves." So let's consider
 the filesystem again. In this case, it might look like:
 
-                                  Home
-                                /      \
-                        Documents       Downloads
-                        /               /        \
-                resume.doc          song.mp3    picture.png
+                      Home
+                    /      \
+            Documents       Downloads
+            /               /        \
+    resume.doc          song.mp3    picture.png
 
 With a bit of imagination, it is possible to see how this could be a tree. You
 have a root or main trunk called `Home`, two branches called `Documents` and
@@ -112,13 +112,13 @@ leads to a simple design. A nice example of this is moving entire chunks of the
 tree. For example, let's make `Downloads` a child of `Documents`. We cut off the
 connection between `Home` and `Downloads` and recreate it under `Documents`:
 
-                                 Home
-                                /   
-                        Documents   
-                        /       \                           
-                resume.doc       Downloads                  
-                                 /        \
-                             song.mp3    picture.png
+                     Home
+                    /
+            Documents
+            /       \
+    resume.doc       Downloads
+                     /        \
+                 song.mp3    picture.png
 
 Our tree is now a little lopsided, but that is fine. We just moved all of those
 files by changing one little line. This is a major win for us. Also relative
@@ -137,10 +137,10 @@ To complement files not having any children, directories can have as many as
 you want. (Probably like 2^32 or something...) Expanding on the example above,
 you could have:
 
-                                  Home
-          _________________________|______________________________
-         /               /            \             \             \
-     Documents      Downloads      Pictures      TODO.txt      Recipes
+                                 Home
+         _________________________|______________________________
+        /               /            \             \             \
+    Documents      Downloads      Pictures      TODO.txt      Recipes
 
 Here we have four child directories and a file. But you could have however many
 make sense for you. You might be someone who takes pictures all day, in which

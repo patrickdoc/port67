@@ -28,18 +28,16 @@ into why this trick works.
 
 If we supply the `include` and `main` boilerplate code, our output looks like:
 
-```
+```bash
 my_string contains the string: Hello
 ```
 
 Imagine for a moment what `my_string` looks like in memory:
 
-```
-                      my_string
-   +========+========+========+========+========+
-   |  'H'   |   'e'  |   'l'  |   'l'  |   'o'  |
-   +========+========+========+========+========+
-```
+                       my_string
+    +========+========+========+========+========+
+    |  'H'   |   'e'  |   'l'  |   'l'  |   'o'  |
+    +========+========+========+========+========+
 
 Here, I've used our shorten form from before, so each box represents a `char`,
 8 bits, or 1 byte (all the same). I've also filled in the values. Now imagine we
@@ -75,25 +73,23 @@ end of our data with a null byte, a byte composed of all zeros. So our picture
 from before is actually incorrect. Our `"Hello"` actually looks like this in
 memory.
 
-```
-                      my_string
-   +========+========+========+========+========+========+
-   |  'H'   |   'e'  |   'l'  |   'l'  |   'o'  |  '\0'  |
-   +========+========+========+========+========+========+
-```
+                       my_string
+    +========+========+========+========+========+========+
+    |  'H'   |   'e'  |   'l'  |   'l'  |   'o'  |  '\0'  |
+    +========+========+========+========+========+========+
 
 Just like `\n`, `\0` is a special character. It means the byte composed entirely
 of zeros. The slash is important. If we didn't have it, we would never be able
 to print the character 0. To maybe make this clearer:
 
 ```c
-char zero_string[] = "After 0, things print, but after \0 nothing";
+char zero_string[] = "After 0, things print, but after \0 not";
 printf("%s\n", zero_string);
 ```
 
 Running this, we see:
 
-```
+```bash
 After 0, things print, but after 
 ```
 

@@ -49,10 +49,8 @@ Binary may look pretty different at first, but I am going to try and convince
 you that it is reasonably similar to decimal. Here are the first 10 numbers in
 each system:
 
-```
-     0  1   2   3    4    5    6    7     8     9    10
-     0  1  10  11  100  101  110  111  1000  1001  1010
-```
+    0  1   2   3    4    5    6    7     8     9    10
+    0  1  10  11  100  101  110  111  1000  1001  1010
 
 There are two comparisons that I think might help you understand how this
 works. First, notice that when we count, we use up all of our single digits, and
@@ -62,23 +60,19 @@ so we have to start new columns faster.
 The second observation is that 10 and 2 play crucial roles in determining the
 value of a number. Specifically, we can do this:
 
-```
-                                    432
-        =           4 x 100   +    3 x 10   +   2 x 1
-        =           4 x 10^2  +   3 x 10^1  +  2 x 10^0
-        =             400     +      30     +     2
-        =                           432
-```
+                                432
+    =           4 x 100   +    3 x 10   +   2 x 1
+    =           4 x 10^2  +   3 x 10^1  +  2 x 10^0
+    =             400     +      30     +     2
+    =                           432
 
 Let's break down a binary number similarly
 
-```
-                                    101
-        =             1 x 4   +    0 x 2    +   1 x 1
-        =            1 x 2^2  +   0 x 2^1   +  1 x 2^0
-        =               4     +      0      +     1
-        =                            5
-```
+                                101
+    =             1 x 4   +    0 x 2    +   1 x 1
+    =            1 x 2^2  +   0 x 2^1   +  1 x 2^0
+    =               4     +      0      +     1
+    =                            5
 
 In school, you might have been taught about the "10's place" and the "100's
 place". In binary, you might call them the "2's place" and the "4's place" and
@@ -88,11 +82,9 @@ base (2 or 10) to get your value.
 Because computer science uses binary so heavily, powers of 2 are *really* good
 to know. For reference,
 
-```
-2^x:        0  1   2    3     4    5    6   7   8   9   10   11   12
-in decimal: 1  2   4    8    16   32   64 128 256 512 1024 2048 4096
-in binary:  1 10 100 1000 10000 10^5 10^6   ...
-```
+    2^x:        0  1   2    3     4    5    6   7   8   9   10   11   12
+    in decimal: 1  2   4    8    16   32   64 128 256 512 1024 2048 4096
+    in binary:  1 10 100 1000 10000 10^5 10^6   ...
 
 I don't mean to overwhelm you with a big chart of numbers, but I wanted to try
 and give you a sense of why they are important. 1000 counting in binary is 2^3,

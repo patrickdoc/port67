@@ -17,13 +17,13 @@ We've read `0010 1100` as 44, by a procedure of multiplying by powers of 2 and
 summing. This is the first C type that we can get from binary. If we want a
 number to be read like this, we declare:
 
-```
+```c
 unsigned x = 10;
 ```
 
 or, equivalently:
 
-```
+```c
 unsigned int x = 10;
 ```
 
@@ -55,22 +55,18 @@ at any size. It starts the same as our `unsigned` rule, you multiply all the
 bits by the corresponding power of 2.
 
 
-```
     +---+---+---+---+   +---+---+---+---+
     | 1 | 0 | 0 | 1 |   | 1 | 0 | 0 | 0 |
     +---+---+---+---+   +---+---+---+---+
      128     +    16  +   8
-```
 
 However, you multiply the left most bit by -1. So here we end up with
 
-```
     +---+---+---+---+   +---+---+---+---+
     | 1 | 0 | 0 | 1 |   | 1 | 0 | 0 | 0 |
     +---+---+---+---+   +---+---+---+---+
      -128     +    16  +   8
                 -104
-```
 
 And that's it! That's the only change. I realize this might feel a little out of
 the blue, so let's walk through some examples and examine some important
@@ -81,41 +77,29 @@ The leftmost bit is 0, so the negative values don't come into play. The last 3
 work the same way, except you add -128 because `-1 * 2^7 = -128`. Expand these
 by hand to make sure you believe me.
 
-```
     +---+---+---+---+   +---+---+---+---+
     | 0 | 0 | 0 | 0 |   | 0 | 0 | 0 | 0 | = 0
     +---+---+---+---+   +---+---+---+---+
-```
 
-```
     +---+---+---+---+   +---+---+---+---+
     | 0 | 0 | 0 | 0 |   | 0 | 0 | 0 | 1 | = 1
     +---+---+---+---+   +---+---+---+---+
-```
 
-```
     +---+---+---+---+   +---+---+---+---+
     | 0 | 1 | 1 | 1 |   | 1 | 1 | 1 | 1 | = 127
     +---+---+---+---+   +---+---+---+---+
-```
 
-```
     +---+---+---+---+   +---+---+---+---+
     | 1 | 0 | 0 | 0 |   | 0 | 0 | 0 | 0 | = -128
     +---+---+---+---+   +---+---+---+---+
-```
 
-```
     +---+---+---+---+   +---+---+---+---+
     | 1 | 0 | 0 | 0 |   | 0 | 0 | 0 | 1 | = -127
     +---+---+---+---+   +---+---+---+---+
-```
 
-```
     +---+---+---+---+   +---+---+---+---+
     | 1 | 1 | 1 | 1 |   | 1 | 1 | 1 | 1 | = -1
     +---+---+---+---+   +---+---+---+---+
-```
 
 ## Overflow
 
@@ -130,26 +114,22 @@ We have a 1-byte unsigned type called `char`. It is short for "character" and is
 often used to represent letters. But, as we now know, in memory it is just
 eight bits that we can interpret as we please.
 
-```
+```c
 char x = 255;
 ```
 
-```
                       x
     +---+---+---+---+   +---+---+---+---+
     | 1 | 1 | 1 | 1 |   | 1 | 1 | 1 | 1 | = 255
     +---+---+---+---+   +---+---+---+---+
-```
 
 Now, what happens when we add 1? In decimal, `255 + 1 = 256`. Unfortunately, 256
 is outside of our range. It looks like this:
 
-```
-                    x + 1
-    +---+---+---+---+   +---+---+---+---+
-  1 | 0 | 0 | 0 | 0 |   | 0 | 0 | 0 | 0 | = 256
-    +---+---+---+---+   +---+---+---+---+
-```
+                      x + 1
+      +---+---+---+---+   +---+---+---+---+
+    1 | 0 | 0 | 0 | 0 |   | 0 | 0 | 0 | 0 | = 256
+      +---+---+---+---+   +---+---+---+---+
 
 We have a stray 1 that does not fit in our boxes! Addition in binary works just
 like addition in decimal, where you carry the 1 when your column grows too
@@ -160,12 +140,10 @@ The computer's answer to this is to simply drop the extra bit. So our example
 should actually be:
 
 
-```
                     x + 1
     +---+---+---+---+   +---+---+---+---+
     | 0 | 0 | 0 | 0 |   | 0 | 0 | 0 | 0 | = 0
     +---+---+---+---+   +---+---+---+---+
-```
 
 For our `char` type, `255 + 1` overflows the space available to it and resets to
 0.
@@ -178,49 +156,35 @@ adding 1 should work exactly as it does normally, that it, `-128 + 1 = -127`,
 The 2's complement rules handle all of this for us. Let's check various
 examples:
 
-```
                     0 + 1
     +---+---+---+---+   +---+---+---+---+
     | 0 | 0 | 0 | 0 |   | 0 | 0 | 0 | 1 | = 1
     +---+---+---+---+   +---+---+---+---+
 
-```
-
-```
                   126 + 1
     +---+---+---+---+   +---+---+---+---+
     | 0 | 1 | 1 | 1 |   | 1 | 1 | 1 | 1 | = 127
     +---+---+---+---+   +---+---+---+---+
-```
 
-```
                   127 + 1
     +---+---+---+---+   +---+---+---+---+
     | 1 | 0 | 0 | 0 |   | 0 | 0 | 0 | 0 | = -128
     +---+---+---+---+   +---+---+---+---+
-```
 
-```
                  -128 + 1
     +---+---+---+---+   +---+---+---+---+
     | 1 | 0 | 0 | 0 |   | 0 | 0 | 0 | 1 | = -127
     +---+---+---+---+   +---+---+---+---+
-```
 
-```
                    -2 + 1
     +---+---+---+---+   +---+---+---+---+
     | 1 | 1 | 1 | 1 |   | 1 | 1 | 1 | 1 | = -1
     +---+---+---+---+   +---+---+---+---+
-```
 
-
-```
                    -1 + 1
     +---+---+---+---+   +---+---+---+---+
     | 0 | 0 | 0 | 0 |   | 0 | 0 | 0 | 0 | = 0
     +---+---+---+---+   +---+---+---+---+
-```
 
 If you look closely, you can see that the type only ever actually overflows on
 `-1 + 1 = 0`. The transition from `127` to `-128` is merely a result of our

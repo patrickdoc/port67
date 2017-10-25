@@ -54,58 +54,51 @@ Second, our program failed. We hoped to add one to `c`, but we did not. This is
 because we are not actually being given `c`, we are given it's value. Here is
 the sequence of events that the stack processes:
 
-```
-Right before we call plus_one(c)
+Right before we call `plus_one(c)`
 
-       +------+
-       | argc |  \
-       +------+  |
-       | argv |  | Belongs to main
-       +------+  |
-       |   c  |  /
-       +------+
-```
+    +------+
+    | argc |  \
+    +------+  |
+    | argv |  | Belongs to main
+    +------+  |
+    |   c  |  /
+    +------+
 
-```
-We call plus_one(c)
+We call `plus_one(c)`
 
-       +------+
-       | argc |  \
-       +------+  |
-       | argv |  | Belongs to main
-       +------+  |
-       | c=10 |  /
-       +------+
-       | x=10 |  Belongs to plus_one
-       +------+
-```
+    +------+
+    | argc |  \
+    +------+  |
+    | argv |  | Belongs to main
+    +------+  |
+    | c=10 |  /
+    +------+
+    | x=10 |  Belongs to plus_one
+    +------+
 
-```
 x += 1
-       +------+
-       | argc |  \
-       +------+  |
-       | argv |  | Belongs to main
-       +------+  |
-       | c=10 |  /
-       +------+
-       | x=11 |  Belongs to plus_one
-       +------+
-```
 
-```
-leave plus_one(c);
+    +------+
+    | argc |  \
+    +------+  |
+    | argv |  | Belongs to main
+    +------+  |
+    | c=10 |  /
+    +------+
+    | x=11 |  Belongs to plus_one
+    +------+
 
-       +------+
-       | argc |  \
-       +------+  |
-       | argv |  | Belongs to main
-       +------+  |
-       | c=10 |  /
-       +------+
-       |      |  plus_one's stack is cleared
-       +------+
-```
+Leave `plus_one(c)`
+
+    +------+
+    | argc |  \
+    +------+  |
+    | argv |  | Belongs to main
+    +------+  |
+    | c=10 |  /
+    +------+
+    |      |  plus_one's stack is cleared
+    +------+
 
 So we have found our culprit! C passes arguments to functions "by value", which
 means the function is given the value of the variable, not the variable itself.

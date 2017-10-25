@@ -81,35 +81,31 @@ to run.
 But, we are going to apply our knowledge to see why this is an error. The answer
 is the location of `arr` in memory. It is on the stack!
 
-```
-       +------+
-       | argc |  \
-       +------+  |
-       | argv |  | Belongs to main
-       +------+  |
-       |  c   |  /
-       +------+
-       |  1   |  \
-       +------+  |
-       |  2   |  | arr in new_value's stack
-       +------+  |
-       |  3   |  /
-       +------+
-```
+    +------+
+    | argc |  \
+    +------+  |
+    | argv |  | Belongs to main
+    +------+  |
+    |  c   |  /
+    +------+
+    |  1   |  \
+    +------+  |
+    |  2   |  | arr in new_value's stack
+    +------+  |
+    |  3   |  /
+    +------+
 
 So we set `c`'s value to be a pointer to `arr`, and then immediately clear all
 the data there! And we are left with this:
 
-```
-       +------+
-       | argc |  \
-       +------+  |
-       | argv |  | Belongs to main
-       +------+  |
-     |-|  c   |  /
-     | +------+
-     |> ?????
-```
+      +------+
+      | argc |  \
+      +------+  |
+      | argv |  | Belongs to main
+      +------+  |
+    |-|  c   |  /
+    | +------+
+    |> ?????
 
 But there is nothing there. And so, C informs us that there has been a memory
 error.

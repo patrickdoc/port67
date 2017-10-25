@@ -13,20 +13,18 @@ Our program is going to be a small robot game. We are going to start with a map,
 or grid. This will represent the ground that the robot has to walk over. Here is
 what one might look like,
 
-```
-      0   1   2   3   4
-    +---+---+---+---+---+
-  0 |   |   |   |   |   |
-    +---+---+---+---+---+
-  1 |   |   |   |   |   |
-    +---+---+---+---+---+
-  2 |   |   |   |   |   |
-    +---+---+---+---+---+
-  3 |   |   |   |   |   |
-    +---+---+---+---+---+
-  4 |   |   |   |   |   |
-    +---+---+---+---+---+
-```
+        0   1   2   3   4
+      +---+---+---+---+---+
+    0 |   |   |   |   |   |
+      +---+---+---+---+---+
+    1 |   |   |   |   |   |
+      +---+---+---+---+---+
+    2 |   |   |   |   |   |
+      +---+---+---+---+---+
+    3 |   |   |   |   |   |
+      +---+---+---+---+---+
+    4 |   |   |   |   |   |
+      +---+---+---+---+---+
 
 I've also added a coordinate system to help us talk about individual squares.
 We read the position of a square as `(row, column)`.  The top left corner is the
@@ -42,20 +40,18 @@ Because we have three types of terrain, we need three representatives. Let's say
 that `0` means empty, `1` means rock, and `2` means wall. We can then fill up
 our map like so,
 
-```
-      0   1   2   3   4
-    +---+---+---+---+---+
-  0 | 0 | 2 | 0 | 1 | 1 |
-    +---+---+---+---+---+
-  1 | 0 | 2 | 0 | 1 | 0 |
-    +---+---+---+---+---+
-  2 | 1 | 2 | 0 | 0 | 0 |
-    +---+---+---+---+---+
-  3 | 0 | 0 | 0 | 0 | 2 |
-    +---+---+---+---+---+
-  4 | 2 | 2 | 2 | 0 | 1 |
-    +---+---+---+---+---+
-```
+        0   1   2   3   4
+      +---+---+---+---+---+
+    0 | 0 | 2 | 0 | 1 | 1 |
+      +---+---+---+---+---+
+    1 | 0 | 2 | 0 | 1 | 0 |
+      +---+---+---+---+---+
+    2 | 1 | 2 | 0 | 0 | 0 |
+      +---+---+---+---+---+
+    3 | 0 | 0 | 0 | 0 | 2 |
+      +---+---+---+---+---+
+    4 | 2 | 2 | 2 | 0 | 1 |
+      +---+---+---+---+---+
 
 For a little practice reading our map, we can say that there is a clump of three
 wall squares at `(0,1)`, `(1,1)`, and `(2,1)`.  There is also another wall group
@@ -71,12 +67,10 @@ obvious.
 
 Looking at a single row,
 
-```
-    +---+---+---+---+---+
-    | 0 | 2 | 0 | 1 | 1 |
-    +---+---+---+---+---+
-      0   1   2   3   4
-```
+     +---+---+---+---+---+
+     | 0 | 2 | 0 | 1 | 1 |
+     +---+---+---+---+---+
+       0   1   2   3   4
 
 a structure should jump out at us. This looks an awful lot like an array. In
 fact, if we have a pointer to the beginning of the array called `row`, then we

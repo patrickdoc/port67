@@ -165,16 +165,14 @@ int move_down(struct robot *robo) {
 
 commands.txt
 
-```
-down
-down
-down
-right
-right
-right
-down
-right
-```
+    down
+    down
+    down
+    right
+    right
+    right
+    down
+    right
 
 ```bash
 $ gcc -Wall robot.c

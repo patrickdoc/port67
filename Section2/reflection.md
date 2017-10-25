@@ -36,7 +36,7 @@ My goal for this section was to give you enough information that we can start
 talking about bigger topics without being bogged down by programming details.
 For instance, the most basic networking code works like this,
 
-```
+```c
 char *incoming_buffer = // SOME LOWER LEVEL THING;
 
 printf("The first byte from the network is: %c\n", incoming_buffer[0]);

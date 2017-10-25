@@ -59,12 +59,10 @@ the command interface for our game. We need some sort of specification for
 what the commands in the file should look like. Let's limit our initial commands
 to,
 
-```
-right
-left
-up
-down
-```
+    right
+    left
+    up
+    down
 
 Each will be on its own line to make it easier for us to "parse", or read and
 interpret, the file. Assuming we have such a file, we can write
