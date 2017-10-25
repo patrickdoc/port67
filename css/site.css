@@ -18,18 +18,18 @@ header, footer {
     flex: none;
 }
 
-header, article, footer {
+header, section, footer {
     display: flex;
     justify-content: center;
 }
 
-article {
+section {
     flex: 1 0 auto;
 }
 
 #head, #content, #foot {
-    max-width: 750px;
-    flex: 1 0 auto;
+    width: 750px;
+    flex: 0 0 auto;
 }
 
 #head, #foot {
@@ -48,6 +48,14 @@ article {
     display: block;
     padding: 14px 16px;
     text-decoration: none;
+}
+
+.left, .right {
+    flex: 1;
+}
+
+#toc-buffer {
+    width: 300px;
 }
 
 /* Styling */
@@ -73,24 +81,11 @@ footer {
     font-size: 80%;
 }
 
-/*
 #toc {
     position: fixed;
-    width: 225px;
-    transform: translate(-225px);
+    width: 300px;
+    transform: translate(-300px);
 }
 
-@media all and (max-width: 985px) {
-    .sidebar {
-        display: none;
-    }
-
-    main, article {
-        width: 100%;
-    }
-
-    article {
-        max-width: 750px;
-    }
+@media all and (max-width: 1350px) {
 }
-*/

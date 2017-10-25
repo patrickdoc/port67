@@ -10,37 +10,57 @@
   <link rel="stylesheet" href="/css/code.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+$if(toc)$
+  <style>
+    #head li:first-child, #foot li:first-child {
+        padding-left: 24px;
+        transform: translate(-300px);
+    }
+
+    .left {
+        min-width: 300px;
+    }
+  </style>
+$endif$
 </head>
 <body id="main-flex">
 
   <header>
+    <div class="left"></div>
+
     <ul id="head">
       <li><a href="/index.html">Port67</a></li>
-      <li><a href="/index.html">Home</a></li>
       <li><a href="/README.html">README</a></li>
       <li><a href="/support.html">Support</a></li>
     </ul>
+
+    <div class="right"></div>
   </header>
 
-<!--
+  <section>
+    <div class="left"></div>
+
+    <article id="content">
 $if(toc)$
-  <div id="toc">
+      <div id="toc">
 $toc$
-  </div>
+      </div>
 $endif$
--->
-  
-  <article>
-    <div id="content">
 $body$
-    </div>
-  </article>
+    </article>
+
+    <div class="right"/></div>
+  </section>
   
   <footer>
+    <div class="left"></div>
+
     <ul id="foot">
       <li><a>© 2017 Patrick Dougherty</a></li>
       <li><a href="https://github.com/patrickdoc/Guide">source</a></li>
     </ul>
+
+    <div class="right"></div>
   </footer>
 
 </body>
