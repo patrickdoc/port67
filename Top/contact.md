@@ -6,7 +6,7 @@ title: Contact
 
 If you would like to contact me, you can reach me at:
 
-patrick.doc (at) ameritech (dot) net
+help (at) port67 (dot) org
 
 You'll see emails written like this to help cut down on spam. There are programs
 that look all over the internet for email addresses to send random messages to.
