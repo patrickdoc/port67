@@ -41,7 +41,7 @@ docs/%.html: %.md template.html
 	$(PANDOC) $(PANDOC_OPTIONS) $(PANDOC_HTML_OPTIONS) -o $@ $<
 
 clean:
-	rm -rf docs
+	rm -r docs
 
 # Debugging
 show:
