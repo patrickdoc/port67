@@ -29,6 +29,8 @@ directory.  If we find that we need more organization, we can make more
 directories (perhaps `~/Projects/Python` to hold Python specific files).  But for
 now, we should be good with a single directory.
 
+## File Types
+
 We are going to flex our terminal muscles now to investigate how the computer
 works with files. Note that we can speed the process up by passing all of the
 new files we want to `touch` at the same time.
@@ -80,6 +82,8 @@ Word and Open Office Writer won't work for us. They include things like
 formatting and style in their file formats, while we need to operate on bare
 "plain text".
 
+## Vim
+
 There are many apps that *do* let us edit files the way we need to, but we are
 going to stick to terminal programs for the time being. There are two modern
 powerhouses in the terminal text editing game: Vim and Emacs. People have been
@@ -98,4 +102,5 @@ with, so I'll end this here. In fact, one of the most Google'd questions about
 programming is, "how do I exit Vim?" So I'll wait until next time to suggest
 opening it.
 
+# Next
 [Vim](5-vim.html)

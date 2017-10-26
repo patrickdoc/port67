@@ -12,6 +12,8 @@ your set of instructions until it reaches the end or causes an error. Type
 systems help diminish the chance of the runtime errors and provide extra
 information in error messages.
 
+## Type Errors
+
 ```python
 >>> w = 0
 >>> x = 1
@@ -37,22 +39,24 @@ TypeError: unsupported operand type(s) for +: 'int' and 'str'
 ```
 
 There are a number of new concepts here. First, Python is telling us that there
-was a ``TypeError``. That means that one of the rule of the type system was
-violated. Next it will tell us which rule, ``unsupported operand type(s) for
-+``. An "operand" is an argument to an "operator", in this case ``+`` is our
-"operator" and ``y``/``z`` are our "operands". The error is that ``+`` expects
-its "operands" to have certain types, but ``y`` and ``z`` don't match those.
-Finally, it tells us that the types that failed are ``'int'`` and ``'str'``.
+was a `TypeError`. That means that one of the rule of the type system was
+violated. Next it will tell us which rule, `unsupported operand type(s) for
++`. An "operand" is an argument to an "operator", in this case `+` is our
+"operator" and `y`/`z` are our "operands". The error is that `+` expects
+its "operands" to have certain types, but `y` and `z` don't match those.
+Finally, it tells us that the types that failed are `'int'` and `'str'`.
 
-So what are ``'int'`` and ``'str'``? They are specific types. ``'int'`` stands
+## Int and Str
+
+So what are `'int'` and `'str'`? They are specific types. `'int'` stands
 for Integer. The integers are the Natural numbers (or counting numbers) and
 their negatives. That is, ..., -2, -1, 0, 1, 2, ... From negative infinity to
 infinity. (They are actually bounded above and below due to hardware
 restrictions, but we will get to that when we talk about representation of
 types in C.)
 
-``'str'`` is the String type. Strings are pieces of text. For example,
-``'hello'`` is a string. We also have ``''`` the empty string, or the entire
+`'str'` is the String type. Strings are pieces of text. For example,
+`'hello'` is a string. We also have `''` the empty string, or the entire
 text of Moby Dick. You can think of Strings as a sequence of 0 or more
 Characters, where a Character is a letter, number, space, or punctuation.
 Python does not have a specific type for individual characters, but many other
@@ -72,19 +76,21 @@ to add two strings, and test it out in the REPL. But how should the computer
 add a string to an int? There really isn't a sensible answer, and so we get an
 error.
 
+## Combining Types
+
 Sometimes different types can actually work well together though. What happens
 when you try to add an int and a float? How do these types relate to each
-other? You can always turn an int like ``2`` into a float by just adding a
-``.0`` to the end. But can you turn a float like ``0.5`` into an int? You could
+other? You can always turn an int like `2` into a float by just adding a
+`.0` to the end. But can you turn a float like `0.5` into an int? You could
 by just dropping everything after the decimal, but that is not a great solution.
 So let's convert our int into a float and proceed as normal. Thus the type of
-``'int' + 'float'`` is ``'float'``.
+`'int' + 'float'` is `'float'`.
 
 If you were to try out all the different combinations of types and addition,
 you would find some errors and some values. The type system is the tool we use
 to determine whether or not some calculation makes sense. Often, the rules of
 the type system catch simple errors that you made. It is unlikely that we meant
-to add an int and a string above. More reasonably, we meant to add ``w + x``.
+to add an int and a string above. More reasonably, we meant to add `w + x`.
 
 While the type system caught our mistake here, we can also take this as an
 opportunity to learn a good habit. Naming variables meaningfully is a good
@@ -107,4 +113,5 @@ TypeError: unsupported operand type(s) for +: 'int' and 'str'
 
 Notice that our error is easy to see without even running the code.
 
+# Next
 [Control Flow](9-control-flow.html)

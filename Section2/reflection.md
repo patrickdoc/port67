@@ -86,4 +86,5 @@ your computer and the new functionality that you can find on it.
 
 (installing packages, config files, bash, python, vimrc, bashrc)
 
+# Next
 [Fun](Fun/index.html)

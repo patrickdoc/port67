@@ -48,6 +48,8 @@ boxes, we could slide them all apart and label them to make it clear how they
 were meant to be grouped. But I want to be sure you understand that "memory" is
 really just an astounding number of these boxes all lined up next to each other.
 
+## Running Out of Space
+
 Now we run into a problem. `x = 24`. In binary that would be `1 1000`. I've
 added the space to help read the value, but dropped the usual 0's on the left
 because we don't technically need them. But even saving space like that doesn't
@@ -90,10 +92,12 @@ variable gets 4 bits. This means our memory looks like this:
     +---+---+---+---+   +---+---+---+---+
 
 There's no more room for `z`! It seems like our "solution" has only caused more
-problems! However, our rules actually helpful. Imagine if instead of causing the
-problem by updating `x = 24`, our programmer had instead asked us for `y = 2`.
-Surely we should support a number being set to 2. But this would have caused a
-conflict with `z`, and we would have come to the same conclusion.
+problems! However, our rules are actually helpful. Imagine if instead of causing
+the problem by updating `x = 24`, our programmer had instead asked us for `y =
+2`.  Surely we should support a number being set to 2. But this would have
+caused a conflict with `z`, and we would have come to the same conclusion.
+
+## Providing Size Options
 
 We have almost solved our problem, but we have one more issue to handle.  If we
 check the range of 4 bits (`0000` to `1111`) we will see that our variables can
@@ -123,6 +127,8 @@ they can ask for `large x = 24`. In which case we set aside 8 bits for them.
 
 If they need numbers bigger than that, they have to buy us some more boxes!
 
+# A Challenge
+
 There's one more trick to types. It answers the question, how do you store -1?
 I would encourage you to think about this problem for a bit. If you were to
 create a type for negative numbers, what would the range be? How many bits would
@@ -137,4 +143,5 @@ because that number will always be positive. You will have to come up with a way
 to indicate a number is negative. Also note that we will probably want to be
 able to store both positive and negative numbers in the same type.
 
+# Next
 [Interpreting Memory](8-interpreting-memory.html)

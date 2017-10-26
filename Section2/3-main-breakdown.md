@@ -40,6 +40,8 @@ some structure.
 If we are going to have to write `main` the same way every time, it is probably
 a good idea to get a sense of what it is. Let's build up piece-by-piece.
 
+## Return Type
+
 ```c
 int
 ```
@@ -56,6 +58,8 @@ could return 1. If the user gives a letter instead of a number, then you
 might return 2. When you give your code to other people, it is best to document
 the various return values, so they know what went wrong.
 
+## Function Name
+
 ```c
 int main
 ```
@@ -65,6 +69,8 @@ single function that C requires to be there. You can name other functions
 anything you want, but it is standard to use lowercase and underscores to
 separate words. For example: `multiply`, `test_code`, `blargh`. Names typically
 should be as short and descriptive as possible.
+
+## Function Arguments
 
 ```c
 int main(int argc
@@ -86,6 +92,8 @@ command line. We are going to need to do a bit more work to understand exactly
 what the `char **` type means, but I will show you what it represents in a
 moment.
 
+## Function Body
+
 After that, we just have the `{}`'s which mark the start and end of the body
 of code and the comment which starts with `//`. I want to remind you that we
 could write this function like this,
@@ -103,6 +111,8 @@ int main(int argc, char **argv) {
     // Code here
 }
 ```
+
+## Importing
 
 We just need one more piece to demonstrate `main`, and that is to import our
 printing function, `printf`. Instead of Python's `import`, we use `#include`
@@ -148,4 +158,5 @@ Argument 4: test
 You should try getting rid of that horrible grammar mistake `There are 1
 arguments`. All it takes is an `if` statement, which you know all about!
 
+# Next
 [Variables](4-variables.html)

@@ -63,7 +63,9 @@ char *better_score(HighScore hs1, HighScore hs2);
 
 As you can see, it fills up space quickly.
 
-But enough talk, let's use them,
+## Using Structs
+
+Enough talk, let's use them,
 
 ```c
 #include <stdio.h>
@@ -124,6 +126,8 @@ int main(int argc, char **argv) {
     return 0;
 }
 ```
+
+## Struct Internals
 
 `hs` is just like any other variable. We can pass it to functions, we can get a
 pointer to it, and we can change it's value. But we don't know how the type is
@@ -236,4 +240,5 @@ and for the initials
 
 Our `.` is just simple addition to find the field in memory.
 
+# Next
 [Input Output](17-io.html)

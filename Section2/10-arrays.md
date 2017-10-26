@@ -69,6 +69,8 @@ will it be? Guess, and then check for yourself by modifying the code above.
 Next, try guessing how changing the number of elements stored will affect the
 size. Check that too.
 
+## Using Arrays
+
 At this point, you have seen enough `main` functions to replicate them on your
 own, so I am going to just give you the important lines and let you fill in the
 rest. Hopefully you have plenty of examples from previous lessons to work from
@@ -144,4 +146,5 @@ the type of elements in the array. To get the last value in the array, we start
 at the beginning and move over `(length - 1)*sizeof(type)`, where `length` is
 the number of elements in the array.
 
+# Next
 [Strings](11-strings.html)

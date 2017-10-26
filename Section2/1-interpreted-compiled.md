@@ -57,13 +57,15 @@ appropriate for your computer, any of these should work:
 ```bash
 $ ./a.out
 $ ../c/a.out         # Assuming you followed my structure above
-$ ~/Projects/c/a.out # Same as above
+$ ~/Projects/c/a.out # Assuming you followed my structure above
 $ /Users/USERNAME/Projects/c/a.out # On Macs
 $ /home/USERNAME/Projects/c/a.out  # On Linux
 ```
 
 The last two use "absolute" paths, which you can find using `pwd` in the
 directory that holds `a.out`.
+
+## Special Characters
 
 If you did run any of those commands above, you might find something strange.
 The output did not work as well as hoped,
@@ -137,4 +139,5 @@ want a newline at the end of the strings you print. Which is a reasonably fair
 assumption, but does hide things from us. C assumes nothing, which is both a
 blessing and a curse.
 
+# Next
 [Control Flow](2-control-flow.html)

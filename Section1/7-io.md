@@ -27,8 +27,10 @@ This is where the concept of Input/Output (I/O) comes in. Input is the process
 of sending information into a program, and output is the program's ability to
 put information out into the world.
 
+## Output
+
 Output is so important to computer science that most programming languages make
-it easy. In Python, all we have to do is say ``print``.
+it easy. In Python, all we have to do is say `print`.
 
 ```python
 import math
@@ -66,12 +68,14 @@ impressive those nine lines of code are. With just the knowledge gained up to
 this point, you could write some truly interesting programs. I'm obviously not
 going to leave you hanging here, but give yourself a pat on the back.
 
-But that's only half the battle. We now need to handle Input. While this
+# Input
+
+But that's only half the battle. We now need to handle input. While this
 program might not need a nice interface (that is, how the person interacts with
 the program and vice versa), we are going to give it one just for fun. We are
-going to expand the script to ask us for the two side values and then ``print``
+going to expand the script to ask us for the two side values and then `print`
 out the result. Luckily, the function that helps us do this is aptly named
-``input``.
+`input`.
 
 ```python
 import math
@@ -95,18 +99,19 @@ Enter side b: 22
 
 And that is a nifty program. It might save you 10 minutes on homework if you
 are still in high school. As a quick review to make sure this is all clear, we
-are setting the variable ``a`` to the return value of the ``input`` function.
-``input`` takes a single argument, a string (the programming word for a sequence
+are setting the variable `a` to the return value of the `input` function.
+`input` takes a single argument, a string (the programming word for a sequence
 of letters, spaces, punctuation, numbers, etc.), which it prints. Then it takes
-everything you type before pressing ``enter/return`` and returns it. In our
-example, ``a`` is set to 10, and ``b`` to 22. After that, it runs our function
-on the two values and ``print``'s the output. We could have set a variable ``c``
-to the hypotenuse length, and then ``print c``, but this way also works.
+everything you type before pressing `enter/return` and returns it. In our
+example, `a` is set to 10, and `b` to 22. After that, it runs our function
+on the two values and `print`'s the output. We could have set a variable `c`
+to the hypotenuse length, and then `print c`, but this way also works.
 
 With basic functions and I/O, you could theoretically write all sorts of cool
 programs. But that's not our goal here (well, it is eventually, but not yet).
 Next up, we are going to be talking about "things" in programming languages. In
-particular, we are going to find out the difference between ``a``, ``'a'``,
-``[a]``, and more.
+particular, we are going to find out the difference between `a`, `'a'`,
+`[a]`, and more.
 
+# Next
 [Types](8-types.html)

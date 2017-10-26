@@ -77,6 +77,8 @@ use the function above where we define it in the code. This is because the
 compiler reads all your code, and can match up function declarations with
 bodies. But the value of your variable isn't known until the code is run.
 
+## A Challenge
+
 I don't expect you to fully understand how this works right now because I
 haven't even begun talking about compilers. But it's always good to leave some
 questions open for you to think about and work through on your own. As an
@@ -86,9 +88,9 @@ see what you can simplify about it. (A great compiler would just simplify this
 entire program to `return 0`. The key observation being that `x` is never used.
 Ignoring that option, there are still plenty of places you could improve).
 
-While the above program can be optimized in many places, the following code
-cannot. Think about the differences between `x` and `y` and what that means for
-the compiler.
+While the above program can be optimized in many places, the following code is
+harder to optimize. Think about the differences between `x` and `y` and what
+that means for the compiler.
 
 ```c
 float circumference(float radius);
@@ -108,4 +110,5 @@ float circumference(float radius) {
 }
 ```
 
+# Next
 [Binary](6-binary.html)

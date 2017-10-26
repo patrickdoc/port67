@@ -2,7 +2,7 @@
 title: Pointers
 ...
 
-# Scope
+# Pointers
 
 We have almost covered everything we need to understand the declaration of the
 `main` function. For reference:
@@ -56,6 +56,8 @@ not find the first string without just looking for the first `\0` byte in the
 array. So this solution won't work if we want a reasonable way to access the
 different arguements.
 
+## Using Memory
+
 To solve this, we need to use memory more flexibly. So far we have been packing
 our data in tightly. Values have been given an exact size, with a little bit of
 wiggle room depending on the type. But with strings, there could really be any
@@ -70,8 +72,8 @@ with, and we are only using up around 10 right here. Even on the oldest systems,
 
 So instead of packing them all together, let's give each string it's own space
 to live in. If we think about when we were maintaining the boxes, it would be as
-if we stored the programs boxes in different areas of a warehouse instead of
-just the 8 we had in front of us. In picture form:
+if we stored the program's data in different areas of a warehouse instead of
+just the 8 boxes we had in front of us. In picture form:
 
 
        +===+====+        +===+====+              +===+===+===+====+
@@ -138,6 +140,8 @@ works perfectly. Assuming `int`'s are 4 bytes long, if we start at 50 the next
 `array[1]` syntax! If you had to calculate the size inside every time and track
 addresses, things would get complicated fast.
 
+## Pointers vs. Values
+
 Back to our string problem, we need a way to describe the difference between a
 value like `'a'`, and the address of that value, 37. This is why we introduce
 the `*` symbol. Again, a picture should help.
@@ -163,6 +167,8 @@ ptr[2] = ???;   // DANGER: This is past the end of our string!
 Like we talked about before, there is no way to just know the length of a
 string. But C is good about including the null characters on the end of them, so
 we just need to check for them.
+
+## Double Pointer as a List of Strings
 
 Given that example, we can see that `char *my_string` can be treated as a list
 of characters, otherwise known as a string. We have the starting address of the
@@ -198,7 +204,7 @@ this works together.
 We start with `char **argv`, a pointer to a pointer to a `char`. Then we
 calculate `argv[1]`:
 
-```
+```none
 argv[1]
 argv + 1*sizeof(char *)
 60 + 8
@@ -212,7 +218,7 @@ use 8 as a standard from now on, but know that it is not always the case.
 So now we have a new pointer. Let's give it a name and say `char *arg2 =
 argv[1];` Now let's try to determine what `arg2[0]` is:
 
-```
+```none
 arg2[0]
 arg2 + 0 * sizeof(char *)
 105 + 0
@@ -229,4 +235,5 @@ Note: Pointers are one of the biggest humps to get over when learning C. Don't
 worry if you don't understand them just yet. We will use them non-stop going
 forward, so you will get all the practice you could ever want.
 
+# Next
 [Stack vs. Heap](13-stack-vs-heap.html)

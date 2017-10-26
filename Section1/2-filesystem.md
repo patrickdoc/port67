@@ -11,7 +11,7 @@ roughly corresponds to a single song or image or video and so on. The trick is
 keeping all of these files organized so that both you and your computer know
 where they are. We call this organization the filesystem. You may have some
 experience with it, using Finder on Mac or Konqueror, Nautilus, or Thunar on
-Linux.  These are graphical interfaces, but we are going to use the terminal for
+Linux. These are graphical interfaces, but we are going to use the terminal for
 a little more power.
 
 Just like last time, we need to open up our terminal application. I am going to
@@ -49,7 +49,6 @@ trees.
 
 
 Computer science trees are almost all bark and almost always upside-down.
-(Caption)
 
 We use the term tree as "something with branches and leaves." So let's consider
 the filesystem again. In this case, it might look like:
@@ -104,7 +103,7 @@ Translated, we have `../Documents/resume.doc`. Paths are a simple but powerful
 way of describing how to move around the filesystem, and we will see how to
 exploit them shortly.
 
-## Trees are Recursive
+## Branches and Leaves
 
 If we cut off any branch and just examine it, we can see that it is still a
 tree. We even include a single leaf in our definition of trees. This property
@@ -121,10 +120,9 @@ connection between `Home` and `Downloads` and recreate it under `Documents`:
                  song.mp3    picture.png
 
 Our tree is now a little lopsided, but that is fine. We just moved all of those
-files by changing one little line. This is a major win for us. Also relative
-paths...
-
-## Files Can't Have Children
+files by changing one little line. This is a major win for us. Notice that all
+of the paths under `Downloads` stayes the same. If we are in Downloads, we can
+still find `picture.png` with `./picture.png`.
 
 In the tree jargon, files are leaves. In the same way that real leaves can't
 have branches coming out of them, files can't have directories or other files
@@ -134,21 +132,21 @@ order.
 ## Directories are Infinite
 
 To complement files not having any children, directories can have as many as
-you want. (Probably like 2^32 or something...) Expanding on the example above,
-you could have:
+you want. (Well, there is a cap, but you are unlikely to run into it.) Expanding
+on the example above, you could have:
 
                                  Home
          _________________________|______________________________
         /               /            \             \             \
     Documents      Downloads      Pictures      TODO.txt      Recipes
 
-Here we have four child directories and a file. But you could have however many
-make sense for you. You might be someone who takes pictures all day, in which
-case you could have thousands of pictures in your Pictures folder. Or you might
-have a set of directories within Pictures for Family, Vacation, Work, etc.
+Here we have four child directories and a child file. But you could have however
+many make sense for you. You might be someone who takes pictures all day, in
+which case you could have thousands of pictures in your Pictures folder. Or you
+might have a set of directories within Pictures for Family, Vacation, Work, etc.
 which help you keep track of all your photos.
 
-## Basic Commands
+# Basic Commands
 
 Now that we know all about paths and the tree structure, let's see what we can
 do. Assume our present working directory is Home, and we are working from the
@@ -158,13 +156,14 @@ tree that has Downloads as a child of Documents.
 $ ls <path>
 ```
 
-**L**i**s**t the contents of the given directory at <path>. With no argument,
+**L**i**s**t the contents of the given directory at `<path>`. With no argument,
 list the contents of the present working directory.
 
 Possibly the most useful command, `ls` shows you what files and folders are
 around you. If we want to know what is in Documents, we could do `ls
 Documents`, returning `resume.doc Downloads`. We could even look inside
-Downloads with `ls Documents/Downloads`, but this quickly gets out of hand.
+Downloads with `ls Documents/Downloads`, but going too deep becomes
+complicated.
 
 ```bash
 $ cd <path>
@@ -271,4 +270,5 @@ with "q". This actually opens a program called "less" (a joke on the earlier
 program "more"...). Also this style of movement will come up again, so keep it
 in mind.
 
+# Next
 [Python](3-python.html)

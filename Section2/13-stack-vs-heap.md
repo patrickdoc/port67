@@ -170,4 +170,5 @@ about packing the data in tightly. It is also much easier to delete from the
 heap. We just tell the computer we don't want the storage anymore, and it can do
 whatever it wants with it.
 
+# Next
 [Variable Scope](14-scope.html)

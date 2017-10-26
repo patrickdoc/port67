@@ -46,6 +46,8 @@ if (x == 0) {
 // Code that now uses x
 ```
 
+## Compiler Warnings
+
 The second solution to this problem is to use the `-Wall` flag to your compiler.
 This flag tells the compiler to warn you about every place in your code that
 something fishy is happening. Modern compilers are actually quite good at
@@ -62,7 +64,7 @@ int main(int argc, char **argv) {
 }
 ```
 
-Compiling with and without `-Wall`,
+Compiling without and with `-Wall`,
 
 ```bash
 $ gcc undefined_x.c
@@ -120,4 +122,5 @@ our code. This number can sometimes be inflated when a single error causes a
 large number of warnings. Finding the root of your problems just takes
 practice.
 
+# Next
 [Functions](5-functions.html)

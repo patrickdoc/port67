@@ -36,8 +36,9 @@ design choices.
 One major advantage that Python has over C is that Python had C to work with.
 Python is just a C program. It reads the code you give to it, shuffles some
 stuff around, and then runs C code. This is the difference between "interpreted"
-languages and "compiled" languages. The code you run in Python has to be processed by Python every time you run it. Whereas C is compiled into file that the
-computer knows how to run. We will do this ourselves shortly.
+languages and "compiled" languages. The code you run in Python has to be
+processed by Python every time you run it. Whereas C is compiled into file that
+the computer knows how to run. We will do this ourselves shortly.
 
 Interpretation is both a blessing and a curse for Python. The good news is that
 Python is far easier to write than C. Many of the bugs that occur in C either
@@ -75,13 +76,13 @@ int main(int argc, char **argv) {
 ```
 
 Without getting into details, it is clear that, at the very least, C is more
-verbose. While not necessary, I included a ``main`` function in the Python
+verbose. While not necessary, I included a `main` function in the Python
 source to make the comparison slightly more fair. Two changes that immediately
-stand out are the ``{}``'s and ``;``'s. In Python, we use indentation and
+stand out are the `{}`'s and `;`'s. In Python, we use indentation and
 newlines to differentiate commands. In C, we have to clearly mark everything.
 
-Also note the type indicators everywhere: ``int main``, ``int argc``, ``char
-**argv``. These are required in C. While Python mostly hides the types from
+Also note the type indicators everywhere: `int main`, `int argc`, `char
+**argv`. These are required in C. While Python mostly hides the types from
 you, here we have to handle all of that ourselves. That is really the core of
 the difference between Python and C. Python hides much of the work, while C
 forces you to handle it yourself. As with every decision in computer science,
@@ -112,10 +113,10 @@ int main(int argc, char **argv) {
 
 In Python, values have types, and variables just hold values. In C, variables
 have types and do whatever is necessary to convert the value into that type.
-We can see that the value of ``x`` and ``i`` should both be 2.5. In Python,
-``x`` just changes its type to accommodate the value. But in C, ``i`` just
-pretends 2.5 is an int because that is all ``i`` can hold. And so, ``i == 2``.
-(Also note the syntax for comments in C, it is ``//`` at the start of the
+We can see that the value of `x` and `i` should both be 2.5. In Python,
+`x` just changes its type to accommodate the value. But in C, `i` just
+pretends 2.5 is an int because that is all `i` can hold. And so, `i == 2`.
+(Also note the syntax for comments in C; it is `//` at the start of the
 comment.)
 
 While Python is nice, it is time to take off the training wheels and get our

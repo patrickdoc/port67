@@ -2,12 +2,12 @@
 title: Executing Python
 ...
 
-# Putting Python in a File and Executing It
+# Executing a Python File
 
 So far we have just used a Python interpreter, but Python is more traditionally
 a scripting language. That is, it excels at short programs that help with
 certain tasks or problems. We are going to write a short program that solves
-the Pythagorean Theorem (a^2 + b^2 = c^2). Solving for the hypotenuse of a
+the Pythagorean Theorem: `a^2 + b^2 = c^2`. Solving for the hypotenuse of a
 right triangle is a surprisingly good example for us. It is straightforward,
 often too difficult to do manually, and extremely useful in computer science.
 The Pythagorean Theorem comes up in graphics, physics, game logic, AI, and
@@ -24,8 +24,8 @@ program:
 
 Working from my stunning graphic, we have the two sides, of length `a` and `b`,
 as well as a hypotenuse of size `c`. We really want to find `c` and not `c^2`,
-so let's rearrange the equation a little bit: `\sqrt{a^2 + b^2} = c`. If we
-flip the sides (`c = \sqrt{a^2 + b^2}`), we have something awfully similar to
+so let's rearrange the equation a little bit: `sqrt(a*a + b*b) = c`. If we
+flip the sides (`c = sqrt(a*a + b*b)`), we have something awfully similar to
 a variable assignment.
 
 Thinking back to our circumference example, our variables fall into two groups:
@@ -50,7 +50,7 @@ $ touch pyt.py
 $ vim pyt.py
 ```
 
-We now have a file (`pyt.py`) to work in and a way to edit it (Vim). So let's
+We now have a file, `pyt.py`, to work in and a way to edit it, Vim. So let's
 write our function:
 
 ```python
@@ -66,6 +66,8 @@ are essentially big collections of functions that you will probably need at
 some point. We need to ask Python to go get some of that code for us because
 `sqrt()` is there. To do that we only have to make a small addition to our
 program.
+
+## Importing
 
 ```python
 import math
@@ -134,4 +136,5 @@ Unfortunately, we need one more piece before our script is really useful. Right
 now it calculates the answer, but doesn't do anything with it. Next time, we
 are going to learn how to talk to Python and make it talk back.
 
+# Next
 [Input Output](7-io.html)

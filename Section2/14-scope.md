@@ -105,6 +105,8 @@ means the function is given the value of the variable, not the variable itself.
 That's why our `x` was made. It holds the value of `c` when the function starts.
 But when we change it, we aren't affecting `c` at all.
 
+## Returning a New Value
+
 To fix this, we have two options. The first is to `return` the new value, and
 update `c` to match. That would look like this, with the old version in comments
 above the changes:
@@ -191,6 +193,8 @@ the return value is substituted into its place. So we set `c == plus_one(c) ==
 11`. It is slightly confusing to set `c` to a value that includes it, but we
 have seen something like it before. `x = x + 1` first evaluates `x + 1`, and
 then stores that result back into `x`. This works the same way.
+
+## Using Pointers
 
 So our first option was to explicity set the value of `c` to the returned value.
 But we have another tool that can work here: pointers! Here's the pointer
@@ -310,4 +314,5 @@ This post has grown quite lengthy due to the pictures, but I haven't even made
 it to the heap yet! Next time, we will solve the problem of passing new data
 back up to `main`.
 
+# Next
 [Variable Scope 2](15-scope2.html)

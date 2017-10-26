@@ -110,6 +110,8 @@ the data there! And we are left with this:
 But there is nothing there. And so, C informs us that there has been a memory
 error.
 
+## Malloc
+
 The time has come to use the heap. We want `c` to be a valid pointer after the
 function returns. That means we need memory outside of the stack. To get it, we
 call `malloc()`, for **m**emory **alloc**ation.
@@ -213,4 +215,5 @@ will operate as expected. But if that changes for any reason, suddenly your
 program will stop working. C strings always end with a null byte! Don't forget
 it!
 
+# Next
 [Structs](16-structs.html)

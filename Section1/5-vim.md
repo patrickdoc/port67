@@ -132,4 +132,5 @@ very easy to tell what characters are above and below each other.
 We'll come back to Vim a couple times to give you some upgrades once you've
 earned them ;)
 
+# Next
 [Executing Python](6-executing-python.html)
