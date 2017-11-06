@@ -1,5 +1,8 @@
 ---
 title: Files
+section: Section1
+prev: 3-python.html
+next: 5-vim.html
 ...
 
 # Files
@@ -101,6 +104,3 @@ comes from "Vi Improved"). Vim is going to take a full lesson to get started
 with, so I'll end this here. In fact, one of the most Google'd questions about
 programming is, "how do I exit Vim?" So I'll wait until next time to suggest
 opening it.
-
-# Next
-[Vim](5-vim.html)

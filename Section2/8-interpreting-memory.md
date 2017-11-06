@@ -1,5 +1,8 @@
 ---
 title: Interpreting Memory
+section: Section2
+prev: 7-memory.html
+next: 9-c-types.html
 ...
 
 # Interpreting Memory
@@ -190,6 +193,3 @@ If you look closely, you can see that the type only ever actually overflows on
 `-1 + 1 = 0`. The transition from `127` to `-128` is merely a result of our
 rules of interpretation. 2's complement has exactly the characteristics that we
 want our type to have, so we stick with it.
-
-# Next
-[C Types](9-c-types.html)

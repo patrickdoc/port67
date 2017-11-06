@@ -1,5 +1,7 @@
 ---
 title: Interpreted vs. Compiled
+section: Section2
+next: 2-control-flow.html
 ...
 
 # Compiling
@@ -138,6 +140,3 @@ The design choice that Python made was to simply assume that you *always*
 want a newline at the end of the strings you print. Which is a reasonably fair
 assumption, but does hide things from us. C assumes nothing, which is both a
 blessing and a curse.
-
-# Next
-[Control Flow](2-control-flow.html)

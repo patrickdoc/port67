@@ -1,6 +1,5 @@
 ---
 title: Section 1
-toc:
 ...
 
 # Python and the Terminal

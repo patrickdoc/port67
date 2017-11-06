@@ -1,5 +1,7 @@
 ---
 title: A Reflection
+section: Section1
+prev: 9-control-flow.html
 ...
 
 # Reflecting on Python
@@ -123,5 +125,3 @@ While Python is nice, it is time to take off the training wheels and get our
 hands dirty with C. We need to learn all the bits that Python is hiding from
 us. Once we know those, we can come back to Python or any other language and
 make better design choices.
-
-[Fun](Fun/index.html)

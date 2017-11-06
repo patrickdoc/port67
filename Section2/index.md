@@ -1,6 +1,5 @@
 ---
 title: Section 2
-toc:
 ...
 
 # An Introduction to C

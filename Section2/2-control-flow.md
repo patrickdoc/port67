@@ -1,5 +1,8 @@
 ---
 title: Control Flow
+section: Section2
+prev: 1-interpreted-compiled.html
+next: 3-main-breakdown.html
 ...
 
 # Control Flow
@@ -124,6 +127,3 @@ if `x < 10`. If it is, then run the body of the loop followed by `x++`. If `x`
 is not less than 10, continue on past the loop. For now, it's best to see this
 as a better way of writing the `while` loops we have been writing that
 increment some variable before looping again.
-
-# Next
-[main Breakdown](3-main-breakdown.html)

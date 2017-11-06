@@ -1,5 +1,8 @@
 ---
 title: Variables
+section: Section2
+prev: 3-main-breakdown.html
+next: 5-functions.html
 ...
 
 # Variable Declarations
@@ -121,6 +124,3 @@ As a quick summary, we see that there was only 1 warning generated when reading
 our code. This number can sometimes be inflated when a single error causes a
 large number of warnings. Finding the root of your problems just takes
 practice.
-
-# Next
-[Functions](5-functions.html)

@@ -1,5 +1,7 @@
 ---
 title: C Program 4
+section: Section2
+prev: 20-c-program3.html
 ...
 
 # The Final Product
@@ -179,6 +181,3 @@ $ gcc -Wall robot.c
 $ ./a.out commands.txt
 You made it!
 ```
-
-# Next
-[A Reflection](reflection.html)

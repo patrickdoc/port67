@@ -1,5 +1,8 @@
 ---
 title: C Types
+section: Section2
+prev: 8-interpreting-memory.html
+next: 10-arrays.html
 ...
 
 # Types in C
@@ -246,6 +249,3 @@ casting is dangerous business. But, it is a tool that you will have to use and
 it is best that you have some idea of how it works. Programming is all about
 choosing the best tool for the job, so you need to know about everything you have
 access to.
-
-# Next
-[Arrays](10-arrays.html)

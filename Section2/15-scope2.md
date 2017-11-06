@@ -1,5 +1,8 @@
 ---
 title: The Heap
+section: Section2
+prev: 14-scope.html
+next: 16-structs.html
 ...
 
 # Scope 2: The Heap
@@ -214,6 +217,3 @@ It could be that the next byte in memory happens to be 0, in which case things
 will operate as expected. But if that changes for any reason, suddenly your
 program will stop working. C strings always end with a null byte! Don't forget
 it!
-
-# Next
-[Structs](16-structs.html)

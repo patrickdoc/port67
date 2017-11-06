@@ -1,5 +1,8 @@
 ---
 title: The Filesystem
+section: Section1
+prev: 1-terminal.html
+next: 3-python.html
 ...
 
 # The Filesystem
@@ -269,6 +272,3 @@ Once you are in a man page, you can move up and down with "j" and "k", and quit
 with "q". This actually opens a program called "less" (a joke on the earlier
 program "more"...). Also this style of movement will come up again, so keep it
 in mind.
-
-# Next
-[Python](3-python.html)

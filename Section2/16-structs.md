@@ -1,5 +1,8 @@
 ---
 title: Structs
+section: Section2
+prev: 15-scope2.html
+next: 17-io.html
 ...
 
 # Data Structures
@@ -239,6 +242,3 @@ and for the initials
     hs + 4
 
 Our `.` is just simple addition to find the field in memory.
-
-# Next
-[Input Output](17-io.html)

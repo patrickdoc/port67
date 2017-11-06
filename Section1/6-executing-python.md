@@ -1,5 +1,8 @@
 ---
 title: Executing Python
+section: Section1
+prev: 5-vim.html
+next: 7-io.html
 ...
 
 # Executing a Python File
@@ -135,6 +138,3 @@ We've successfully made Python find the hypotenuse of a triangle all by itself.
 Unfortunately, we need one more piece before our script is really useful. Right
 now it calculates the answer, but doesn't do anything with it. Next time, we
 are going to learn how to talk to Python and make it talk back.
-
-# Next
-[Input Output](7-io.html)

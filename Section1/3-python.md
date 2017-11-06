@@ -1,5 +1,8 @@
 ---
 title: Python
+section: Section1
+prev: 2-filesystem.html
+next: 4-files.html
 ...
 
 # Python
@@ -217,6 +220,3 @@ If we want to save our work, we are going to need to put it somewhere permanent
 and then tell Python where it is. Luckily, we have permanent storage called the
 filesystem! Next time, we are going to create a file and fill it with Python
 code.
-
-# Next
-[Files](4-files.html)

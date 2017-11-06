@@ -1,5 +1,7 @@
 ---
 title: The Terminal
+section: Section1
+next: 2-filesystem.html
 ...
 
 # The Terminal
@@ -73,6 +75,3 @@ Tue Jul 11 16:59:52 CDT 2017
 `date` is one of a large number of built-in commands that come standard on most
 computers. There is a nice bunch of commands to go through next, but we'll need
 to learn a bit about the filesystem first.
-
-# Next
-[The Filesystem](2-filesystem.html)

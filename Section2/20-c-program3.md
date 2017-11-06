@@ -1,5 +1,8 @@
 ---
 title: C Program 3
+section: Section2
+prev: 19-c-program2.html
+next: 21-c-program4.html
 ...
 
 # Accepting Commands
@@ -102,6 +105,3 @@ character, so make sure the string you compare it to also
 has the newline.
 
 We can now plug in our movement function(s).
-
-# Next
-[A C Program 4](21-c-program4.html)

@@ -1,6 +1,5 @@
 ---
 title: README
-toc:
 ...
 
 # README

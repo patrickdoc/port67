@@ -1,5 +1,8 @@
 ---
 title: Strings
+section: Section2
+prev: 10-arrays.html
+next: 12-pointers.html
 ...
 
 # Strings
@@ -116,6 +119,3 @@ yourself if you are holding up your end of the bargain. Do all of your strings
 end with `\0`? Does your string have a null byte earlier than it should?
 Sometimes the compiler knows where to put them to help you, but you should
 always think about your ending null bytes when working in C.
-
-# Next
-[Pointers](12-pointers.html)

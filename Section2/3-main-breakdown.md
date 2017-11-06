@@ -1,5 +1,8 @@
 ---
 title: main Breakdown
+section: Section2
+prev: 2-control-flow.html
+next: 4-variables.html
 ...
 
 # Main Breakdown
@@ -157,6 +160,3 @@ Argument 4: test
 
 You should try getting rid of that horrible grammar mistake `There are 1
 arguments`. All it takes is an `if` statement, which you know all about!
-
-# Next
-[Variables](4-variables.html)

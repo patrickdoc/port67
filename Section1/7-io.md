@@ -1,5 +1,8 @@
 ---
 title: Input and Output
+section: Section1
+prev: 6-executing-python.html
+next: 8-types.html
 ...
 
 # Input/Output
@@ -112,6 +115,3 @@ programs. But that's not our goal here (well, it is eventually, but not yet).
 Next up, we are going to be talking about "things" in programming languages. In
 particular, we are going to find out the difference between `a`, `'a'`,
 `[a]`, and more.
-
-# Next
-[Types](8-types.html)

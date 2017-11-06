@@ -10,18 +10,18 @@
 # Pandoc
 PANDOC=/usr/bin/pandoc
 PANDOC_OPTIONS=--smart
-PANDOC_HTML_OPTIONS=--to html5 --toc --template=template.html
+PANDOC_HTML_OPTIONS=--to html5 --template=template.html
 
 # Files
 SECTIONS = Section1 Section2
-SRC := $(foreach sec, $(SECTIONS), $(wildcard $(sec)/*.md) $(wildcard $(sec)/Fun/*.md)) $(wildcard *.md)
+SRC := $(foreach sec, $(SECTIONS), $(wildcard $(sec)/*.md) $(wildcard $(sec)/Fun/*.md))
 DST = $(SRC:%.md=docs/%.html)
 
 
-.PHONY: html clean show index readme contact
+.PHONY: html clean show
 
 html: $(DST) index readme contact
-	cp -r css docs/
+	cp -r static/* docs/
 
 index: Top/index.md template.html
 	@mkdir -p docs

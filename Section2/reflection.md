@@ -1,5 +1,6 @@
 ---
 title: A Reflection
+section: Section2
 ...
 
 # Reflection on C
@@ -50,7 +51,7 @@ buffer in the first line, and then print some of it out in the next. That's all
 there is to network programming.
 
 The real trick is then doing interesting things with that data and sending
-things back to whoever sent stuff to you. A great example of this is a chat
+replies back to whoever sent stuff to you. A great example of this is a chat
 server. A bunch of people log into the server and then send their messages to
 it. The server then accepts those messages and forwards them to the clients who
 print it out for the user to see. We are just shuffling data around between
@@ -60,8 +61,6 @@ Without this section, we would have needed to do a bit of work to understand
 even those two lines of code above. But the good news is that this information
 applies to basically any domain that you could write a program for. Now that we
 have this foundation, we can go on to talk about all sorts of fun things.
-
-(TCP/IP, physical networking, chat server, router, wifi, ports)
 
 ## Operating Systems
 
@@ -85,6 +84,3 @@ your computer and the new functionality that you can find on it.
 154???
 
 (installing packages, config files, bash, python, vimrc, bashrc)
-
-# Next
-[Fun](Fun/index.html)

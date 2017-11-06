@@ -1,11 +1,11 @@
 /* Structure */
-html, #main-flex {
+html, body {
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
-#main-flex {
+body {
     display: flex;
     display: -webkit-flex;
     flex-direction: column;
@@ -15,17 +15,13 @@ html, #main-flex {
     line-height: 142%;
 }
 
-header, footer {
-    background: #DDD;
-    flex: none;
-    -webkit-flex: none;
+header {
+    background: #24262b;
 }
 
-header, section, footer {
-    display: flex;
-    display: -webkit-flex;
-    justify-content: center;
-    -webkit-justify-content;
+header, footer {
+    flex: 0 0 auto;
+    -webkit-flex: 0 0 auto;
 }
 
 section {
@@ -34,39 +30,72 @@ section {
 }
 
 .center-col {
-    flex: 0 0 auto;
-    -webkit-flex: 0 0 auto;
-    width: 750px;
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 0 8px;
 }
 
-#head, #foot {
-    display: flex;
-    display: -webkit-flex;
-    justify-content: flex-end;
-    -webkit-justify-content: flex-end;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+.links {
+    list-style-type: none;
 }
 
-#head li, #foot li {
-    margin-left: 32px;
+.links li {
+    float: right;
+    padding-left: 32px;
 }
 
-#head li:first-child, #foot li:first-child {
-    margin-left: 0;
-    margin-right: auto;
+.links li:first-child {
+    float: left;
+    padding-left: 0;
 }
 
-#head a, #foot a {
+.links a, .links p {
     display: block;
-    padding: 14px 0;
-    text-decoration: none;
+    text-align: center;
+    margin: 0;
+    padding: 14px 0px;
 }
 
-.left, .right {
-    flex: 1;
-    -webkit-flex: 1;
+#return {
+    display: inline-block;
+    margin: 10px 0;
+}
+
+#small-back, #small-forward {
+    display: inline-block;
+    margin-bottom: 27px;
+}
+
+#small-forward {
+    float: right;
+}
+
+#big-back, #big-forward {
+    display: none;
+    position: fixed;
+    font-size: 150px;
+    top: 50%;
+    opacity: 0.2;
+}
+
+#big-forward {
+    right: 0;
+}
+
+@media all and (min-width: 1010px) {
+    #small-back, #small-forward {
+        display: none;
+    }
+
+    #big-back, #big-forward {
+        display: initial;
+    }
+}
+
+hr {
+    margin: 0 auto;
+    max-width: 750px;
+    border-style: solid none none none;
 }
 
 /* Styling */
@@ -92,24 +121,88 @@ footer {
     font-size: 80%;
 }
 
-#toc {
-    position: fixed;
-    width: 300px;
-    transform: translate(-300px);
+ol {
+    font-family: 'Inconsolata', monospace;
 }
 
-@media all and (max-width: 1060px) {
-    .left, .right {
-        min-width: 5px;
-    }
-
-    #toc {
-        display: none;
-    }
-
-    .center-col {
-        flex: 0 1 auto;
-        -webkit-flex: 0 1 auto;
-        min-width: 0;
-    }
+a {
+    text-decoration: none;
+    color: #6684e1;
+    font-family: Inconsolata;
+    font-weight: 700;
+    outline: 0;
 }
+
+a:hover {
+    text-decoration: underline;
+}
+
+header a {
+    color: white;
+}
+
+header a:hover {
+    color: #6684e1;
+    text-decoration: none;
+}
+
+#big-back:hover, #big-forward:hover {
+    text-decoration: none;
+    opacity: 1;
+}
+
+/* code */
+
+div.sourceCode { overflow-x: auto; }
+
+pre {
+    display: flex;
+    justify-content: center;
+    display: -webkit-flex;
+    -webkit-justify-content: center;
+}
+
+pre.sourceCode {
+    padding: 5px 10px;
+    justify-content: flex-start;
+    -webkit-justify-content: flex-start;
+}
+
+pre, code {
+    color: #535146;
+    background-color: #f1f1f1;
+    line-height: 103%;
+    overflow: auto;
+}
+
+pre code { padding: 0; white-space: pre; display: inline-block; }
+code { padding: 0 5px; white-space: nowrap; }
+code > span.kw { color: #70adae; } /* Keyword */
+code > span.dt { color: #6684e1; } /* DataType */
+code > span.dv { color: #e44031; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #e44031; } /* Float */
+code > span.ch { color: #8079a7; } /* Char */
+code > span.st { color: #9053d2; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #6684e1; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #b65465; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { color: #9053d2; } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #70adae; } /* ControlFlow */
+code > span.op { color: #be8c44; } /* Operator */
+code > span.bu { color: #6684e1; } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #e44031; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */

@@ -1,5 +1,8 @@
 ---
 title: Function Headers
+section: Section2
+prev: 4-variables.html
+next: 6-binary.html
 ...
 
 # Function Headers
@@ -109,6 +112,3 @@ float circumference(float radius) {
     return 2 * radius * 3.14159;
 }
 ```
-
-# Next
-[Binary](6-binary.html)

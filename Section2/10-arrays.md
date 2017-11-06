@@ -1,5 +1,8 @@
 ---
 title: Arrays
+section: Section2
+prev: 9-c-types.html
+next: 11-strings.html
 ...
 
 # Arrays
@@ -145,6 +148,3 @@ array, we start at the beginning and move over `0*sizeof(type)`, where `type` is
 the type of elements in the array. To get the last value in the array, we start
 at the beginning and move over `(length - 1)*sizeof(type)`, where `length` is
 the number of elements in the array.
-
-# Next
-[Strings](11-strings.html)

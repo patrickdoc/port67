@@ -1,5 +1,8 @@
 ---
 title: Control Flow
+section: Section1
+prev: 8-types.html
+next: 10-reflection.html
 ...
 
 # Control Flow
@@ -177,6 +180,3 @@ these kinds of problems is the difference between good code and bad code.
 Interestingly, it is also the difference between a good game and a bad game.
 These exercises will also force you to work through some of the most common bugs
 and tough spots in programs.
-
-# Next
-[A Reflection](10-reflection.html)

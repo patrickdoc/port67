@@ -1,6 +1,5 @@
 ---
 title: Contact
-toc:
 ...
 
 # Contact

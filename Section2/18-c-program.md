@@ -1,5 +1,8 @@
 ---
 title: C Program
+section: Section2
+prev: 17-io.html
+next: 19-c-program2.html
 ...
 
 # A Program in C
@@ -161,6 +164,3 @@ with 5 elements each.
 
 And that's all we need for now. We have a basic map and can query the various
 cells to see what is in them. Next time, we will add a robot.
-
-# Next
-[A C Program 2](19-c-program2.html)

@@ -1,5 +1,8 @@
 ---
 title: Types
+section: Section1
+prev: 7-io.html
+next: 9-control-flow.html
 ...
 
 # Types
@@ -112,6 +115,3 @@ TypeError: unsupported operand type(s) for +: 'int' and 'str'
 ```
 
 Notice that our error is easy to see without even running the code.
-
-# Next
-[Control Flow](9-control-flow.html)
