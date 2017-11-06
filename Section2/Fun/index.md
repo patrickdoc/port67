@@ -1,6 +1,6 @@
 ---
 title: C Fun
-..
+...
 
 # More Fun
 

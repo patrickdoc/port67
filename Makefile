@@ -20,8 +20,11 @@ DST = $(SRC:%.md=docs/%.html)
 
 .PHONY: html clean show
 
-html: $(DST) index readme contact
+html: $(DST) static/css/site.mini.css index readme contact
 	cp -r static/* docs/
+
+static/css/site.mini.css: static/css/site.css
+	hasmin -t static/css/site.css > static/css/site.mini.css
 
 index: Top/index.md template.html
 	@mkdir -p docs
