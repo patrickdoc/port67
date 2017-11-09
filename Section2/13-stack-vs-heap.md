@@ -3,6 +3,7 @@ title: Stack vs. Heap
 section: Section2
 prev: 12-pointers.html
 next: 14-scope.html
+description: Learn about the stack and the heap
 ...
 
 # Stack vs. Heap

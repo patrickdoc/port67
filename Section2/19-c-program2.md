@@ -3,6 +3,7 @@ title: C Program 2
 section: Section2
 prev: 18-c-program.html
 next: 20-c-program3.html
+description: Create a structure to hold our robot
 ...
 
 # Adding a Robot

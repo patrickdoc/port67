@@ -2,6 +2,7 @@
 title: Interpreted vs. Compiled
 section: Section2
 next: 2-control-flow.html
+description: Learn about compiling C
 ...
 
 # Compiling

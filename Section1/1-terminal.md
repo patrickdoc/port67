@@ -2,6 +2,7 @@
 title: The Terminal
 section: Section1
 next: 2-filesystem.html
+description: Learn about the terminal
 ...
 
 # The Terminal

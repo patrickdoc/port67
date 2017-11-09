@@ -125,6 +125,12 @@ ol {
     font-family: 'Inconsolata', monospace;
 }
 
+ol dd {
+    font-size: 19px;
+    margin-left: 20px;
+}
+
+
 a {
     text-decoration: none;
     color: #6684e1;

@@ -3,6 +3,7 @@ title: C Program
 section: Section2
 prev: 17-io.html
 next: 19-c-program2.html
+description: Design a robot game in C
 ...
 
 # A Program in C

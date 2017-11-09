@@ -3,6 +3,7 @@ title: Files
 section: Section1
 prev: 3-python.html
 next: 5-vim.html
+description: Learn about files
 ...
 
 # Files

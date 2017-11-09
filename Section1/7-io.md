@@ -3,6 +3,7 @@ title: Input and Output
 section: Section1
 prev: 6-executing-python.html
 next: 8-types.html
+description: Communicate with your program
 ...
 
 # Input/Output

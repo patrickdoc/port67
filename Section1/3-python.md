@@ -3,6 +3,7 @@ title: Python
 section: Section1
 prev: 2-filesystem.html
 next: 4-files.html
+description: Learn about Python
 ...
 
 # Python

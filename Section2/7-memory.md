@@ -3,6 +3,7 @@ title: Memory
 section: Section2
 prev: 6-binary.html
 next: 8-interpreting-memory.html
+description: Learn how the computer stores data
 ...
 
 # Memory

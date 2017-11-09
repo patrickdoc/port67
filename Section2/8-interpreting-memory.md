@@ -3,6 +3,7 @@ title: Interpreting Memory
 section: Section2
 prev: 7-memory.html
 next: 9-c-types.html
+description: Learn about signed vs. unsigned integers and 2's complement
 ...
 
 # Interpreting Memory

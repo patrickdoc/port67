@@ -3,6 +3,7 @@ title: The Filesystem
 section: Section1
 prev: 1-terminal.html
 next: 3-python.html
+description: Learn about the filesystem
 ...
 
 # The Filesystem

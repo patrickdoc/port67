@@ -3,6 +3,7 @@ title: C Program 3
 section: Section2
 prev: 19-c-program2.html
 next: 21-c-program4.html
+description: Read and react to commands
 ...
 
 # Accepting Commands

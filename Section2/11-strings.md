@@ -3,6 +3,7 @@ title: Strings
 section: Section2
 prev: 10-arrays.html
 next: 12-pointers.html
+description: Learn about strings
 ...
 
 # Strings

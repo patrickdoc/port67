@@ -3,6 +3,7 @@ title: The Heap
 section: Section2
 prev: 14-scope.html
 next: 16-structs.html
+description: Use the heap
 ...
 
 # Scope 2: The Heap

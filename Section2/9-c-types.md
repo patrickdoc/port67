@@ -3,6 +3,7 @@ title: C Types
 section: Section2
 prev: 8-interpreting-memory.html
 next: 10-arrays.html
+description: Learn about the basic types in C
 ...
 
 # Types in C

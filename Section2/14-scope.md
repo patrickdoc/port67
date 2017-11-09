@@ -3,6 +3,7 @@ title: Scope
 section: Section2
 prev: 13-stack-vs-heap.html
 next: 15-scope2.html
+description: Use the stack
 ...
 
 # Scope

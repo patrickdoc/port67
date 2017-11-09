@@ -2,6 +2,7 @@
 title: C Program 4
 section: Section2
 prev: 20-c-program3.html
+description: Assemble the parts for our program
 ...
 
 # The Final Product

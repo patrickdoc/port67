@@ -3,6 +3,7 @@ title: Executing Python
 section: Section1
 prev: 5-vim.html
 next: 7-io.html
+description: Save Python code into a file for future use
 ...
 
 # Executing a Python File

@@ -1,6 +1,7 @@
 ---
 title: A Reflection
 section: Section2
+description: Decide where to go next
 ...
 
 # Reflection on C

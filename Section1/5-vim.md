@@ -3,6 +3,7 @@ title: Vim
 section: Section1
 prev: 4-files.html
 next: 6-executing-python.html
+description: Edit files with Vim
 ...
 
 # Vim

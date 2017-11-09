@@ -3,6 +3,7 @@ title: Variables
 section: Section2
 prev: 3-main-breakdown.html
 next: 5-functions.html
+description: Learn about variables in C
 ...
 
 # Variable Declarations

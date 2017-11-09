@@ -3,6 +3,7 @@ title: Binary
 section: Section2
 prev: 5-functions.html
 next: 7-memory.html
+description: Learn about the binary system
 ...
 
 # Why Types?

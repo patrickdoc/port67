@@ -1,5 +1,6 @@
 ---
 title: Contact
+description: Reach out to me for help or to comment on the site.
 ...
 
 # Contact

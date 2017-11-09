@@ -1,5 +1,6 @@
 ---
 title: Home
+description: Learn enough computer science to teach yourself anything.
 ...
 
 # Modern Computer Wizardry

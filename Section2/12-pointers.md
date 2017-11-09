@@ -3,6 +3,7 @@ title: Pointers
 section: Section2
 prev: 11-strings.html
 next: 13-stack-vs-heap.html
+description: Learn about pointers
 ...
 
 # Pointers
@@ -24,7 +25,7 @@ us process the arguments on the command line. If we compiled a program into a
 file called `a.out`, and ran it like so:
 
 ```bash
-$ ./a.out a b arg
+$ ./a.out a b c
 ```
 
 `main` would be able to check the values of `argc` and `argv` to see that there
@@ -37,12 +38,12 @@ values of a type in arrays, so it might be our inclination to imagine `argv` as
 an array of strings. Ignoring the first element of the array for the sake of
 brevity, let's look at this hypothetical.
 
-                                       argv
-    +========+========+========+========+========+========+========+========+
-    |   'a'  |  '\0'  |   'b'  |  '\0'  |   'a'  |   'r'  |   'g'  |  '\0'  |
-    +========+========+========+========+========+========+========+========+
+                             argv
+    +========+========+========+========+========+========+
+    |   'a'  |  '\0'  |   'b'  |  '\0'  |   'c'  |  '\0'  |
+    +========+========+========+========+========+========+
 
-Remember that each `char` takes up exactly one byte. So our variable `argv` is 8
+Remember that each `char` takes up exactly one byte. So our variable `argv` is 6
 bytes. As `argv` is an array, it would be ideal if we could get the first
 argument with `argv[0]` and the second with `argv[1]` and so on. However, how
 would that work? As we talked about last time, strings can be any length! There
@@ -53,11 +54,11 @@ be. I could just have easily passed:
 $ ./a.out aa bb arg3
 ```
 
-And `argv` would have needed 11 bytes. So there is no way for our index trick to
-work. If we had `argv[1]` and wanted to move over 1 "string" length, we could
-not find the first string without just looking for the first `\0` byte in the
-array. So this solution won't work if we want a reasonable way to access the
-different arguements.
+And `argv` would have needed 11 bytes (still ignoring the `./a.out`). So there
+is no way for our index trick to work. If we had `argv[1]` and wanted to move
+over 1 "string" length, we could not find the first string without just looking
+for the first `\0` byte in the array. So this solution won't work if we want a
+reasonable way to access the different arguements.
 
 ## Using Memory
 
@@ -67,6 +68,8 @@ wiggle room depending on the type. But with strings, there could really be any
 number of characters. `char`'s fit nicely into a single byte. `int`'s at 2 or 4
 bytes cover most use cases. But strings can easily be a single word or an entire
 book, so we need a different way to store them.
+
+Let's work with the arguments `a`, `b`, and `arg`.
 
 The good news is that we don't need to be overly concerned with how well we are
 utilizing the space we have. Remember that we have **billions** of bytes to work

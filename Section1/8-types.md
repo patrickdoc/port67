@@ -3,6 +3,7 @@ title: Types
 section: Section1
 prev: 7-io.html
 next: 9-control-flow.html
+description: Learn why you can't add an int and a string
 ...
 
 # Types

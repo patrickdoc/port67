@@ -3,6 +3,7 @@ title: Control Flow
 section: Section2
 prev: 1-interpreted-compiled.html
 next: 3-main-breakdown.html
+description: Learn about conditional statements in C
 ...
 
 # Control Flow

@@ -3,6 +3,7 @@ title: Function Headers
 section: Section2
 prev: 4-variables.html
 next: 6-binary.html
+description: Learn about functions in C
 ...
 
 # Function Headers

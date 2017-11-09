@@ -3,6 +3,7 @@ title: main Breakdown
 section: Section2
 prev: 2-control-flow.html
 next: 4-variables.html
+description: Learn about the main function in C
 ...
 
 # Main Breakdown

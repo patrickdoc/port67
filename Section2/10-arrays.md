@@ -3,6 +3,7 @@ title: Arrays
 section: Section2
 prev: 9-c-types.html
 next: 11-strings.html
+description: Learn about arrays
 ...
 
 # Arrays

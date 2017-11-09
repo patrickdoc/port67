@@ -3,6 +3,7 @@ title: Structs
 section: Section2
 prev: 15-scope2.html
 next: 17-io.html
+description: Learn about data structures in C
 ...
 
 # Data Structures

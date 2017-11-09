@@ -2,6 +2,7 @@
 title: A Reflection
 section: Section1
 prev: 9-control-flow.html
+description: Learn about the differences between Python and C
 ...
 
 # Reflecting on Python
