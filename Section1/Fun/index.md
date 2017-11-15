@@ -23,15 +23,15 @@ programs work just by testing them. Testing is actually a fairly important part
 of real code development, so it's good to get practice now.
 
 ## Follow along
-[FizzBuzz](fizzbuzz.md)
-[Fibonacci](fibo.md)
+[FizzBuzz](fizzbuzz.html)
+[Fibonacci](fibo.html)
 
 ## Plain reading
-[FizzBuzz](fizzbuzz_read.md)
-[Fibonacci](fibo_read.md)
+[FizzBuzz](fizzbuzz_read.html)
+[Fibonacci](fibo_read.html)
 
 ## Fill in the Blanks
-[FizzBuzz](fizzbuzz_fill-in.md)
-[Fibonacci](fibo_fill-in.md)
+[FizzBuzz](fizzbuzz_fill-in.html)
+[Fibonacci](fibo_fill-in.html)
 
 ## Various improvements to your life
