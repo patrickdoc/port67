@@ -23,7 +23,7 @@ language; there are 100 different ways to write. With language, you can write
 novels, research papers, poetry, texts, tweets, songs, etc., all of which
 require different skills and do different things. Some programs are large,
 business oriented monsters, while others are short and do specific little
-things. You can create games for phones or control the boosters space on
+things. You can create games for phones or control the boosters on space
 shuttles.  You can generate images by manually changing each pixel or you can
 teach a machine how to 3d print an object. Even the smallest programs that find
 the area of a square or tally up a receipt are useful. Everyone can make
