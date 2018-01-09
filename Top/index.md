@@ -3,7 +3,7 @@ title: Home
 description: Learn enough computer science to teach yourself anything.
 ...
 
-# Modern Computer Wizardry
+# The Way Computers Work
 
 If this is your first time here, I would recommend you start with the
 [README](README.html). Otherwise, you can use these links to make your way
