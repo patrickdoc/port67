@@ -160,7 +160,7 @@ pre {
     -webkit-justify-content: center;
 }
 
-pre.sourceCode {
+pre.sourceCode, pre.none {
     padding: 5px 10px;
     justify-content: flex-start;
     -webkit-justify-content: flex-start;
