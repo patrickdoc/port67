@@ -4,17 +4,19 @@ site:
 slick:
 		cabal install
 
-deploy:
+serve:
 		serve docs
 
 clean:
 		rm -rf docs
 		rm -rf .shake
 
-publish: slick clean | site
+full: slick clean | site
 		git checkout docs/CNAME
+
+publish: full
 		git add docs
-		git commit -m "Publishing"
+		git commit -m "Publishing posts"
 		git push
 
-.PHONY: slick site deploy publish
+.PHONY: slick site serve publish

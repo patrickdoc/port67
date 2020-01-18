@@ -1,12 +1,3 @@
-pre {
-    background-color: #F5FCFF;
-}
-
-code {
-    background-color: #F5FCFF;
-    color: #268BD2;
-}
-
 /* KeyWordTok */
 .sourceCode .kw { color: #600095; }
 /* DataTypeTok */
@@ -30,3 +21,40 @@ code {
 .sourceCode .re { }
 /* ErrorTok */
 .sourceCode .er { color: #E6DB74; font-weight: bold; }
+
+
+table.sourceCode { 100%; background-color: #f1f1f1; color: #cccccc; }
+pre, code { color: #535146; background-color: #f1f1f1; }
+code > span.kw { color: #70adae; } /* Keyword */
+code > span.dt { color: #6684e1; } /* DataType */
+code > span.dv { color: #e44031; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #e44031; } /* Float */
+code > span.ch { color: #8079a7; } /* Char */
+code > span.st { color: #9053d2; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #6684e1; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #b65465; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { color: #9053d2; } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #70adae; } /* ControlFlow */
+code > span.op { color: #be8c44; } /* Operator */
+code > span.bu { color: #6684e1; } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #e44031; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+
+.note, .note > code {
+    background-color: #99e59e;
+}
