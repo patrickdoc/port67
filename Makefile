@@ -9,10 +9,10 @@ deploy:
 
 clean:
 		rm -rf docs
+		rm -rf .shake
 
 publish: slick clean | site
 		git checkout docs/CNAME
 		git add docs
-		git commit -m "Publishing"
 
 .PHONY: slick site deploy publish
