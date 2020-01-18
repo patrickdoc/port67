@@ -14,5 +14,7 @@ clean:
 publish: slick clean | site
 		git checkout docs/CNAME
 		git add docs
+		git commit -m "Publishing"
+		git push
 
 .PHONY: slick site deploy publish
