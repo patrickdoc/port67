@@ -1,8 +1,4 @@
-docs
-*a.out
-*.py
-*.c
-*.s
-*.sh
-*turtle-*
-site.mini.css
+.stack-work/
+*~
+.shake
+dist-newstyle
