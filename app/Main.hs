@@ -1,7 +1,7 @@
-{-# LANGUAGE NamedFieldPuns        #-}
-{-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE DeriveAnyClass #-}
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE NamedFieldPuns     #-}
+{-# LANGUAGE DeriveGeneric      #-}
+{-# LANGUAGE DeriveAnyClass     #-}
+{-# LANGUAGE OverloadedStrings  #-}
 
 module Main where
 
@@ -31,12 +31,13 @@ siteMeta =
     SiteMeta { siteAuthor = "Patrick Dougherty"
              , baseUrl = "https://port67.org"
              , siteTitle = "Port67"
-             , twitterHandle = Nothing
-             , githubUser = Nothing
              }
 
 outputFolder :: FilePath
-outputFolder = "docs/"
+outputFolder = "docs"
+
+inputFolder :: FilePath
+inputFolder = "site"
 
 --Data models-------------------------------------------------------------------
 
@@ -48,10 +49,8 @@ withSiteMeta _ = error "only add site meta to objects"
 
 data SiteMeta =
     SiteMeta { siteAuthor    :: String
-             , baseUrl       :: String -- e.g. https://example.ca
+             , baseUrl       :: String
              , siteTitle     :: String
-             , twitterHandle :: Maybe String -- Without @
-             , githubUser    :: Maybe String
              }
     deriving (Generic, Eq, Ord, Show, ToJSON)
 
@@ -63,26 +62,39 @@ data IndexInfo =
 
 -- | Data for a blog post
 data Post =
-    Post { title   :: String
-         , content :: String
-         , url     :: String
-         , image   :: Maybe String
+    Post { title    :: String
+         , content  :: String
+         , url      :: String
          }
     deriving (Generic, Eq, Ord, Show, FromJSON, ToJSON, Binary)
 
--- | given a list of posts this will build a table of contents
-buildIndex :: [Post] -> Action ()
-buildIndex posts' = do
+-- | Build indicies first to get structure information
+buildIndices :: FilePath -> Action IndexInfo
+buildIndices root = do
+  -- Index content?
+  postContent <- readFile' (inputFolder </> root </> "index.md")
+
+  -- Same level posts
+  pPaths <- getDirectoryFiles "." [inputFolder </> root </> "*.md"]
+  let ps = filter (not . (?==) "**/index.md") pPaths
+  posts' <- forP ps buildPost
+
+  -- Lower indicies
+  iPaths <- getDirectoryFiles (inputFolder </> root) ["*/index.md"]
+  subIndicies <- mapM (\x -> buildIndices (root </> takeDirectory1 x)) iPaths
+
+  -- Create this index
   indexT <- compileTemplate' "site/templates/index.html"
-  let indexInfo = IndexInfo {posts = posts'}
+  let indexInfo = IndexInfo {posts = posts' ++ concatMap posts subIndicies}
       indexHTML = T.unpack $ substitute indexT (withSiteMeta $ toJSON indexInfo)
-  writeFile' (outputFolder </> "index.html") indexHTML
+  writeFile' (outputFolder </> root </> "index.html") indexHTML
+  return indexInfo
 
 -- | Find and build all posts
 buildPosts :: Action [Post]
 buildPosts = do
   pPaths <- getDirectoryFiles "." ["site/posts//*.md"]
-  forP pPaths buildPost
+  forP (filter (not . (?==) "**/index.md") pPaths) buildPost
 
 -- | Opening hooks for custom readers and writers
 mdToHTMLWithRdrWrtr
@@ -128,8 +140,8 @@ copyStaticFiles = do
 --   defines workflow to build the website
 buildRules :: Action ()
 buildRules = do
-  allPosts <- buildPosts
-  buildIndex allPosts
+  indices <- buildIndices "posts"
+  --buildPosts
   copyStaticFiles
 
 main :: IO ()
