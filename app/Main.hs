@@ -47,6 +47,9 @@ withSiteMeta (Object obj) = Object $ HML.union obj siteMetaObj
     Object siteMetaObj = toJSON siteMeta
 withSiteMeta _ = error "only add site meta to objects"
 
+mergeVals :: Value -> Value -> Value
+mergeVals (Object x) (Object y) = Object $ HML.union x y
+
 data SiteMeta =
     SiteMeta { siteAuthor    :: String
              , baseUrl       :: String
@@ -57,7 +60,8 @@ data SiteMeta =
 -- | Data for the index page
 data IndexInfo =
   IndexInfo
-    { posts :: [Post]
+    { heading :: String
+    , posts   :: [Post]
     } deriving (Generic, Show, FromJSON, ToJSON)
 
 -- | Data for a blog post
@@ -71,8 +75,10 @@ data Post =
 -- | Build indicies first to get structure information
 buildIndices :: FilePath -> Action IndexInfo
 buildIndices root = do
+  liftIO . putStrLn $ "Rebuilding post: " <> root <> "/index.md"
   -- Index content?
   postContent <- readFile' (inputFolder </> root </> "index.md")
+  postData <- mdToPort67 . T.pack $ postContent
 
   -- Same level posts
   pPaths <- getDirectoryFiles "." [inputFolder </> root </> "*.md"]
@@ -85,8 +91,9 @@ buildIndices root = do
 
   -- Create this index
   indexT <- compileTemplate' "site/templates/index.html"
-  let indexInfo = IndexInfo {posts = posts' ++ concatMap posts subIndicies}
-      indexHTML = T.unpack $ substitute indexT (withSiteMeta $ toJSON indexInfo)
+  let displayedPosts = posts' ++ concatMap posts subIndicies
+      indexInfo = IndexInfo { heading = "", posts = displayedPosts }
+      indexHTML = T.unpack $ substitute indexT (withSiteMeta $ mergeVals (toJSON postData) (toJSON indexInfo))
   writeFile' (outputFolder </> root </> "index.html") indexHTML
   return indexInfo
 
@@ -95,23 +102,6 @@ buildPosts :: Action [Post]
 buildPosts = do
   pPaths <- getDirectoryFiles "." ["site/posts//*.md"]
   forP (filter (not . (?==) "**/index.md") pPaths) buildPost
-
--- | Opening hooks for custom readers and writers
-mdToHTMLWithRdrWrtr
-    :: (ReaderOptions -> PandocReader T.Text)
-    -> (WriterOptions -> PandocWriter)
-    -> T.Text
-    -> Action Value
-mdToHTMLWithRdrWrtr rdr wrtr txt =
-  loadUsing
-    (rdr defaultMarkdownOptions)
-    (wrtr defaultHtml5Options)
-    txt
-
--- | Custom Markdown to HTML converter
-mdToPort67 :: T.Text -> Action Value
-mdToPort67 =
-  mdToHTMLWithRdrWrtr port67Reader port67Writer
 
 -- | Load a post, process metadata, write it to output, then return the post object
 -- Detects changes to either post content or template
@@ -143,6 +133,23 @@ buildRules = do
   indices <- buildIndices "posts"
   --buildPosts
   copyStaticFiles
+
+-- | Opening hooks for custom readers and writers
+mdToHTMLWithRdrWrtr
+    :: (ReaderOptions -> PandocReader T.Text)
+    -> (WriterOptions -> PandocWriter)
+    -> T.Text
+    -> Action Value
+mdToHTMLWithRdrWrtr rdr wrtr txt =
+  loadUsing
+    (rdr defaultMarkdownOptions)
+    (wrtr defaultHtml5Options)
+    txt
+
+-- | Custom Markdown to HTML converter
+mdToPort67 :: T.Text -> Action Value
+mdToPort67 =
+  mdToHTMLWithRdrWrtr port67Reader port67Writer
 
 main :: IO ()
 main = do
