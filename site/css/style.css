@@ -17,23 +17,12 @@ html {
 
 /* Variables */
 html {
-  font-family: georgia, serif;
-  color: #333;
-  background: #FFFFFC;
-  background: -webkit-linear-gradient(top, #EEE 0%, #FFF 10%, #FFF 90%, #EEE 100%);
-  background: linear-gradient(to bottom, #EEE 0%, #FFF 10%, #FFF 90%, #EEE 100%);
+  font-family: 'Lora', serif;
+  color: #252525;
+  background: #FFFFFD;
   background-attachment: fixed;
   height: 100%;
-  width: 100%;
-  z-index: -10; }
-  html.dark {
-    background: #333;
-    background: -webkit-linear-gradient(top, #2a2a2a 0%, #333 10%, #333 90%, #2a2a2a 100%);
-    background: linear-gradient(to bottom, #2a2a2a 0%, #333 10%, #333 90%, #2a2a2a 100%);
-    background-attachment: fixed;
-    width: 100%;
-    height: 100%;
-    color: #DDD; }
+  width: 100%; }
 
 body {
   display: -webkit-box;
@@ -82,10 +71,10 @@ blockquote {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center; }
-  blockquote > p {
-    padding-left: 7px;
-    border-left: 5px solid rgba(76, 76, 76, 0.9);
-    margin: auto; }
+blockquote > p {
+  padding-left: 7px;
+  border-left: 5px solid rgba(76, 76, 76, 0.9);
+  margin: auto; }
 
 ul, ol {
   list-style-position: inside;
@@ -109,9 +98,9 @@ a, a:visited, a:hover {
   text-decoration: none;
   -webkit-transition: color 0.1s;
           transition: color 0.1s; }
-  a:hover, a:visited:hover, a:hover:hover {
-    color: #EB0978;
-    text-decoration: underline; }
+a:hover, a:visited:hover, a:hover:hover {
+  color: #EB0978;
+  text-decoration: underline; }
 
 header {
   position: fixed;
@@ -127,6 +116,10 @@ footer {
   color: #888;
   text-align: center;
   clear: both; }
+
+.interSentenceSpace {
+  display: inline-block;
+  width: 0.5em; }
 
 .photo {
   border-radius: 25px;
@@ -250,11 +243,11 @@ a.tag, a.category {
   /*min-height: 100%;*/
   padding: 0px 20px;
   margin: 3em auto;
-  -webkit-transition: color 2s;
-          transition: color 2s;
-  font-size: 1.1em; }
+  -webkit-transition: color 0s;
+          transition: color 0s;
+  font-size: 1.2em; }
   .post p {
-    line-height: 1.6em;
+    line-height: 1.5;
     letter-spacing: 0.02em;
     margin: 0.5em 0 0 0;
     -webkit-hyphens: auto;
@@ -265,8 +258,9 @@ a.tag, a.category {
   .post p + p {
     margin-top: 1em; }
   .post > p:first-of-type:first-letter {
-    font-size: 8em;
-    line-height: 0.1em;
+    float: left;
+    font-size: 4em;
+    line-height: 1em;
     padding-right: 0.06em; }
   .post ul {
     list-style-type: disc;
@@ -373,33 +367,9 @@ a.tag, a.category {
       color: #C00762;
       border-color: #C00762; }
 
-.social-buttons {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-flow: row nowrap;
-      -ms-flex-flow: row nowrap;
-          flex-flow: row nowrap;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  margin: 1em 0; }
-  .social-buttons > div {
-    /*margin: 0 1em;*/ }
-  .social-buttons .twitter-share-button {
-    max-width: 90px;
-    margin-right: 5px; }
-
 .center {
   text-align: center;
   margin: auto; }
-
-.monochrome {
-  color: #333; }
-  .dark .monochrome {
-    color: #DDD; }
 
 .gem-info {
   display: -webkit-box;
@@ -448,21 +418,6 @@ a.tag, a.category {
 
 #page {
   margin: 4em 0; }
-
-#theme-button {
-  text-transform: uppercase;
-  font-family: "Quicksand", helvetica, sans-serif;
-  font-size: 1.5em;
-  font-weight: bold;
-  text-align: right;
-  cursor: pointer;
-  -webkit-transition: opacity 0.5s, color 2s;
-          transition: opacity 0.5s, color 2s;
-  opacity: 0.6; }
-  #theme-button:hover {
-    opacity: 1; }
-  .dark #theme-button {
-    color: #DDD; }
 
 #beacon {
   font-family: "Oswald", helvetica, sans-serif;
@@ -513,12 +468,6 @@ a.tag, a.category {
     font-size: 2em;
     margin: 0; }
 
-  #theme-button {
-    color: #FFFFFC;
-    font-size: 1.5em;
-    top: 0.5em;
-    right: 0.2em;
-    opacity: 0.5; } }
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   /* Styles */
   h2 {
