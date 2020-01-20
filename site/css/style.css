@@ -1,0 +1,249 @@
+html, body, div, span, object, h1, h2, h3, h4, h5, h6, p, a, abbr, acronym, em, img, ol, ul, li {
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline; }
+
+html {
+  font-family: 'Lora', serif;
+  color: #252525;
+  background: #FFFFFD; }
+
+h2 {
+  font-family: inherit;
+  font-size: 1.25em;
+  font-variant: small-caps;
+  text-align: center; }
+
+h3 {
+  font-size: 1.4em;
+  text-align: center; }
+
+blockquote {
+  text-align: center;
+  font-size: 1.1em;
+  font-style: italic; }
+
+ul, ol {
+  list-style-position: inside; }
+
+em {
+  font-weight: bold;
+  font-style: italic; }
+
+a, a:visited, a:hover {
+  color: #EB005B;
+  text-decoration: none;
+  -webkit-transition: color 0.1s;
+          transition: color 0.1s; }
+a:hover, a:visited:hover, a:hover:hover {
+  color: #EB0978;
+  text-decoration: underline; }
+
+footer {
+  font-size: 0.8em;
+  color: #888;
+  text-align: center; }
+
+.title {
+  font-family: "Quicksand", helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 3em;
+  text-transform: capitalize; }
+
+.byline {
+  font-family: helvetica, sans-serif;
+  font-style: italic;
+  font-weight: 100;
+  font-size: 1em; }
+
+.masthead {
+  text-align: center; }
+
+.date {
+  color: rgba(128, 128, 128, 0.5);
+  font-size: 0.9em;
+  font-style: italic;
+  line-height: 2em;
+  font-family: helvetica, sans-serif; }
+
+.categories, .tags {
+  color: rgba(128, 128, 128, 0.5);
+  font-size: 0.9em;
+  font-style: italic;
+  line-height: 2em;
+  font-family: helvetica, sans-serif; }
+
+a.tag, a.category {
+  color: #333;
+  border: 1px solid rgba(76, 76, 76, 0.9);
+  -webkit-transition: 0.3s;
+          transition: 0.3s; }
+a.tag:hover, a.category:hover {
+  background: #333;
+  color: #FFFFFC;
+  text-decoration: none; }
+
+.post {
+  -webkit-transition: color 0s;
+          transition: color 0s;
+  font-size: 1.2em; }
+  .post p {
+    line-height: 1.5;
+    letter-spacing: 0.02em; }
+  .post > p:first-of-type:first-letter {
+    font-size: 4em;
+    line-height: 1em; }
+  .post ul {
+    list-style-type: disc;
+    text-indent: -1em; }
+    .post ul li {
+      line-height: 1.3em;
+      letter-spacing: 0.05em; }
+
+.table-of-contents h1 {
+  font-size: 3em;
+  text-align: center;
+  font-family: "Quicksand", helvetica, sans-serif; }
+.table-of-contents ul {
+  list-style: none; }
+.table-of-contents li a {
+  color: #333;
+  font-weight: normal;
+  border-top: 1px solid #444;
+  -webkit-transition: color 0.7s, background 0.7s, padding 0.5s;
+          transition: color 0.7s, background 0.7s, padding 0.5s; }
+  .table-of-contents li a .date {
+    color: rgba(128, 128, 128, 0.8); }
+  .table-of-contents li a:hover {
+    background: #333;
+    color: #FFFFFC;
+    text-decoration: none; }
+
+.arrow {
+  font-size: 1.5em;
+  background: #DDD;
+  text-align: center;
+  border-radius: 0.75em;
+  opacity: 0.7;
+  -webkit-transition: background 0.5s, opacity 0.5s, width 0.5s;
+          transition: background 0.5s, opacity 0.5s, width 0.5s;
+  cursor: pointer; }
+  .arrow:hover {
+    color: #EB005B;
+    border: 1px solid #EB005B;
+    opacity: 0.9;
+    background: #FFFFFC;
+    -webkit-transition: background 0.5s, opacity 0.5s, width 0.5s;
+            transition: background 0.5s, opacity 0.5s, width 0.5s;
+    text-decoration: none; }
+
+.center {
+  text-align: center;
+  margin: auto; }
+
+#beacon {
+  font-family: "Oswald", helvetica, sans-serif;
+  font-size: 4em;
+  text-align: center;
+  border-radius: 0.1em;
+  opacity: 0.4;
+  -webkit-transition: opacity 0.5s;
+          transition: opacity 0.5s;
+  color: inherit; }
+  #beacon path {
+    fill: currentColor; }
+  #beacon:hover {
+    opacity: 1;
+    text-decoration: none; }
+
+#home-text {
+  font-size: 0.8em;
+}
+
+#leftarrow {
+  text-decoration: none; }
+
+#rightarrow {
+  text-decoration: none; }
+
+@media only screen and (max-width: 750px) {
+  header {
+    background: rgba(76, 76, 76, 0.9); }
+
+  #beacon {
+    font-size: 2em; } }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  /* Styles */
+  h2 {
+    border-top: 3px solid #777; }
+
+  .page p {
+    font-size: 1em;
+    line-height: 1.8em; }
+
+  .page > p:first-of-type:first-letter {
+    font-size: 4em;
+    line-height: 0.1em; } }
+
+/* KeyWordTok */
+.sourceCode .kw { color: #600095; }
+/* DataTypeTok */
+.sourceCode .dt { color: #268BD2; }
+/* DecValTok (decimal value), BaseNTok, FloatTok */
+.sourceCode .dv, .sourceCode .bn, .sourceCode .fl { color: #AE81FF; }
+/* CharTok */
+.sourceCode .ch { color: #37ad2d; }
+/* StringTok */
+.sourceCode .st { color: #37ad2d; }
+/* CommentTok */
+.sourceCode .co { color: #7E8E91; }
+/* OtherTok */
+.sourceCode .ot { color: #EB005B; }
+/* AlertTok */
+.sourceCode .al { color: #A6E22E; font-weight: bold; }
+/* FunctionTok */
+.sourceCode .fu { color: #333; }
+/* RegionMarkerTok */
+.sourceCode .re { }
+/* ErrorTok */
+.sourceCode .er { color: #E6DB74; font-weight: bold; }
+
+
+table.sourceCode { 100%; background-color: #f1f1f1; color: #cccccc; }
+pre, code { color: #535146; background-color: #f1f1f1; }
+code > span.kw { color: #70adae; } /* Keyword */
+code > span.dt { color: #6684e1; } /* DataType */
+code > span.dv { color: #e44031; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #e44031; } /* Float */
+code > span.ch { color: #8079a7; } /* Char */
+code > span.st { color: #9053d2; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #6684e1; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #b65465; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { color: #9053d2; } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #70adae; } /* ControlFlow */
+code > span.op { color: #be8c44; } /* Operator */
+code > span.bu { color: #6684e1; } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #e44031; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
+
+.note, .note > code {
+    background-color: #99e59e;
+}
