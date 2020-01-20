@@ -15,9 +15,14 @@ import           Development.Shake.Forward
 import           Development.Shake.FilePath
 import           GHC.Generics               (Generic)
 import           Slick
+import           Slick.Pandoc
+import           Text.Pandoc.Options
+import           Text.Pandoc.Writers
 
 import qualified Data.HashMap.Lazy as HML
 import qualified Data.Text                  as T
+
+import           Port67                     (port67Reader, port67Writer)
 
 ---Config-----------------------------------------------------------------------
 
@@ -59,10 +64,8 @@ data IndexInfo =
 -- | Data for a blog post
 data Post =
     Post { title   :: String
-         , author  :: String
          , content :: String
          , url     :: String
-         , date    :: String
          , image   :: Maybe String
          }
     deriving (Generic, Eq, Ord, Show, FromJSON, ToJSON, Binary)
@@ -81,6 +84,23 @@ buildPosts = do
   pPaths <- getDirectoryFiles "." ["site/posts//*.md"]
   forP pPaths buildPost
 
+-- | Opening hooks for custom readers and writers
+mdToHTMLWithRdrWrtr
+    :: (ReaderOptions -> PandocReader T.Text)
+    -> (WriterOptions -> PandocWriter)
+    -> T.Text
+    -> Action Value
+mdToHTMLWithRdrWrtr rdr wrtr txt =
+  loadUsing
+    (rdr defaultMarkdownOptions)
+    (wrtr defaultHtml5Options)
+    txt
+
+-- | Custom Markdown to HTML converter
+mdToPort67 :: T.Text -> Action Value
+mdToPort67 =
+  mdToHTMLWithRdrWrtr port67Reader port67Writer
+
 -- | Load a post, process metadata, write it to output, then return the post object
 -- Detects changes to either post content or template
 buildPost :: FilePath -> Action Post
@@ -88,7 +108,7 @@ buildPost srcPath = cacheAction ("build" :: T.Text, srcPath) $ do
   liftIO . putStrLn $ "Rebuilding post: " <> srcPath
   postContent <- readFile' srcPath
   -- load post content and metadata as JSON blob
-  postData <- markdownToHTML . T.pack $ postContent
+  postData <- mdToPort67 . T.pack $ postContent
   let postUrl = T.pack . dropDirectory1 $ srcPath -<.> "html"
       withPostUrl = _Object . at "url" ?~ String postUrl
   -- Add additional metadata we've been able to compute

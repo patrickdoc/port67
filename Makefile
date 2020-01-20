@@ -1,22 +1,33 @@
 site:
-		build-site
-
-slick:
-		cabal install
-
-serve:
-		serve docs
+		build-site --color
 
 clean:
 		rm -rf docs
 		rm -rf .shake
-
-full: slick clean | site
 		git checkout docs/CNAME
+
+refresh:
+		$(MAKE) clean
+		$(MAKE) site
+
+# Targets for the underlying generation code
+lib:
+		cabal install
+
+test:
+		cabal test
+
+# Utils
+serve:
+		serve docs
+
+# Official builds
+full: lib clean
+		$(MAKE) site
 
 publish: full
 		git add docs
 		git commit -m "Publishing posts"
 		git push
 
-.PHONY: slick site serve publish
+.PHONY: site clean refresh lib test serve full publish
