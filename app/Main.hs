@@ -57,45 +57,76 @@ data SiteMeta =
              }
     deriving (Generic, Eq, Ord, Show, ToJSON)
 
--- | Data for the index page
-data IndexInfo =
-  IndexInfo
-    { heading :: String
-    , posts   :: [Post]
-    } deriving (Generic, Show, FromJSON, ToJSON)
+-- | Custom Markdown to HTML converter
+mdToPort67' :: T.Text -> Action Post
+mdToPort67' =
+  mdToHTMLWithRdrWrtr' port67Reader port67Writer
 
 -- | Data for a blog post
 data Post =
-    Post { title    :: String
-         , content  :: String
-         , url      :: String
-         }
-    deriving (Generic, Eq, Ord, Show, FromJSON, ToJSON, Binary)
+  Post
+    { title    :: String
+    , content  :: String
+    , subFiles :: Maybe [String]
+    } deriving (Generic, Eq, Ord, Show, FromJSON, ToJSON, Binary)
 
--- | Build indicies first to get structure information
-buildIndices :: FilePath -> Action IndexInfo
-buildIndices root = do
+data EnrichedPost =
+  EnrichedPost
+    { post     :: Post
+    , url      :: String
+    , subPosts :: [EnrichedPost]
+    } deriving (Generic, Show, FromJSON, ToJSON, Binary)
+
+getSubFiles :: Post -> [String]
+getSubFiles p = case (subFiles p) of
+    Nothing -> []
+    Just x -> x
+
+-- | Build root index
+buildIndex :: FilePath -> Action EnrichedPost
+buildIndex root = do
   liftIO . putStrLn $ "Rebuilding post: " <> root <> "/index.md"
-  -- Index content?
+
+  -- load post and metadata
   postContent <- readFile' (inputFolder </> root </> "index.md")
-  postData <- mdToPort67 . T.pack $ postContent
+  postData <- mdToPort67' . T.pack $ postContent
+
+  -- Build "subFiles"
+  posts' <- forP (map ((inputFolder </> root) </>) (getSubFiles postData)) buildEnrichedPost
 
   -- Same level posts
-  pPaths <- getDirectoryFiles "." [inputFolder </> root </> "*.md"]
-  let ps = filter (not . (?==) "**/index.md") pPaths
-  posts' <- forP ps buildPost
+  -- pPaths <- getDirectoryFiles "." [inputFolder </> root </> "*.md"]
+  -- let ps = filter (not . (?==) "**/index.md") pPaths
+  -- posts' <- forP ps buildPost
 
   -- Lower indicies
-  iPaths <- getDirectoryFiles (inputFolder </> root) ["*/index.md"]
-  subIndicies <- mapM (\x -> buildIndices (root </> takeDirectory1 x)) iPaths
+  -- iPaths <- getDirectoryFiles (inputFolder </> root) ["*/index.md"]
+  -- subIndicies <- mapM (\x -> buildIndices (root </> takeDirectory1 x)) iPaths
 
   -- Create this index
   indexT <- compileTemplate' "site/templates/index.html"
-  let displayedPosts = posts' ++ concatMap posts subIndicies
-      indexInfo = IndexInfo { heading = "", posts = displayedPosts }
-      indexHTML = T.unpack $ substitute indexT (withSiteMeta $ mergeVals (toJSON postData) (toJSON indexInfo))
+  let enrichedPost = EnrichedPost { post = postData, url = root </> "index.md", subPosts = posts' }
+      indexHTML = T.unpack $ substitute indexT (withSiteMeta (toJSON enrichedPost))
   writeFile' (outputFolder </> root </> "index.html") indexHTML
-  return indexInfo
+  return enrichedPost
+
+-- | Load a post, process metadata, write it to output, then return the post object
+-- Detects changes to either post content or template
+buildEnrichedPost :: FilePath -> Action EnrichedPost
+buildEnrichedPost srcPath = cacheAction ("build" :: T.Text, srcPath) $ do
+  liftIO . putStrLn $ "Rebuilding post: " <> srcPath
+
+  -- load post and metadata
+  postContent <- readFile' srcPath
+  postData <- mdToPort67' . T.pack $ postContent
+
+  let postUrl = dropDirectory1 $ srcPath -<.> "html"
+      enrichedPost = EnrichedPost { post = postData, url = postUrl, subPosts = [] }
+  -- Add additional metadata we've been able to compute
+  let fullPostData = withSiteMeta $ toJSON postData
+  template <- compileTemplate' "site/templates/post.html"
+  writeFile' (outputFolder </> postUrl) . T.unpack $ substitute template fullPostData
+  return enrichedPost
 
 -- | Find and build all posts
 buildPosts :: Action [Post]
@@ -130,7 +161,7 @@ copyStaticFiles = do
 --   defines workflow to build the website
 buildRules :: Action ()
 buildRules = do
-  indices <- buildIndices "posts"
+  indices <- buildIndex "posts"
   --buildPosts
   copyStaticFiles
 
@@ -142,6 +173,19 @@ mdToHTMLWithRdrWrtr
     -> Action Value
 mdToHTMLWithRdrWrtr rdr wrtr txt =
   loadUsing
+    (rdr defaultMarkdownOptions)
+    (wrtr defaultHtml5Options)
+    txt
+
+-- | Opening hooks for custom readers and writers
+mdToHTMLWithRdrWrtr'
+    :: (FromJSON a)
+    => (ReaderOptions -> PandocReader T.Text)
+    -> (WriterOptions -> PandocWriter)
+    -> T.Text
+    -> Action a
+mdToHTMLWithRdrWrtr' rdr wrtr txt =
+  loadUsing'
     (rdr defaultMarkdownOptions)
     (wrtr defaultHtml5Options)
     txt
