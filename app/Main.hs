@@ -47,20 +47,12 @@ withSiteMeta (Object obj) = Object $ HML.union obj siteMetaObj
     Object siteMetaObj = toJSON siteMeta
 withSiteMeta _ = error "only add site meta to objects"
 
-mergeVals :: Value -> Value -> Value
-mergeVals (Object x) (Object y) = Object $ HML.union x y
-
 data SiteMeta =
     SiteMeta { siteAuthor    :: String
              , baseUrl       :: String
              , siteTitle     :: String
              }
     deriving (Generic, Eq, Ord, Show, ToJSON)
-
--- | Custom Markdown to HTML converter
-mdToPort67' :: T.Text -> Action Post
-mdToPort67' =
-  mdToHTMLWithRdrWrtr' port67Reader port67Writer
 
 -- | Data for a blog post
 data Post =
@@ -82,73 +74,43 @@ getSubFiles p = case (subFiles p) of
     Nothing -> []
     Just x -> x
 
+-- | Custom Markdown to HTML converter
+mdToPort67' :: T.Text -> Action Post
+mdToPort67' =
+  mdToHTMLWithRdrWrtr' port67Reader port67Writer
+
 -- | Build root index
 buildIndex :: FilePath -> Action EnrichedPost
-buildIndex root = do
-  liftIO . putStrLn $ "Rebuilding post: " <> root <> "/index.md"
-
+buildIndex srcPath = do
   -- load post and metadata
-  postContent <- readFile' (inputFolder </> root </> "index.md")
+  postContent <- readFile' (inputFolder </> srcPath)
   postData <- mdToPort67' . T.pack $ postContent
 
-  -- Build "subFiles"
-  posts' <- forP (map ((inputFolder </> root) </>) (getSubFiles postData)) buildEnrichedPost
+  buildPost' srcPath postData
 
-  -- Same level posts
-  -- pPaths <- getDirectoryFiles "." [inputFolder </> root </> "*.md"]
-  -- let ps = filter (not . (?==) "**/index.md") pPaths
-  -- posts' <- forP ps buildPost
-
-  -- Lower indicies
-  -- iPaths <- getDirectoryFiles (inputFolder </> root) ["*/index.md"]
-  -- subIndicies <- mapM (\x -> buildIndices (root </> takeDirectory1 x)) iPaths
-
-  -- Create this index
-  indexT <- compileTemplate' "site/templates/index.html"
-  let enrichedPost = EnrichedPost { post = postData, url = root </> "index.md", subPosts = posts' }
-      indexHTML = T.unpack $ substitute indexT (withSiteMeta (toJSON enrichedPost))
-  writeFile' (outputFolder </> root </> "index.html") indexHTML
-  return enrichedPost
-
--- | Load a post, process metadata, write it to output, then return the post object
--- Detects changes to either post content or template
-buildEnrichedPost :: FilePath -> Action EnrichedPost
-buildEnrichedPost srcPath = cacheAction ("build" :: T.Text, srcPath) $ do
+buildPost' :: FilePath -> Post -> Action EnrichedPost
+buildPost' srcPath p@(Post _ _ Nothing) = do
   liftIO . putStrLn $ "Rebuilding post: " <> srcPath
-
-  -- load post and metadata
-  postContent <- readFile' srcPath
-  postData <- mdToPort67' . T.pack $ postContent
-
-  let postUrl = dropDirectory1 $ srcPath -<.> "html"
-      enrichedPost = EnrichedPost { post = postData, url = postUrl, subPosts = [] }
-  -- Add additional metadata we've been able to compute
-  let fullPostData = withSiteMeta $ toJSON postData
+  let postUrl = srcPath -<.> "html"
+      enrichedPost = EnrichedPost { post = p, url = postUrl, subPosts = [] }
+      -- Add additional metadata
+      fullPostData = withSiteMeta $ toJSON enrichedPost
   template <- compileTemplate' "site/templates/post.html"
   writeFile' (outputFolder </> postUrl) . T.unpack $ substitute template fullPostData
   return enrichedPost
+buildPost' srcPath p = do
+  liftIO . putStrLn $ "Rebuilding index: " <> srcPath
+  -- Build "subFiles"
+  posts' <- forP (map ((takeDirectory srcPath) </>) (getSubFiles p)) buildIndex
 
--- | Find and build all posts
-buildPosts :: Action [Post]
-buildPosts = do
-  pPaths <- getDirectoryFiles "." ["site/posts//*.md"]
-  forP (filter (not . (?==) "**/index.md") pPaths) buildPost
-
--- | Load a post, process metadata, write it to output, then return the post object
--- Detects changes to either post content or template
-buildPost :: FilePath -> Action Post
-buildPost srcPath = cacheAction ("build" :: T.Text, srcPath) $ do
-  liftIO . putStrLn $ "Rebuilding post: " <> srcPath
-  postContent <- readFile' srcPath
-  -- load post content and metadata as JSON blob
-  postData <- mdToPort67 . T.pack $ postContent
-  let postUrl = T.pack . dropDirectory1 $ srcPath -<.> "html"
-      withPostUrl = _Object . at "url" ?~ String postUrl
-  -- Add additional metadata we've been able to compute
-  let fullPostData = withSiteMeta . withPostUrl $ postData
-  template <- compileTemplate' "site/templates/post.html"
-  writeFile' (outputFolder </> T.unpack postUrl) . T.unpack $ substitute template fullPostData
-  convert fullPostData
+  -- Create this index
+  let postUrl = srcPath -<.> "html"
+      enrichedPost = EnrichedPost { post = p, url = postUrl, subPosts = posts' }
+      -- Add additional metadata
+      fullPostData = withSiteMeta $ toJSON enrichedPost
+  template <- compileTemplate' "site/templates/index.html"
+  writeFile' (outputFolder </> postUrl) . T.unpack $ substitute template fullPostData
+  return enrichedPost
 
 -- | Copy all static files from the listed folders to their destination
 copyStaticFiles :: Action ()
@@ -161,21 +123,8 @@ copyStaticFiles = do
 --   defines workflow to build the website
 buildRules :: Action ()
 buildRules = do
-  indices <- buildIndex "posts"
-  --buildPosts
+  indices <- buildIndex "posts/index.md"
   copyStaticFiles
-
--- | Opening hooks for custom readers and writers
-mdToHTMLWithRdrWrtr
-    :: (ReaderOptions -> PandocReader T.Text)
-    -> (WriterOptions -> PandocWriter)
-    -> T.Text
-    -> Action Value
-mdToHTMLWithRdrWrtr rdr wrtr txt =
-  loadUsing
-    (rdr defaultMarkdownOptions)
-    (wrtr defaultHtml5Options)
-    txt
 
 -- | Opening hooks for custom readers and writers
 mdToHTMLWithRdrWrtr'
@@ -189,11 +138,6 @@ mdToHTMLWithRdrWrtr' rdr wrtr txt =
     (rdr defaultMarkdownOptions)
     (wrtr defaultHtml5Options)
     txt
-
--- | Custom Markdown to HTML converter
-mdToPort67 :: T.Text -> Action Value
-mdToPort67 =
-  mdToHTMLWithRdrWrtr port67Reader port67Writer
 
 main :: IO ()
 main = do
