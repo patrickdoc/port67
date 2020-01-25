@@ -16,6 +16,8 @@ import           Development.Shake.FilePath
 import           GHC.Generics               (Generic)
 import           Slick
 import           Slick.Pandoc
+import           Text.Mustache
+import           Text.Mustache.Compile
 import           Text.Pandoc.Options
 import           Text.Pandoc.Writers
 
@@ -90,16 +92,18 @@ buildIndex srcPath = do
 
 buildPost' :: FilePath -> Post -> Action EnrichedPost
 buildPost' srcPath p@(Post _ _ Nothing) = do
-  liftIO . putStrLn $ "Rebuilding post: " <> srcPath
+  liftIO . putStrLn $ "Rebuilding post: " <> show p
   let postUrl = srcPath -<.> "html"
       enrichedPost = EnrichedPost { post = p, url = postUrl, subPosts = [] }
       -- Add additional metadata
       fullPostData = withSiteMeta $ toJSON enrichedPost
+  liftIO . putStrLn $ "Compiling post template"
   template <- compileTemplate' "site/templates/post.html"
+  liftIO . putStrLn $ "Writing post"
   writeFile' (outputFolder </> postUrl) . T.unpack $ substitute template fullPostData
   return enrichedPost
 buildPost' srcPath p = do
-  liftIO . putStrLn $ "Rebuilding index: " <> srcPath
+  liftIO . putStrLn $ "Rebuilding index: " <> show p
   -- Build "subFiles"
   posts' <- forP (map ((takeDirectory srcPath) </>) (getSubFiles p)) buildIndex
 
@@ -108,9 +112,47 @@ buildPost' srcPath p = do
       enrichedPost = EnrichedPost { post = p, url = postUrl, subPosts = posts' }
       -- Add additional metadata
       fullPostData = withSiteMeta $ toJSON enrichedPost
-  template <- compileTemplate' "site/templates/index.html"
-  writeFile' (outputFolder </> postUrl) . T.unpack $ substitute template fullPostData
+  template <- indexTemplate
+  let (errors, val) = checkedSubstitute template fullPostData
+  liftIO . putStrLn $ "Errors: " <> show errors
+  writeFile' (outputFolder </> postUrl) . T.unpack $ val
   return enrichedPost
+
+indexTemplate :: Action Template
+indexTemplate = do
+  -- Get post-list partial
+  postListTemplate <- readFile' "site/templates/post-list.html"
+  let (Right res) = compileTemplate "site/templates/post-list.html" (T.pack postListTemplate)
+  -- Get post-list-item partial
+  postListItemTemplate <- readFile' "site/templates/post-list-item.html"
+  (Right res2) <- liftIO $ compileTemplateWithCache
+                                ["."]
+                                (cacheFromList [res])
+                                "site/templates/post-list-item.html"
+  (Right res3) <- liftIO $ compileTemplateWithCache
+                                ["."]
+                                (cacheFromList [res2])
+                                "site/templates/post-list.html"
+  let cache = cacheFromList [res2, res3]
+  liftIO . putStrLn $ "cache: " <> show cache
+  result <- liftIO $ compileTemplateWithCache ["."] cache "site/templates/index.html"
+  case result of
+    Right templ -> do
+      liftIO . putStrLn $ "post-list-item: " <> show res2
+      liftIO . putStrLn $ "post-list" <> show res
+      liftIO . putStrLn $ "index: " <> show templ
+      return templ
+    Left err -> fail $ show err
+
+otherCompileTemplate' :: FilePath -> Action Template
+otherCompileTemplate' fp = do
+  templateContent <- readFile' fp
+  let result = compileTemplate (takeFileName fp) (T.pack templateContent)
+  case result of
+    Right templ -> do
+      need (getPartials . ast $ templ)
+      return templ
+    Left err -> fail $ show err
 
 -- | Copy all static files from the listed folders to their destination
 copyStaticFiles :: Action ()

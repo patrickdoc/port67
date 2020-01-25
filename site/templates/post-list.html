@@ -1,7 +1,5 @@
 <ol>
     {{#subPosts}}
-        <li>
-            <a href="/{{url}}">{{post.title}}</a>
-        </li>
+    {{>site/templates/post-list-item.html}}
     {{/subPosts}}
 </ol>
