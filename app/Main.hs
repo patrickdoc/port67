@@ -84,64 +84,40 @@ mdToPort67' =
 -- | Build root index
 buildIndex :: FilePath -> Action EnrichedPost
 buildIndex srcPath = do
+  liftIO . putStrLn $ "Building post: " <> show srcPath
   -- load post and metadata
   postContent <- readFile' (inputFolder </> srcPath)
   postData <- mdToPort67' . T.pack $ postContent
 
-  buildPost' srcPath postData
-
-buildPost' :: FilePath -> Post -> Action EnrichedPost
-buildPost' srcPath p@(Post _ _ Nothing) = do
-  liftIO . putStrLn $ "Rebuilding post: " <> show p
-  let postUrl = srcPath -<.> "html"
-      enrichedPost = EnrichedPost { post = p, url = postUrl, subPosts = [] }
-      -- Add additional metadata
-      fullPostData = withSiteMeta $ toJSON enrichedPost
-  liftIO . putStrLn $ "Compiling post template"
-  template <- compileTemplate' "site/templates/post.html"
-  liftIO . putStrLn $ "Writing post"
-  writeFile' (outputFolder </> postUrl) . T.unpack $ substitute template fullPostData
-  return enrichedPost
-buildPost' srcPath p = do
-  liftIO . putStrLn $ "Rebuilding index: " <> show p
   -- Build "subFiles"
-  posts' <- forP (map ((takeDirectory srcPath) </>) (getSubFiles p)) buildIndex
+  posts' <- forP (map ((takeDirectory srcPath) </>) (getSubFiles postData)) buildIndex
 
-  -- Create this index
+  -- Enrich post data
   let postUrl = srcPath -<.> "html"
-      enrichedPost = EnrichedPost { post = p, url = postUrl, subPosts = posts' }
-      -- Add additional metadata
+      enrichedPost = EnrichedPost { post = postData, url = postUrl, subPosts = posts' }
       fullPostData = withSiteMeta $ toJSON enrichedPost
-  template <- indexTemplate
+
+  -- Retrieve template and write post
+  template <- postTemplate
   let (errors, val) = checkedSubstitute template fullPostData
-  liftIO . putStrLn $ "Errors: " <> show errors
   writeFile' (outputFolder </> postUrl) . T.unpack $ val
+
   return enrichedPost
 
-indexTemplate :: Action Template
-indexTemplate = do
-  -- Get post-list partial
+postTemplate :: Action Template
+postTemplate = do
+  -- Do unchecked compilation
   postListTemplate <- readFile' "site/templates/post-list.html"
   let (Right res) = compileTemplate "site/templates/post-list.html" (T.pack postListTemplate)
-  -- Get post-list-item partial
-  postListItemTemplate <- readFile' "site/templates/post-list-item.html"
+  -- Recompile with recursive partial available
   (Right res2) <- liftIO $ compileTemplateWithCache
                                 ["."]
                                 (cacheFromList [res])
-                                "site/templates/post-list-item.html"
-  (Right res3) <- liftIO $ compileTemplateWithCache
-                                ["."]
-                                (cacheFromList [res2])
                                 "site/templates/post-list.html"
-  let cache = cacheFromList [res2, res3]
-  liftIO . putStrLn $ "cache: " <> show cache
-  result <- liftIO $ compileTemplateWithCache ["."] cache "site/templates/index.html"
+  let cache = cacheFromList [res2]
+  result <- liftIO $ compileTemplateWithCache ["."] cache "site/templates/post.html"
   case result of
-    Right templ -> do
-      liftIO . putStrLn $ "post-list-item: " <> show res2
-      liftIO . putStrLn $ "post-list" <> show res
-      liftIO . putStrLn $ "index: " <> show templ
-      return templ
+    Right templ -> return templ
     Left err -> fail $ show err
 
 otherCompileTemplate' :: FilePath -> Action Template

@@ -42,6 +42,7 @@ executable build-site
     , containers
     , lens
     , lens-aeson
+    , mustache
     , shake
     , slick
     , text

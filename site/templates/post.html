@@ -3,32 +3,38 @@
 <head profile="http://www.w3.org/2005/10/profile">
     <meta charset="UTF-8">
     <meta name="description" content="{{siteTitle}}">
-    <meta name="author" content="{{author}}">
+    <meta name="author" content="{{siteAuthor}}">
     <meta name=viewport content="width=device-width, initial-scale=1">
     <title>{{title}}</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
     <link rel="stylesheet" href="/css/structure.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-{{>site/templates/header.html}}
+    {{>site/templates/header.html}}
 
-<div id="page">
-    <div class="wrapper">
-        <div class="masthead">
-            <span class="title">
-                {{post.title}}
-            </span>
+    <div id="page">
+        <div class="wrapper">
+            <div class="masthead">
+                <span class="title">
+                    {{post.title}}
+                </span>
+            </div>
         </div>
+
+        <article class="post">
+            {{{post.content}}}
+            <br>
+            <br>
+        </article>
+
+        <section class="table-of-contents">
+            <div class="metadata">
+            </div>
+            {{>site/templates/post-list.html}}
+        </section>
     </div>
-    <article class="post">
-        {{{post.content}}}
 
-        <br>
-        <br>
-
-    </article>
-</div>
-
-{{>site/templates/footer.html}}
+    {{>site/templates/footer.html}}
 </body>
 </html>
