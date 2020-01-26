@@ -1,0 +1,163 @@
+/* Structure */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: grid;
+    grid-template-columns: 1fr minmax(300px, 750px) 1fr;
+    grid-column-gap: 8px;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        "header header header"
+        "... section ..."
+        "... footer ...";
+    font-family: 'Lora', serif;
+    font-size: 21px;
+    line-height: 142%;
+}
+
+header {
+    grid-area: header;
+    background: #24262b;
+}
+
+.links {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    max-width: 750px;
+    margin: auto;
+}
+
+.links a {
+    display: block;
+    text-align: center;
+    margin: 0;
+    padding: 14px 8px;
+}
+
+section {
+    grid-area: section;
+}
+
+footer {
+    grid-area: footer;
+}
+
+/* Styling */
+
+a {
+    text-decoration: none;
+    color: #6684e1;
+    font-family: Inconsolata;
+    font-weight: 700;
+    outline: 0;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+header a {
+    color: white;
+}
+
+header a:hover {
+    color: #6684e1;
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 34px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+p {
+    margin: 1.3em 0;
+}
+
+ol, code {
+    font-family: 'Inconsolata', monospace;
+}
+
+ol dd {
+    font-size: 19px;
+    margin-left: 20px;
+}
+
+footer {
+    font-size: 80%;
+}
+
+hr {
+    margin: 0 auto;
+    max-width: 750px;
+    border-style: solid none none none;
+}
+
+/* Navigation */
+
+#return {
+    display: inline-block;
+    margin: 10px 0;
+}
+
+/* Code */
+
+div.sourceCode { overflow-x: auto; }
+
+pre {
+    display: flex;
+    justify-content: center;
+    display: -webkit-flex;
+    -webkit-justify-content: center;
+}
+
+pre.sourceCode, pre.none {
+    padding: 5px 10px;
+    justify-content: flex-start;
+    -webkit-justify-content: flex-start;
+}
+
+pre, code {
+    color: #535146;
+    background-color: #f1f1f1;
+}
+
+pre code { padding: 0; white-space: pre; display: inline-block; }
+code { padding: 0 5px; white-space: nowrap; }
+code > span.kw { color: #70adae; } /* Keyword */
+code > span.dt { color: #6684e1; } /* DataType */
+code > span.dv { color: #e44031; } /* DecVal */
+code > span.bn { color: #dca3a3; } /* BaseN */
+code > span.fl { color: #e44031; } /* Float */
+code > span.ch { color: #8079a7; } /* Char */
+code > span.st { color: #9053d2; } /* String */
+code > span.co { color: #7f9f7f; } /* Comment */
+code > span.ot { color: #efef8f; } /* Other */
+code > span.al { color: #ffcfaf; } /* Alert */
+code > span.fu { color: #6684e1; } /* Function */
+code > span.er { color: #c3bf9f; } /* Error */
+code > span.wa { color: #7f9f7f; font-weight: bold; } /* Warning */
+code > span.cn { color: #dca3a3; font-weight: bold; } /* Constant */
+code > span.sc { color: #b65465; } /* SpecialChar */
+code > span.vs { color: #cc9393; } /* VerbatimString */
+code > span.ss { color: #cc9393; } /* SpecialString */
+code > span.im { color: #9053d2; } /* Import */
+code > span.va { } /* Variable */
+code > span.cf { color: #70adae; } /* ControlFlow */
+code > span.op { color: #be8c44; } /* Operator */
+code > span.bu { color: #6684e1; } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #e44031; } /* Preprocessor */
+code > span.at { } /* Attribute */
+code > span.do { color: #7f9f7f; } /* Documentation */
+code > span.an { color: #7f9f7f; font-weight: bold; } /* Annotation */
+code > span.cv { color: #7f9f7f; font-weight: bold; } /* CommentVar */
+code > span.in { color: #7f9f7f; font-weight: bold; } /* Information */
