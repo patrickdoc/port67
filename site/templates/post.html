@@ -26,13 +26,10 @@
             {{{post.content}}}
             <br>
             <br>
+            <section class="table-of-contents">
+                {{>site/templates/post-list.html}}
+            </section>
         </article>
-
-        <section class="table-of-contents">
-            <div class="metadata">
-            </div>
-            {{>site/templates/post-list.html}}
-        </section>
     </div>
 
     {{>site/templates/footer.html}}

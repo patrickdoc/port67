@@ -183,22 +183,28 @@ a.tag, a.category {
 .table-of-contents {
   clear: both;
   width: 100%; }
-  .table-of-contents ul {
-    margin: 3em 0; }
-  .table-of-contents li {
-    width: 100%; }
-    .table-of-contents li a {
-      box-sizing: border-box;
+  .table-of-contents ol {
+    --width-before: 0.8em;
+    --link-offset: 0.5em;
+    margin: 0 0 0 3em; }
+    .table-of-contents ol li::before {
       display: block;
-      width: 50%;
-      min-width: 300px;
-      margin: 0 auto;
-      padding: 1em 0.5em 1em 0; }
-      .table-of-contents li a .date {
-        float: right;
-        margin-top: -0.25em; }
-      .table-of-contents li a:hover {
-        padding-left: 2em; }
+      float: left;
+      width: calc(1 * var(--width-before) + var(--link-offset)); }
+    .table-of-contents ol ol {
+      margin-left: calc(1 * var(--width-before) + var(--link-offset)); }
+      .table-of-contents ol ol li::before {
+        width: calc(2 * var(--width-before) + var(--link-offset)); }
+      .table-of-contents ol ol ol {
+        margin-left: calc(2 * var(--width-before) + var(--link-offset)); }
+        .table-of-contents ol ol ol li::before {
+          width: calc(3 * var(--width-before) + var(--link-offset)); }
+  .table-of-contents li {
+    margin: 8px 0 0 0; }
+  .table-of-contents li a {
+    display: block; }
+  .table-of-contents li a:hover {
+    padding-left: 2em; }
 
 .arrow {
   display: -webkit-box;

@@ -102,20 +102,17 @@ a.tag:hover, a.category:hover {
       line-height: 1.3em;
       letter-spacing: 0.05em; }
 
-.table-of-contents h1 {
-  font-size: 3em;
-  text-align: center;
-  font-family: "Quicksand", helvetica, sans-serif; }
-.table-of-contents ul {
-  list-style: none; }
-.table-of-contents li a {
+.table-of-contents ol {
+  list-style-type: none;
+  counter-reset: item; }
+.table-of-contents li:before {
+  content: counters(item, ".")".";
+  counter-increment: item; }
+.table-of-contents li {
   color: #333;
   font-weight: normal;
-  border-top: 1px solid #444;
   -webkit-transition: color 0.7s, background 0.7s, padding 0.5s;
           transition: color 0.7s, background 0.7s, padding 0.5s; }
-  .table-of-contents li a .date {
-    color: rgba(128, 128, 128, 0.8); }
   .table-of-contents li a:hover {
     background: #333;
     color: #FFFFFC;
