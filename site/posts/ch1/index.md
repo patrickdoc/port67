@@ -1,4 +1,5 @@
 ---
-heading: "Chapter 1"
+title: "Getting to Know Your Computer"
+subFiles: [terminal.md]
 ---
-sdfsd
+
