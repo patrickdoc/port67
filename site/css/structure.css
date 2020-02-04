@@ -203,8 +203,6 @@ a.tag, a.category {
     margin: 8px 0 0 0; }
   .table-of-contents li a {
     display: block; }
-  .table-of-contents li a:hover {
-    padding-left: 2em; }
 
 #page {
   margin: 4em 0; }

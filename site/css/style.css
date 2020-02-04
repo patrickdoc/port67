@@ -113,8 +113,6 @@ a.tag:hover, a.category:hover {
   color: #333;
   font-weight: normal; }
   .table-of-contents li a:hover {
-    background: #333;
-    color: #FFFFFC;
     text-decoration: none; }
 
 .center {
