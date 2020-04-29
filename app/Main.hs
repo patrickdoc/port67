@@ -153,9 +153,12 @@ mdToHTMLWithRdrWrtr'
     -> Action a
 mdToHTMLWithRdrWrtr' rdr wrtr txt =
   loadUsing'
-    (rdr defaultMarkdownOptions)
+    (rdr markdownOptions)
     (wrtr defaultHtml5Options)
     txt
+
+markdownOptions :: ReaderOptions
+markdownOptions = def { readerExtensions = pandocExtensions }
 
 main :: IO ()
 main = do
