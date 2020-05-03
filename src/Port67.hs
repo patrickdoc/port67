@@ -18,14 +18,20 @@ htmlPreProcessor :: Pandoc -> Pandoc
 htmlPreProcessor = walk breakSentences
 
 interSentenceSpace :: Inline
-interSentenceSpace = RawInline (Format "html") "<span class=\"interSentenceSpace\"></span>"
+interSentenceSpace = RawInline (Format "html") " "
+
+sentenceStart :: Inline
+sentenceStart = RawInline (Format "html") "<span class=\"sentence\">"
+
+sentenceEnd :: Inline
+sentenceEnd = RawInline (Format "html") "</span>"
 
 breakSentences :: Block -> Block
-breakSentences (Para is) = Para $ go False is
+breakSentences (Para is) = Para $ sentenceStart : go False is
   where
-    go _ [] = []
-    go True (Space : iss) = interSentenceSpace : go False iss
-    go True (SoftBreak : iss) = interSentenceSpace : go False iss
+    go _ [] = [sentenceEnd]
+    go True (Space : iss) = sentenceEnd : (interSentenceSpace : (sentenceStart : go False iss))
+    go True (SoftBreak : iss) = sentenceEnd : (interSentenceSpace : (sentenceStart : go False iss))
     go _ (i : iss) = i : go (isEndOfSentence i) iss
 
     isEndOfSentence (Str x) = lastChar == '.' || lastChar == '?' || lastChar == '!'
