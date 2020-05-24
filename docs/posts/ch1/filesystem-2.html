@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+    <meta charset="UTF-8">
+    <meta name="description" content="Port67">
+    <meta name="author" content="Patrick Dougherty">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/structure.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a id="beacon" href="/">
+                <div id="home-text"> Port67 </div>
+            </a>
+        </nav>
+    </header>
+
+    <div id="page">
+        <div class="wrapper">
+            <div class="masthead">
+                <span class="title">
+                    Modifying the Filesystem
+                </span>
+            </div>
+        </div>
+
+        <article class="post">
+            <p><span class="sentence">While there are thousands of discoveries to make just exploring your filesystem, we are going to move on to making your own modifications.</span> <span class="sentence">The two basic operations we need are creation and destruction</span></p>
+<p><span class="sentence">Note: There are far fewer safety features in the terminal compared to the regular GUI.</span> <span class="sentence">If you ask the terminal to delete something, it will.</span> <span class="sentence">No questions asked.</span> <span class="sentence">And there is no trash can where you can recover something that you accidentally deleted.</span> <span class="sentence">Please think before you type.</span></p>
+<p><span class="sentence">There are two types of objects in the filesystem: files and directories (or folders depending on who you ask).</span> <span class="sentence">Files hold data, like pictures, songs, essays, or apps.</span> <span class="sentence">Directories hold files; they are just there for organization.</span></p>
+<p><span class="sentence">Returning to where we left off, let’s open a terminal and run <code>cd</code> – short for “change directory” – to move to our “home” directory.</span> <span class="sentence">Your home directory and everything inside it belongs to you.</span> <span class="sentence">You are free to create, destroy, or edit anything you find there.</span></p>
+<h2 id="directories">Directories</h2>
+<p><span class="sentence">We don’t want to accidentally delete or change anyone’s important files, so we’ll start by creating a directory to play in.</span> <span class="sentence">I’m going to call my directory “projects”, but if that name is already taken on your computer, feel free to use something else.</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a>$ <span class="bu">cd</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>$ <span class="fu">ls</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="ex">Applications</span>  Documents  Pictures</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="ex">Desktop</span>       Downloads</span>
+<span id="cb1-5"><a href="#cb1-5"></a>$ <span class="fu">mkdir</span> projects</span>
+<span id="cb1-6"><a href="#cb1-6"></a>$ <span class="fu">ls</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="ex">Applications</span>  Documents  Pictures</span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="ex">Desktop</span>       Downloads  projects</span></code></pre></div>
+<p><span class="sentence">Following the pattern of simple command names, <code>mkdir</code> makes a new directory for you.</span></p>
+<p><span class="sentence">Try running that <code>mkdir</code> command again exactly as you did the first time.</span></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a>$ <span class="fu">mkdir</span> projects</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="ex">mkdir</span>: cannot create directory ‘/home/patrick/projects’: File exists</span></code></pre></div>
+<p><span class="sentence">This time, <code>mkdir</code> fails and prints an error.</span> <span class="sentence">It was unable to make the directory I asked for (<code>/home/patrick/projects</code>) because it already existed (<code>File exists</code>).</span> <span class="sentence">If you saw this error the first time you ran the command, check what directories already exist with <code>ls</code> and then pick a name that isn’t being used.</span></p>
+<p><span class="sentence">To remove a directory, run <code>rmdir</code>.</span></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a>$ <span class="fu">rmdir</span> projects</span></code></pre></div>
+<p><span class="sentence">This command fails in two common ways:</span></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a>$ <span class="fu">rmdir</span> asdf</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="ex">rmdir</span>: failed to remove <span class="st">&#39;/home/patrick/asdf&#39;</span>: No such file or directory</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a>$ <span class="fu">rmdir</span> projects</span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="ex">rmdir</span>: failed to remove <span class="st">&#39;/home/patrick/projects&#39;</span>: Directory not empty</span></code></pre></div>
+<p><span class="sentence">The first failure tells us that <code>rmdir</code> could not remove <code>directory-that-doesnt-exist</code> because there were no files or directories with that name.</span></p>
+<p><span class="sentence">The second failure tells us that <code>rmdir</code> could not remove <code>directories-that-isnt-empty</code> because that directory still had files or other directories inside of it.</span> <span class="sentence"><code>rmdir</code> will only work on completely empty directories.</span></p>
+<h2 id="files">Files</h2>
+<p><span class="sentence">Reset to your home directory and recreate the “projects” directory if you deleted it earlier.</span> <span class="sentence">Then <code>cd</code> into it.</span></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a>$ <span class="bu">cd</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>$ <span class="fu">mkdir</span> projects</span>
+<span id="cb5-3"><a href="#cb5-3"></a>$ <span class="bu">cd</span> projects</span></code></pre></div>
+<p><span class="sentence">Now that we have a directory to work in, we can start working with files.</span> <span class="sentence">First, we can create them with <code>touch</code>.</span></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a>$ <span class="fu">touch</span> bob.txt</span>
+<span id="cb6-2"><a href="#cb6-2"></a>$ <span class="fu">touch</span> test.html</span>
+<span id="cb6-3"><a href="#cb6-3"></a>$ <span class="fu">touch</span> example.pdf</span>
+<span id="cb6-4"><a href="#cb6-4"></a>$ <span class="fu">touch</span> 10</span>
+<span id="cb6-5"><a href="#cb6-5"></a>$ <span class="fu">touch</span> directory</span>
+<span id="cb6-6"><a href="#cb6-6"></a>$ <span class="fu">ls</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="ex">10</span>  bob.txt  directory  example.pdf  test.html</span></code></pre></div>
+<p><span class="sentence"><code>touch</code> creates an empty file with whatever name you provide.</span> <span class="sentence">There are not many restrictions on what you can name files, but I would recommend that you: - avoiding using <code>/</code> and spaces - name files descriptively</span></p>
+<p><span class="sentence"><code>/</code> and spaces can mean different things, which can cause some confusing issues.</span> <span class="sentence">And naming a file something like “directory” is a bit misleading.</span> <span class="sentence">It is best to be as clear as possible; future you will thank you.</span></p>
+<p><span class="sentence">To remove files, use <code>rm</code>.</span></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1"></a>$ <span class="fu">rm</span> bob.txt</span>
+<span id="cb7-2"><a href="#cb7-2"></a>$ <span class="fu">rm</span> test.html</span>
+<span id="cb7-3"><a href="#cb7-3"></a>$ <span class="fu">rm</span> example.pdf</span>
+<span id="cb7-4"><a href="#cb7-4"></a>$ <span class="fu">rm</span> 10</span>
+<span id="cb7-5"><a href="#cb7-5"></a>$ <span class="fu">rm</span> directory</span>
+<span id="cb7-6"><a href="#cb7-6"></a>$ <span class="fu">ls</span></span></code></pre></div>
+<p><span class="sentence">Again, please be careful with <code>rm</code>.</span> <span class="sentence">There are no warnings or backups, the file is gone forever.</span></p>
+<h2 id="your-toolbox">Your Toolbox</h2>
+<p><span class="sentence">With two tweaks, you will know everything you need to know about the filesystem.</span></p>
+<p><span class="sentence">First, we can replace <code>rmdir</code> with <code>rm -r</code>.</span> <span class="sentence">Many commands accept optional “flags” that modify how they work.</span> <span class="sentence">For <code>rm</code>, the <code>-r</code> flag tells it to delete “recursively”, which means directories <strong>and</strong> everything inside them.</span></p>
+<p><span class="sentence">Second, we need a method of writing data into files.</span> <span class="sentence"><code>touch</code> creates files, but they are empty.</span> <span class="sentence">We are going to replace <code>touch</code> with <code>vim</code>, which can both create and edit files.</span></p>
+<p><span class="sentence">Your toolbox for interacting with the filesystem will look like this,</span></p>
+<pre><code># Navigating
+- ls
+- cd
+- pwd
+
+# Managing Directories
+- mkdir
+- rm -r
+
+# Managing Files
+- vim
+- rm</code></pre>
+            <br>
+            <br>
+            <section class="table-of-contents">
+                <ol>
+                </ol>
+            </section>
+        </article>
+    </div>
+
+    <footer>
+        <hr>
+        <div class="links">
+          <p>
+            ©
+            <a href="mailto:patrick.doc@port67.org">Patrick Dougherty</a>
+            -
+            <a href="https://github.com/patrickdoc/port67">source</a>
+          </p>
+        </div>
+    </footer>
+    
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+</body>
+</html>

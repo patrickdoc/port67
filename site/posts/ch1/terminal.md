@@ -58,7 +58,7 @@ Finding the app seems like a good place to start.
 
 ## Opening a Terminal
 
-Modern usage of the word "terminal" generally refers to the app, instead of the
+Modern usage of the word "terminal" generally refers to the app instead of the
 machines that were used to connect to mainframes. I will stick to that
 convention.
 

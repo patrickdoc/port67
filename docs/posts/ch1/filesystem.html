@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+    <meta charset="UTF-8">
+    <meta name="description" content="Port67">
+    <meta name="author" content="Patrick Dougherty">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/structure.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a id="beacon" href="/">
+                <div id="home-text"> Port67 </div>
+            </a>
+        </nav>
+    </header>
+
+    <div id="page">
+        <div class="wrapper">
+            <div class="masthead">
+                <span class="title">
+                    Exploring the Filesystem
+                </span>
+            </div>
+        </div>
+
+        <article class="post">
+            <p><span class="sentence">The first piece of your computer that we are going to work with is the “non-volatile memory.” Memory is a term for the parts of the computer that can store data.</span> <span class="sentence">Non-volatile means that the data isn’t lost when the computer is turned off.</span> <span class="sentence">Non-volatile memory is responsible for holding all the data that you expect to be there until you choose to delete it, for example, music, photos, contacts, documents, and even preferences like which desktop background to use.</span></p>
+<p><span class="sentence">Non-volatile memory is just an idea though.</span> <span class="sentence">To implement it, we need two pieces: hardware that can store data without any power and software that can write data onto the hardware and then read it back later.</span></p>
+<p><span class="sentence">Both pieces are continually evolving.</span> <span class="sentence">When I first started using computers, the hardware was “hard disk drives.” They were a stack of magnetic disks that spun underneath a needle.</span> <span class="sentence">Now we have “solid state drives” that are entirely electronic.</span> <span class="sentence">They don’t have any moving parts.</span> <span class="sentence">This makes them faster, smaller, and more durable.</span></p>
+<p><span class="sentence">The software is also changing, although less visibly.</span> <span class="sentence">With hardware, you get the satisfaction of feeling a lighter computer, and silencing the spinning disks, and opening up your computer to transplant organs.</span> <span class="sentence">With software, you press a button, restart your computer, and move on with your day.</span> <span class="sentence">It is less visible, but the software is also changing to make your computer faster, more efficient, and more secure.</span></p>
+<p><span class="sentence">This system is complex and constantly changing, but the software handles most of this for you.</span> <span class="sentence">We call this software the “file system”, and it is responsible for giving you a simple, stable interface to work with all the complexity underneath.</span></p>
+<h2 id="a-few-new-tools">A Few New Tools</h2>
+<p><span class="sentence">Three new commands should be enough to get us started:</span></p>
+<pre><code>pwd - print name of current/working directory
+ls  - list directory contents
+cd  - change working directory</code></pre>
+<p><span class="sentence">Go ahead and run the first two in your terminal by typing <code>pwd</code> followed by enter/return, and then <code>ls</code> followed by enter/return.</span></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a>$ <span class="bu">pwd</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="ex">/home/patrick</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>$ <span class="fu">ls</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="ex">Applications</span>  Documents  Pictures</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="ex">Desktop</span>       Downloads  projects</span></code></pre></div>
+<p><span class="sentence">Your output will likely not match mine exactly, since this will be specific to each individual computer.</span></p>
+<p><span class="sentence">Now try <code>cd &lt;directory&gt;</code>, where <code>&lt;directory&gt;</code> is one of the names printed out by the <code>ls</code> command.</span></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a>$ <span class="fu">ls</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="ex">Applications</span>  Documents  Pictures</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="ex">Desktop</span>       Downloads  projects</span>
+<span id="cb3-4"><a href="#cb3-4"></a>$ <span class="bu">cd</span> Pictures</span>
+<span id="cb3-5"><a href="#cb3-5"></a>$ <span class="bu">pwd</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="ex">/home/patrick/Pictures</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>$ <span class="fu">ls</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="ex">Screenshot.png</span></span></code></pre></div>
+<p><span class="sentence">Again, what you see will almost certainly be different than this.</span> <span class="sentence">You can use just a plain <code>cd</code> to go back to the beginning.</span></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a>$ <span class="bu">cd</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>$ <span class="fu">ls</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="ex">Applications</span>  Documents  Pictures</span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="ex">Desktop</span>       Downloads  projects</span></code></pre></div>
+<p><span class="sentence">As an exercise and to help you get to know your computer, I would recommend trying to map out a bit of your file system onto paper.</span> <span class="sentence">Here is an example of what it might look like,</span></p>
+<pre><code>                           /home/patrick
+                                 |
+     ------------------------------------------------------
+    /            |         |           |          |        \
+Applications  Desktop   Documents  Downloads  Pictures  projects
+                                                  |
+                                            Screenshot.png</code></pre>
+<p><span class="sentence">If you lose track of where you are or have reached a dead end, you can always use <code>cd</code> by itself to reset to the beginning.</span> <span class="sentence">If you try <code>cd Screenshot.png</code> and it says <code>Not a directory</code>, you can simply mark that as a dead end.</span></p>
+<p><span class="sentence">If you’ve spent a fair amount of time on this computer, you may start to recognize pieces of the file system.</span> <span class="sentence">For example, if you are using a Mac or Linux and <code>cd Desktop</code>, you’ll find that the output of <code>ls</code> matches what you see on your Desktop.</span></p>
+<p><span class="sentence">Similarly, you might look under <code>Documents</code> and <code>Downloads</code> and see some familiar things.</span> <span class="sentence">This is helpful because it means you already know about some parts of the file system.</span> <span class="sentence">Soon you’ll have a fuller picture and will be able to connect the pieces you know about to the new ones.</span></p>
+            <br>
+            <br>
+            <section class="table-of-contents">
+                <ol>
+                </ol>
+            </section>
+        </article>
+    </div>
+
+    <footer>
+        <hr>
+        <div class="links">
+          <p>
+            ©
+            <a href="mailto:patrick.doc@port67.org">Patrick Dougherty</a>
+            -
+            <a href="https://github.com/patrickdoc/port67">source</a>
+          </p>
+        </div>
+    </footer>
+    
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+</body>
+</html>
