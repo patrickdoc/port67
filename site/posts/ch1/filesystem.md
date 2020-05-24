@@ -34,7 +34,7 @@ giving you a simple, stable interface to work with all the complexity underneath
 
 Three new commands should be enough to get us started:
 
-```bash
+```
 pwd - print name of current/working directory
 ls  - list directory contents
 cd  - change working directory

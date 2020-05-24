@@ -63,10 +63,11 @@ $ rmdir projects
 This command fails in two common ways:
 
 ```bash
-$ rmdir directory-that-doesnt-exist
-rmdir: failed to remove '/home/patrick/directory-that-doesnt-exist': No such file or directory
-$ rmdir directory-that-isnt-empty
-rmdir: failed to remove '/home/patrick/directory-that-isnt-empty': Directory not empty
+$ rmdir asdf
+rmdir: failed to remove '/home/patrick/asdf': No such file or directory
+
+$ rmdir projects
+rmdir: failed to remove '/home/patrick/projects': Directory not empty
 ```
 
 The first failure tells us that `rmdir` could not remove
