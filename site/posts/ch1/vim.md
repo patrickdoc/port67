@@ -32,11 +32,14 @@ $ vim
 
 You should be greeted by a message that starts with, `VIM - Vi IMproved` and
 then includes some information about the version and the author. Most
-importantly, you should have a blinking box in the upper left corner. That is
-your cursor.
+importantly, you should have a box in the upper left corner. That is your
+cursor.
 
 To put some data in the file, type the letter `i`, followed by your name, and
 then the escape key.
+
+Note: If you hear a bell sound or see the screen flash, that means you forgot to
+type `i` first. You can disable the bell/flash in the terminal settings.
 
 Once you type something, that welcome message disappears. Which is a little bit
 unfortunate because it contained the instructions on how to quit. It's not
@@ -51,7 +54,7 @@ You will likely see this error message appear,
 E37: No write since last change (add ! to override)
 ```
 Vim is warning you that you have made changes by typing your name into the file,
-but have not saved them ("No write"). This gives us two options. Either we can
+but have not saved them (`No write`). This gives us two options. Either we can
 use `!` to override the error and discard all our changes. The command for that
 would be `:q!`. Or we could "write" the changes to a file, saving them.
 
@@ -90,8 +93,8 @@ are in normal mode. Then type `A (<your age>)` followed by escape. No mouse or
 arrow keys needed.
 
 Here is a slightly more complex example. Move your cursor to the end of the line
-if it isn't there already. Now press `b` (for "beginning") to move backwards
-until your cursor is on your last name. Try `daw` (for "delete a word"). It
+if it isn't there already. Now press `b` ("beginning") to move backwards
+until your cursor is on your last name. Try `daw` ("delete a word"). It
 should delete your entire last name.
 
 Normal mode is useful, but takes time to learn. As you continue to work with
@@ -108,55 +111,35 @@ Here are some of the normal mode commands that I use most often. Many of them
 come in lowercase/capital pairs, so I've listed them together. Feel free to use
 all, none, or some of these.
 
-```vim
-h/j/k/l
-```
+`h/j/k/l`
+:   Arrow keys. Move left / down / up / right. (If you keep
+    your hands on the home row as recommended, your right pointer finger should
+    rest on the `j` key, which makes these convenient.)
 
-These are your arrow keys: left, down, up, right respectively. If you keep your
-hands on the home row as recommended, your right pointer finger should rest on
-the `j` key, which makes these convenient.
+`i/I`
+:   Enter insert mode at the cursor position / at the start of the line.
 
-```vim
-i/I
-```
+`a/A`
+:   Enter insert mode after the cursor position / at the end of the line.
 
-Enter insert mode at the cursor position or at the start of the line.
+`o/O`
+:   Enter insert mode on a new line below / above the current line.
 
-```vim
-a/A
-```
+`gg/G`
+:   Move to start / end of file.
 
-Enter insert mode after the cursor position or at the end of the line.
+`u`
+:   Undo.
 
+`/`
+:   Search a file. Press enter to submit your search, and then use
+    `n` to jump to the next match.
 
-```vim
-o/O
-```
+`.`
+:   Repeat previous command.
 
-Enter insert mode on a new line below or above the current line.
-
-```vim
-gg/G
-```
-
-Move to start of file. Move to end of file.
-
-```vim
-/
-```
-
-Type `/` to search a file. Press enter to submit your search, and then use `n`
-to jump to the next match.
-
-```vim
-u
-```
-
-undo.
-
-
-I would recommend trying the command `vimtutor` to try out some practical
-examples.
+I would recommend running the command `vimtutor` in the terminal to try out some
+practical examples.
 
 ## Other Options
 
