@@ -33,13 +33,13 @@
 <p><span class="sentence">Vim is intended to help you write and edit quickly, but it has a bit of a learning curve.</span> <span class="sentence">When you first start, some of the quirks can slow you down.</span> <span class="sentence">After a while though, you’ll start integrating some of the features into your regular use and begin speeding up.</span></p>
 <h2 id="opening-and-closing-files">Opening and Closing Files</h2>
 <p><span class="sentence">Give yourself a directory to work in.</span> <span class="sentence">Maybe something like this,</span></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a>$ <span class="bu">cd</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>$ <span class="fu">mkdir</span> projects</span>
-<span id="cb1-3"><a href="#cb1-3"></a>$ <span class="bu">cd</span> projects</span>
-<span id="cb1-4"><a href="#cb1-4"></a>$ <span class="fu">mkdir</span> vim</span>
-<span id="cb1-5"><a href="#cb1-5"></a>$ <span class="bu">cd</span> vim</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>$ <span class="bu">cd</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>$ <span class="fu">mkdir</span> projects</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>$ <span class="bu">cd</span> projects</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>$ <span class="fu">mkdir</span> vim</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>$ <span class="bu">cd</span> vim</span></code></pre></div>
 <p><span class="sentence">Now open Vim with the command <code>vim</code>.</span></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a>$ <span class="ex">vim</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>$ <span class="ex">vim</span></span></code></pre></div>
 <p><span class="sentence">You should be greeted by a message that starts with, <code>VIM - Vi IMproved</code> and then includes some information about the version and the author.</span> <span class="sentence">Most importantly, you should have a blinking box in the upper left corner.</span> <span class="sentence">That is your cursor.</span></p>
 <p><span class="sentence">To put some data in the file, type the letter <code>i</code>, followed by your name, and then the escape key.</span></p>
 <p><span class="sentence">Once you type something, that welcome message disappears.</span> <span class="sentence">Which is a little bit unfortunate because it contained the instructions on how to quit.</span> <span class="sentence">It’s not obvious how to close Vim once you’ve opened it, so we’ll start there.</span></p>
@@ -49,10 +49,10 @@
 <p><span class="sentence">Vim is warning you that you have made changes by typing your name into the file, but have not saved them (“No write”).</span> <span class="sentence">This gives us two options.</span> <span class="sentence">Either we can use <code>!</code> to override the error and discard all our changes.</span> <span class="sentence">The command for that would be <code>:q!</code>.</span> <span class="sentence">Or we could “write” the changes to a file, saving them.</span></p>
 <p><span class="sentence">We are going to write our changes to a file by entering the command <code>:w name</code>.</span> <span class="sentence">Here <code>name</code> is the name we want to use for our new file.</span> <span class="sentence">Now we try to quit again with <code>:q</code>, and it should work successfully.</span></p>
 <p><span class="sentence">Your file should now be visible in the filesystem.</span></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a>$ <span class="fu">ls</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="ex">name</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>$ <span class="fu">ls</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="ex">name</span></span></code></pre></div>
 <p><span class="sentence">We can open it again for more editing,</span></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a>$ <span class="ex">vim</span> name</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>$ <span class="ex">vim</span> name</span></code></pre></div>
 <h2 id="normal-and-insert-mode">Normal and Insert Mode</h2>
 <p><span class="sentence">When you first open Vim, you are in “normal” mode.</span> <span class="sentence">This is where all of Vim’s useful features live, but, just like the instructions for quitting, they are not immediately obvious.</span></p>
 <p><span class="sentence">If you just reopened your <code>name</code> file after closing it, your cursor should be on the first letter of your name.</span> <span class="sentence">We’re going to append <code>(&lt;your age&gt;)</code> to the end of the line with your name.</span></p>
