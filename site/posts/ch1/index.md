@@ -1,6 +1,6 @@
 ---
 title: "An Invitation"
-subFiles: [terminal.md, filesystem.md, filesystem-2.md, vim.md, executable.md]
+subFiles: [terminal.md, filesystem.md, filesystem-2.md, vim.md, executable.md, first-program.md]
 ---
 
 My mom used to be a banker. Once, while working at the bank, she discovered
