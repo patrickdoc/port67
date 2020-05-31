@@ -70,13 +70,13 @@ corner,
 E486: Pattern not found: Patrick
 ```
 
-Now try searching for "E486:". In the middle of all the garbage, you'll find
+Now try searching for `E486:`. In the middle of all the garbage, you'll find
 that exact warning phrase `E486: Pattern not found: %s`. So this file means
 something, just not to us.
 
 ## Executable Files
 
-These files are `executables`, which means that they are a set of instructions
+These files are "executable", which means that they are a set of instructions
 that the computer knows how to execute. When programming, our goal is to create
 these files so that we can ask the computer to execute them for us.
 
