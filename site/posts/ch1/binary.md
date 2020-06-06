@@ -76,8 +76,7 @@ We also have names for these groups to help discuss them. A single 0 or 1 of
 binary is called a "bit", short for "binary digit". A group of 8 "bits" is
 called a "byte", the standard measure of data in Computer Science.[^1]
 
-[^1]: Sometimes people call groups of 4 "nibbles", but I think that
-is mostly just for a good laugh. I told you CS people love their name jokes.
+[^1]: Sometimes people call groups of 4 "nibbles", but mostly just as a joke.
 
 So now you should be able to figure out what `65` looks like as a byte of binary
 data. We just need to figure out why the computer thinks `65` is the same as the
