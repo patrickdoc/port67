@@ -31,7 +31,7 @@
         <article class="post">
             <p><span class="sentence">We are now ready to move on to the second piece of your computer: the central processing unit, or CPU.</span></p>
 <p><span class="sentence">The CPU is responsible for executing all of the programs running on your computer.</span> <span class="sentence">Some of the instructions in the programs are for the CPU itself, for example, math operations, like adding, multiplying, and comparing numbers.</span> <span class="sentence">Other instructions must be coordinated with other components.</span> <span class="sentence">When you write to a file, the filesystem sends a request to the CPU, and then the CPU sends a request to the hard drive and waits for it to finish.</span></p>
-<p><span class="sentence">As we saw last time, all of these instructions live in files.</span> <span class="sentence">But instead of being formatted for humans to read, they are formatted for the computer.</span> <span class="sentence">[1] (On Linux, you may have noticed that the executables all have <code>ELF</code> at the beginning.</span> <span class="sentence">That isn’t just coincidence, it stands for “Executable and Linkable Format” and tells the computer what kind of file it is.) In fact, the format they use changes depending on the specific configurations of your computer.</span></p>
+<p><span class="sentence">As we saw last time, all of these instructions live in files.</span> <span class="sentence">But instead of being formatted for humans to read, they are formatted for the computer.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> In fact, the format they use changes depending on the specific configurations of your computer.</span></p>
 <p><span class="sentence">Rather than learn the specifics of every computer configuration, we are going to learn a programming language.</span> <span class="sentence">Programming languages are generic ways of writing instructions for the computer.</span> <span class="sentence">Once we write a program in a given language, we use a compiler to translate from the generic programming language into configuration-specific instructions.</span></p>
 <p><span class="sentence">We are going to use the C programming language.</span> <span class="sentence">It is old and a little bit less user-friendly than some of the newer ones.</span> <span class="sentence">But, it doesn’t hide any of the details from us, which makes it useful for learning about what is happening inside your computer.</span></p>
 <h2 id="a-simple-program">A Simple Program</h2>
@@ -118,6 +118,12 @@
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>$ <span class="bu">echo</span> <span class="va">$?</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a><span class="ex">65</span></span></code></pre></div>
 <p><span class="sentence">You probably did not guess that <code>65</code> would be the result.</span> <span class="sentence">You might ask, why 65?</span> <span class="sentence">Why not 64, or 66, or 1542?</span> <span class="sentence">The answer is mostly because someone decided that’s how it would be many years ago.</span> <span class="sentence">But to understand why we have to convert <code>'A'</code> to a letter at all, we need to cover our final topic.</span></p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p><span class="sentence">On Linux, you may have noticed that the executables all have <code>ELF</code> at the beginning.</span> <span class="sentence">That isn’t just coincidence, it stands for “Executable and Linkable Format” and tells the computer what kind of file it is.</span><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
             <br>
             <br>
             <section class="table-of-contents">
