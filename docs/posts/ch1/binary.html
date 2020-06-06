@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+    <meta charset="UTF-8">
+    <meta name="description" content="Port67">
+    <meta name="author" content="Patrick Dougherty">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/structure.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a id="beacon" href="/">
+                <div id="home-text"> Port67 </div>
+            </a>
+        </nav>
+    </header>
+
+    <div id="page">
+        <div class="wrapper">
+            <div class="masthead">
+                <span class="title">
+                    Binary
+                </span>
+            </div>
+        </div>
+
+        <article class="post">
+            <p><span class="sentence">The smallest unit of RAM is a single circuit that either has an electrical charge or doesn’t.</span> <span class="sentence">When it has a charge, the computer reads the value as 1.</span> <span class="sentence">When there is no charge, it is read as 0.</span> <span class="sentence">To write a value into memory, the hardware has to charge and discharge these cells to correspond to the correct order of 0’s and 1’s.</span></p>
+<p><span class="sentence">RAM provides the ability to store 1’s and 0’s, but we are responsible for providing the meaning of these values.</span> <span class="sentence">Our regular system of counting, “decimal”, uses the digits 0-9.</span> <span class="sentence">But since we don’t have 2-9 available, we need a slightly different system.</span></p>
+<p><span class="sentence">We will be using the “binary” number system.</span> <span class="sentence">It may look different at first, but it is reasonably similar to decimal.</span> <span class="sentence">Here are the first 10 numbers in each system,</span></p>
+<pre><code>Decimal: 0  1   2   3    4    5    6    7     8     9    10
+Binary:  0  1  10  11  100  101  110  111  1000  1001  1010</code></pre>
+<p><span class="sentence">Two comparisons might help you understand how binary works.</span> <span class="sentence">First, notice that when we count, we use up all of our single digits, and then add 1 to the left and restart.</span> <span class="sentence">In binary we just run out of digits faster, so we have to start new columns faster.</span></p>
+<p><span class="sentence">Second, notice that 10 and 2 play crucial roles in determining the value of a number.</span> <span class="sentence">Specifically, we can do this in decimal,</span></p>
+<pre><code>                            432
+=           4 x 100   +    3 x 10   +   2 x 1
+=           4 x 10^2  +   3 x 10^1  +  2 x 10^0
+=             400     +      30     +     2
+=                           432</code></pre>
+<p><span class="sentence">Let’s break down a binary number similarly.</span></p>
+<pre><code>                            101
+=             1 x 4   +    0 x 2    +   1 x 1
+=            1 x 2^2  +   0 x 2^1   +  1 x 2^0
+=               4     +      0      +     1
+=                            5</code></pre>
+<p><span class="sentence">In school, you might have been taught about the “1’s place”, the “10’s place,” and the “100’s place”.</span> <span class="sentence">In binary, you might call them the “1’s place”, “2’s place”, the “4’s place” and so on.</span> <span class="sentence">Each time you can multiply by another copy of the base (2 or 10) to get your value.</span></p>
+<p><span class="sentence">Because computer science uses binary so heavily, powers of 2 are useful to know.</span> <span class="sentence">For reference,</span></p>
+<pre><code>          2^0 2^1 2^2  2^3   2^4  2^5  2^6 2^7 2^8 2^9 2^10 2^11 2^12
+Decimal:    1   2   4    8    16   32   64 128 256 512 1024 2048 4096
+Binary:     1  10 100 1000 10000 10^5 10^6 ...</code></pre>
+<p><span class="sentence">You don’t need to memorize this chart, but keep an eye out for powers of 2.</span> <span class="sentence">They show up regularly in Computer Science.</span></p>
+<h2 id="bits-and-bytes">Bits and Bytes</h2>
+<p><span class="sentence">Binary is easy for a computer to read, but hard for most people to read.</span> <span class="sentence">To help with that, we often break it up into groups of 4.</span> <span class="sentence">So instead of <code>11010</code>, we write <code>0001 1010</code>.</span> <span class="sentence">You can check that adding 0’s to the left doesn’t change the value of the number by multiplying and then adding like we did above.</span></p>
+<p><span class="sentence">We also have names for these groups to help discuss them.</span> <span class="sentence">A single 0 or 1 of binary is called a “bit”, short for “binary digit”.</span> <span class="sentence">A group of 8 “bits” is called a “byte”, the standard measure of data in Computer Science.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></span></p>
+<p><span class="sentence">So now you should be able to figure out what <code>65</code> looks like as a byte of binary data.</span> <span class="sentence">We just need to figure out why the computer thinks <code>65</code> is the same as the letter <code>A</code>.</span></p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p><span class="sentence">Sometimes people call groups of 4 “nibbles”, but I think that is mostly just for a good laugh.</span> <span class="sentence">I told you CS people love their name jokes.</span><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+            <br>
+            <br>
+            <section class="table-of-contents">
+                <ol>
+                </ol>
+            </section>
+        </article>
+    </div>
+
+    <footer>
+        <hr>
+        <div class="links">
+          <p>
+            ©
+            <a href="mailto:patrick.doc@port67.org">Patrick Dougherty</a>
+            -
+            <a href="https://github.com/patrickdoc/port67">source</a>
+          </p>
+        </div>
+    </footer>
+    
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+</body>
+</html>
