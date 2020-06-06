@@ -13,11 +13,13 @@ file, the filesystem sends a request to the CPU, and then the CPU sends a
 request to the hard drive and waits for it to finish.
 
 As we saw last time, all of these instructions live in files. But instead of
-being formatted for humans to read, they are formatted for the computer. [1] (On
-Linux, you may have noticed that the executables all have `ELF` at the
-beginning. That isn't just coincidence, it stands for "Executable and Linkable
-Format" and tells the computer what kind of file it is.) In fact, the format
-they use changes depending on the specific configurations of your computer.
+being formatted for humans to read, they are formatted for the computer.[^1] In
+fact, the format they use changes depending on the specific configurations of
+your computer.
+
+[^1]: On Linux, you may have noticed that the executables all have `ELF` at the
+  beginning. That isn't just coincidence, it stands for "Executable and Linkable
+  Format" and tells the computer what kind of file it is.
 
 Rather than learn the specifics of every computer configuration, we are going to
 learn a programming language. Programming languages are generic ways of writing

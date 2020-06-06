@@ -14,8 +14,9 @@ there is more to this choice than just volatility.
 
 One drawback to the hard drive that we haven't seen yet is that it is slow. It's
 hard to give exact numbers because the technology is constantly improving. But
-if we rewind to roughly the year 2000, we can look at some approximations.
-[1](http://norvig.com/21-days.html#answers)
+if we rewind to roughly the year 2000, we can look at some approximations.[^1]
+
+[^1]: <http://norvig.com/21-days.html#answers>
 
 Suppose we wanted to read some data that is already stored in memory. In 2000,
 most people had hard disk drives as their non-volatile memory. You could read
@@ -137,7 +138,7 @@ on something, you may find that the next time you go back your most recent
 changes are missing. This is the same issue. Your changes were in volatile
 memory and were lost when the power went out.
 
----
+##
 
 You imagination is the only limitation on how you use RAM. It is your workspace
 to use however you would like when you are programming.
