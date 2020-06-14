@@ -121,7 +121,7 @@ to update the file with the changes we made in RAM. When you enter the `:w`
 command, you are asking Vim to "write" the changes from RAM onto the hard drive.
 
 This process of moving changes from volatile memory to non-volatile memory is
-common. Although, it is more often called "saving" instead of "writing". You may
+common; although it is usually called "saving" instead of "writing". You may
 have seen warnings before that say something like,
 
 ```
@@ -141,13 +141,11 @@ memory and were lost when the power went out.
 ##
 
 You imagination is the only limitation on how you use RAM. It is your workspace
-to use however you would like when you are programming.
+to use however you would like when you are programming. Based on the name, we
+know that random access memory is used to store data, like any other type of
+memory. But we don't have the same tools to work with RAM that we have for the
+hard drive. There is no filesystem for creating and destroying files or
+directories, and there is no Vim to let us write the data we want.
 
-But there is a twist: RAM can only store 1's and 0's. An average computer right
-now can store at least 16 billion 1's and 0's, but all that space is worthless
-if we don't know how to use it.
-
-We have one hint about how we are going to use it. We saw that the computer
-converted the letter `A` to the number `65`. If we could somehow convert `65`
-into 1's and 0's, we would have a way to store the letter `A` in RAM. That
-wouldn't explain everything we need to know, but it would at least be a start.
+Instead, we have to work more closely with the hardware and define how we want
+to use it. But to do that, we'll need to learn a bit more about how RAM works.

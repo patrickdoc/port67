@@ -23,15 +23,26 @@
         <div class="wrapper">
             <div class="masthead">
                 <span class="title">
-                    Binary
+                    1’s and 0’s
                 </span>
             </div>
         </div>
 
         <article class="post">
-            <p><span class="sentence">The smallest unit of RAM is a single circuit that either has an electrical charge or doesn’t.</span> <span class="sentence">When it has a charge, the computer reads the value as 1.</span> <span class="sentence">When there is no charge, it is read as 0.</span> <span class="sentence">To write a value into memory, the hardware has to charge and discharge these cells to correspond to the correct order of 0’s and 1’s.</span></p>
-<p><span class="sentence">RAM provides the ability to store 1’s and 0’s, but we are responsible for providing the meaning of these values.</span> <span class="sentence">Our regular system of counting, “decimal”, uses the digits 0-9.</span> <span class="sentence">But since we don’t have 2-9 available, we need a slightly different system.</span></p>
-<p><span class="sentence">We will be using the “binary” number system.</span> <span class="sentence">It may look different at first, but it is reasonably similar to decimal.</span> <span class="sentence">Here are the first 10 numbers in each system,</span></p>
+            <p><span class="sentence">We’ve seen a little bit about how memory is used and the differences between volatile and non-volatile memory, but we haven’t see much about what memory is.</span> <span class="sentence">When a file is “written” into memory, what does that translate to on the hardware?</span></p>
+<p><span class="sentence">At the smallest scale, a single cell of memory is an electic circuit that can either be charged with electricity or empty.</span> <span class="sentence">When we write to memory, we adjust the state of this circuit by either charging it or discharging it.</span></p>
+<p><span class="sentence">You can think of the cell like a light switch, either in the “on” or “off” position.</span> <span class="sentence">When writing, we can flip the switch, and when reading, we can check if the switch is currently on or off.</span> <span class="sentence">Instead of “off” and “on” though, we typically use <code>0</code> to represent the discharged state and <code>1</code> to represent the charged state.</span></p>
+<p><span class="sentence">We call a single cell of memory a “bit”, short for “binary digit”.</span> <span class="sentence">Digits are the numbers 0 to 9, but “binary” limits us to only the first two, 0 and 1.</span></p>
+<p><span class="sentence">If our memory only had one bit, there would only be two possible configurations, <code>0</code> or <code>1</code>.</span> <span class="sentence">But if we add a second bit, we have four possible configurations shown below.</span></p>
+<p><span class="sentence">Bit 1 | Bit 2 0 | 0 0 | 1 1 | 0 1 | 1</span></p>
+<p><span class="sentence">If we add a third bit, we double the number of configurations again for a total of eight.</span></p>
+<p><span class="sentence">Bit 1 | Bit 2 | Bit 3 0 | 0 | 0 0 | 0 | 1 0 | 1 | 0 0 | 1 | 1 1 | 0 | 0 1 | 0 | 1 1 | 1 | 0 1 | 1 | 1</span></p>
+<p><span class="sentence">Each time we add a new bit of memory, we double the number of possible configurations.</span> <span class="sentence">By the time we reach 8 bits, we have 256 different combinations of 0’s and 1’s available to us.</span></p>
+<p><span class="sentence">A group of 8 bits forms a “byte”, which is our standard unit of memory.</span> <span class="sentence">Like other scientific units, we can use prefixes like “kilo-”, “mega-”, and “giga-” to represent one thousand, one million, and one billion bytes respectively.</span> <span class="sentence">The computer I am working on has 8 gigabytes of memory, which translates to 8 billion bytes or 64 billion bits.</span></p>
+<p><span class="sentence">Bytes are the only data that memory understands.</span> <span class="sentence">When we want to write a new letter into a file, it must first be translated into bytes before it is written into memory.</span> <span class="sentence">When we want to open a file, the bytes in memory must be converted back to letters before we can read them.</span></p>
+<h2 id="binary">Binary</h2>
+<p><span class="sentence">Depending on the data we are trying to translate, we use a few different systems.</span> <span class="sentence">The first system we will look at is “binary”.</span> <span class="sentence">Binary is a system of counting that only uses 0’s and 1’s.</span> <span class="sentence">Our usual system, “decimal”, uses all the digits 0 through 9.</span> <span class="sentence">Despite missing out on 2-9, binary is completely equivalent to decimal, and we can always translate from one system to the other.</span></p>
+<p><span class="sentence">Binary may look different at first, but it is reasonably similar to decimal.</span> <span class="sentence">Here are the first 11 numbers in each system,</span></p>
 <pre><code>Decimal: 0  1   2   3    4    5    6    7     8     9    10
 Binary:  0  1  10  11  100  101  110  111  1000  1001  1010</code></pre>
 <p><span class="sentence">Two comparisons might help you understand how binary works.</span> <span class="sentence">First, notice that when we count, we use up all of our single digits, and then add 1 to the left and restart.</span> <span class="sentence">In binary we just run out of digits faster, so we have to start new columns faster.</span></p>
@@ -53,16 +64,6 @@ Binary:  0  1  10  11  100  101  110  111  1000  1001  1010</code></pre>
 Decimal:    1   2   4    8    16   32   64 128 256 512 1024 2048 4096
 Binary:     1  10 100 1000 10000 10^5 10^6 ...</code></pre>
 <p><span class="sentence">You don’t need to memorize this chart, but keep an eye out for powers of 2.</span> <span class="sentence">They show up regularly in Computer Science.</span></p>
-<h2 id="bits-and-bytes">Bits and Bytes</h2>
-<p><span class="sentence">Binary is easy for a computer to read, but hard for most people to read.</span> <span class="sentence">To help with that, we often break it up into groups of 4.</span> <span class="sentence">So instead of <code>11010</code>, we write <code>0001 1010</code>.</span> <span class="sentence">You can check that adding 0’s to the left doesn’t change the value of the number by multiplying and then adding like we did above.</span></p>
-<p><span class="sentence">We also have names for these groups to help discuss them.</span> <span class="sentence">A single 0 or 1 of binary is called a “bit”, short for “binary digit”.</span> <span class="sentence">A group of 8 “bits” is called a “byte”, the standard measure of data in Computer Science.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></span></p>
-<p><span class="sentence">So now you should be able to figure out what <code>65</code> looks like as a byte of binary data.</span> <span class="sentence">We just need to figure out why the computer thinks <code>65</code> is the same as the letter <code>A</code>.</span></p>
-<section class="footnotes" role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1" role="doc-endnote"><p><span class="sentence">Sometimes people call groups of 4 “nibbles”, but mostly just as a joke.</span><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
             <br>
             <br>
             <section class="table-of-contents">

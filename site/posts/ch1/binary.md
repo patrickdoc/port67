@@ -1,21 +1,73 @@
 ---
-title: "Binary"
+title: "1's and 0's"
 ---
 
-The smallest unit of RAM is a single circuit that either has an electrical charge
-or doesn't. When it has a charge, the computer reads the value as 1. When there
-is no charge, it is read as 0. To write a value into memory, the hardware has to
-charge and discharge these cells to correspond to the correct order of 0's and
-1's.
+We've seen a little bit about how memory is used and the differences between
+volatile and non-volatile memory, but we haven't see much about what memory is.
+When a file is "written" into memory, what does that translate to on the
+hardware?
 
-RAM provides the ability to store 1's and 0's, but we are responsible for
-providing the meaning of these values. Our regular system of counting,
-"decimal", uses the digits 0-9. But since we don't have 2-9 available, we need a
-slightly different system.
+At the smallest scale, a single cell of memory is an electic circuit that can
+either be charged with electricity or empty. When we write to memory, we
+adjust the state of this circuit by either charging it or discharging it.
 
-We will be using the "binary" number system. It may look different at first, but
-it is reasonably similar to decimal. Here are the first 10 numbers in each
-system,
+You can think of the cell like a light switch, either in the "on" or "off"
+position. When writing, we can flip the switch, and when reading, we can check
+if the switch is currently on or off. Instead of "off" and "on" though, we
+typically use `0` to represent the discharged state and `1` to represent the
+charged state.
+
+We call a single cell of memory a "bit", short for "binary digit". Digits are
+the numbers 0 to 9, but "binary" limits us to only the first two, 0 and 1.
+
+If our memory only had one bit, there would only be two possible
+configurations, `0` or `1`. But if we add a second bit, we have four possible
+configurations shown below.
+
+Bit 1 | Bit 2
+0 | 0
+0 | 1
+1 | 0
+1 | 1
+
+If we add a third bit, we double the number of configurations again for a total
+of eight.
+
+Bit 1 | Bit 2 | Bit 3
+0 | 0 | 0
+0 | 0 | 1
+0 | 1 | 0
+0 | 1 | 1
+1 | 0 | 0
+1 | 0 | 1
+1 | 1 | 0
+1 | 1 | 1
+
+Each time we add a new bit of memory, we double the number of possible
+configurations. By the time we reach 8 bits, we have 256 different combinations
+of 0's and 1's available to us.
+
+A group of 8 bits forms a "byte", which is our standard unit of memory. Like
+other scientific units, we can use prefixes like "kilo-", "mega-", and "giga-"
+to represent one thousand, one million, and one billion bytes respectively. The
+computer I am working on has 8 gigabytes of memory, which translates to 8
+billion bytes or 64 billion bits.
+
+Bytes are the only data that memory understands. When we want to write a new
+letter into a file, it must first be translated into bytes before it is written
+into memory. When we want to open a file, the bytes in memory must be converted
+back to letters before we can read them.
+
+## Binary
+
+Depending on the data we are trying to translate, we use a few different
+systems. The first system we will look at is "binary". Binary is a system of
+counting that only uses 0's and 1's. Our usual system, "decimal", uses all the
+digits 0 through 9. Despite missing out on 2-9, binary is completely equivalent
+to decimal, and we can always translate from one system to the other.
+
+Binary may look different at first, but it is reasonably similar to decimal.
+Here are the first 11 numbers in each system,
 
 ```
 Decimal: 0  1   2   3    4    5    6    7     8     9    10
@@ -64,20 +116,3 @@ Binary:     1  10 100 1000 10000 10^5 10^6 ...
 
 You don't need to memorize this chart, but keep an eye out for powers of 2.
 They show up regularly in Computer Science.
-
-## Bits and Bytes
-
-Binary is easy for a computer to read, but hard for most people to read. To help
-with that, we often break it up into groups of 4. So instead of `11010`, we
-write `0001 1010`. You can check that adding 0's to the left doesn't change the
-value of the number by multiplying and then adding like we did above.
-
-We also have names for these groups to help discuss them. A single 0 or 1 of
-binary is called a "bit", short for "binary digit". A group of 8 "bits" is
-called a "byte", the standard measure of data in Computer Science.[^1]
-
-[^1]: Sometimes people call groups of 4 "nibbles", but mostly just as a joke.
-
-So now you should be able to figure out what `65` looks like as a byte of binary
-data. We just need to figure out why the computer thinks `65` is the same as the
-letter `A`.
