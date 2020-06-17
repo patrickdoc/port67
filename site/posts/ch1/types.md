@@ -2,153 +2,131 @@
 title: "Types"
 ---
 
-We now have a system in place for converting 1's and 0's to regular decimal
-numbers. We can write a small C program to experiment with this. Open a new file
-with Vim, name it whatever you would like as long as it ends with `.c`, and copy
-or type this program into it.
+We can now translate from the hardware into binary, and from binary into
+decimal. But, while numbers are useful, we also want to work with other data.
+One of the simplest data types we want to work with is text. We need a way to
+represent letters in memory.
 
-```c
-#include <stdio.h>
+The most common system for converting text to binary is called ASCII. ASCII is
+simply a table that maps bytes to characters. Characters include capital
+letters, lower case letters, digits, and punctuation. Here's a snippet of the table,
 
-int main(int argc, char** argv) {
-    int x = 0b01000001;
-    printf("Integer: %d\n", x);
-
-    return 0;
-}
-```
-
-Compile and run this to see what the program does. I named my file `types.c`.
-
-```bash
-$ cc types.c
-$ ./a.out
-Integer: 65
-```
-
-There are a few new features in the code. First, we stored a binary value into
-the variable `x`.
-
-```c
-int x = 0b01000001;
-```
-
-The `0b` prefix tells the compiler that this is a binary number, not one million
-and one. This line defines the variable `x` to have the binary value `0100
-0001`. Later on in our program, if we use the variable `x`, it will be replaced
-by its value.
-
-The second new feature is `printf`.
-
-```c
-#include <stdio.h>
+Binary | Character
+0011 0000 | 0
+0011 0001 | 1
+0011 0010 | 2
+0011 0011 | 2
 ...
-printf("Integer: %d\n", x);
-```
+0011 1010 | :
+0011 1011 | ;
+0011 1100 | <
+...
+0100 0001 | A
+0100 0010 | B
+0100 0011 | C
+...
+0110 0001 | a
+0110 0010 | b
+0110 0011 | c
 
-`include` tells the compiler that there is code somewhere else on the computer
-that we would like to use. In this case, we would like to use `printf` from the
-file `stdio.h`, short for "Standard Input/Output". `printf` allows us to output
-text to the terminal, which you saw when you ran the program.
+There are some interesting patterns in the table, but mostly it is just an
+arbitrary definition. The basic ASCII table only defines the first 128 values.
+[^1] Over time, new standards have been established that cover more of the
+characters used around the world. But most of them are compatible with ASCII,
+meaning that they match on the first 128 values.
 
-`printf` is a function. The first argument, `"Integer: %d\n"`, describes what we
-want to print to the terminal. The `%d` is a placeholder. It will be replaced by
-the decimal value of the next argument to `printf`. In this case, the next
-argument is `x`.
+[1]: If you are looking closely, you'll notice that 128 is a power of 2.
+  Strangely, it is only 7 bits of data, even though our standard byte is 8 bits.
+  Text encoding just happens to be older than the 8 bit standard.
 
-So when our program runs, it prints `Integer: <decimal value of x>`. If you
-convert the byte `0100 0001` to decimal, you should find that it is `65`, just
-as our program printed out.
+## Types
 
-Let's now tweak our program.
+When we wrote our first program, we saw a surprising result. To refresh your
+memory, it looked like this,
 
 ```c
-#include <stdio.h>
-
 int main(int argc, char** argv) {
-    int x = 0b01000001;
-    printf("Integer: %d\n", x);
-    printf("Character: %c\n", x);
-
-    return 0;
+    return 'A';
 }
 ```
 
-We added another `printf` with a new placeholder. This time we used `%c` to
-print the "character" or letter value of `x`. If we compile and run our program,
-
 ```bash
-$ cc types.c
+$ cc test.c
 $ ./a.out
-Integer: 65
-Character: A
+$ echo $?
+65
 ```
 
-as you maybe expected, we again see that the computer thinks `65` and `A` are
-the same.
+We told the program to return the letter 'A', but instead it returned the
+number 65. If we use our knowledge of binary, decimal, and ASCII, we now know
+enough to explain the result.
 
-## Ascii
+Binary | Decimal | Character
+0100 0001 | 65 | A
 
-In RAM, we have the byte `0100 0001`. We know how to use binary to interpret
-that byte as a regular decimal number. However, we've seen a few times now that
-the computer will also interpret that exact same byte as `A` in some cases. So
-there must be another system that converts bytes into letters.
+In memory, the number 65 and the letter 'A' both correspond to the same byte,
+the exact same set of charged and uncharged circuits in the hardware. The only
+difference is how we choose to read that byte. If we read it as a binary
+number, the value is 65. But if we read it as an ASCII character, the value is
+the letter 'A'.
 
-There are many systems out there because computers have to support so many
-different languages. However, most systems are compatible with ASCII, the
-"American Standard Code for Information Interchange". That means that most
-systems agree `0100 0001` is `A`.
+ASCII and binary are only two of the ways that we can read bytes of data. If you
+think carefully about binary, you might notice that we don't have negative
+numbers. Every byte is translated to a positive decimal number. We also don't
+have fractional numbers, like `1.2` or `3.5`. Those are called "floating point"
+numbers and are quite tricky to represent.
 
-ASCII is just a table that maps bytes to letters. You can search for "ascii
-table" on the internet and find the full mapping, but you can also use the
-program above to try out specific values.
+These data types that we read straight from memory are called "primitive" types.
+They are built-in to C, so we don't need to worry about exactly how they work.
+But we do need to communicate to the compiler which type it should use to read
+the data in memory.
 
-For each of the values below, update the program to have `int x = <val>;`,
-compile, and run.
+We communicate this information to the compiler through the "type system". Types
+are how we work with the compiler to manage memory. We provide the type, and the
+compiler takes care of reading and writing the data in memory.
 
-```
-'A'
-'B'
-'Z'
-97
-'b'
-```
-
-If you play with this enough or look at the table, you might notice that the
-capital and lowercase letters are all in the correct order. This allows you to
-do something silly like,
-
-```c
-int x = 'A' + 1;
-```
-
-Try to guess what the result of that will be and then run it.
-
-##
-
-Binary and ASCII are only two of the possible mappings from data stored in RAM
-back to meaningful data. We call these mappings "types", and they allow us
-program without thinking about exactly how our data is mapped into memory.
-
-There are a few more "primitive" data types in C. These are the types built-in
-to C that are always available for you to use. If you think carefully about
-binary, you might notice that we don't have negative numbers. Every byte value
-is translated to a positive decimal number.
-
-We also don't have fractional numbers, like `1.2` or `3.5`. Those are called
-"floating point" numbers and are quite tricky to map. One major difficulty is
-that there are an infinite number of floating point numbers between any two
-numbers. For example, we can always add a `1` to the end of `1.11111` and get a
-new value. It is not easy to fit an infinite amount of numbers into a finite
-amount of memory.
-
-Here are some of the basic C types and the systems used to map the values into
-memory. You rarely need to know the particulars of each system, but if you are
-curious you should be able to find more information online for all of these.
+Here are some of the primitive types in C.
 
 Type        System          Example Values
 ----        ------          --------------
-char        ASCII           'A', 'B', 'c', '}'
+char        ASCII           'A', '9', 'c', '}'
 unsigned    Binary          1, 2, 452
 int         2's Complement  1, -1, 600, -1000
 float       Floating Point  1.2, 0.0002, 100.8
+
+`char` indicates that a value should be read as an ASCII letter, and `unsigned`
+indicates that a value should be read as a binary number. The two new ones are
+`int` and `float`. `int` is short for "integer", or positive and negative
+numbers. `float` is short for "floating point" which includes the rational
+numbers.
+
+When we write programs, we tell C which type to use for a specific variable. We
+"declare" a variable to have a type when we create it, like this,
+
+```c
+int x = 10;
+char myVariable = 'c';
+float otherVariable = 1.0;
+```
+
+C is not very strict with types though, so we can write code that looks like
+this,
+
+```c
+int x = 'A';
+char myVariable = 10;
+```
+
+But by doing that, we are losing most of the value that types provide.
+
+##
+
+Primitive types are useful, but they only represent single values. Most useful
+data is composed of just more than one number or letter. If you sign up for an
+account on a website, you typically have to put in at least your name and email,
+both of which have multiple characters in them. You might also need to input
+your birthday or phone number which, again, are more than a single value.
+
+The final tool we need is the ability to build new types out of the primitive
+types. Once we can do that, we can represent and manipulate any type of data we
+want.

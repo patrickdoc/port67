@@ -101,9 +101,9 @@ Let's break down a binary number similarly.
 ```
 
 In school, you might have been taught about the "1's place", the "10's place,"
-and the "100's place". In binary, you might call them the "1's place", "2's
+and the "100's place". In binary, you could call them the "1's place", "2's
 place", the "4's place" and so on. Each time you can multiply by another copy of
-the base (2 or 10) to get your value.
+the base -- 2 or 10 -- to get your value.
 
 Because computer science uses binary so heavily, powers of 2 are useful to know.
 For reference,

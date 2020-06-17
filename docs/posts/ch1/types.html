@@ -29,63 +29,27 @@
         </div>
 
         <article class="post">
-            <p><span class="sentence">We now have a system in place for converting 1’s and 0’s to regular decimal numbers.</span> <span class="sentence">We can write a small C program to experiment with this.</span> <span class="sentence">Open a new file with Vim, name it whatever you would like as long as it ends with <code>.c</code>, and copy or type this program into it.</span></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="dt">int</span> main(<span class="dt">int</span> argc, <span class="dt">char</span>** argv) {</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>    <span class="dt">int</span> x = <span class="bn">0b01000001</span>;</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>    printf(<span class="st">&quot;Integer: %d</span><span class="sc">\n</span><span class="st">&quot;</span>, x);</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>}</span></code></pre></div>
-<p><span class="sentence">Compile and run this to see what the program does.</span> <span class="sentence">I named my file <code>types.c</code>.</span></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>$ <span class="fu">cc</span> types.c</span>
+            <p><span class="sentence">We can now translate from the hardware into binary, and from binary into decimal.</span> <span class="sentence">But, while numbers are useful, we also want to work with other data.</span> <span class="sentence">One of the simplest data types we want to work with is text.</span> <span class="sentence">We need a way to represent letters in memory.</span></p>
+<p><span class="sentence">The most common system for converting text to binary is called ASCII.</span> <span class="sentence">ASCII is simply a table that maps bytes to characters.</span> <span class="sentence">Characters include capital letters, lower case letters, digits, and punctuation.</span> <span class="sentence">Here’s a snippet of the table,</span></p>
+<p><span class="sentence">Binary | Character 0011 0000 | 0 0011 0001 | 1 0011 0010 | 2 0011 0011 | 2 … 0011 1010 | : 0011 1011 | ; 0011 1100 | &lt; … 0100 0001 | A 0100 0010 | B 0100 0011 | C … 0110 0001 | a 0110 0010 | b 0110 0011 | c</span></p>
+<p><span class="sentence">There are some interesting patterns in the table, but mostly it is just an arbitrary definition.</span> <span class="sentence">The basic ASCII table only defines the first 128 values.</span> <span class="sentence">[^1] Over time, new standards have been established that cover more of the characters used around the world.</span> <span class="sentence">But most of them are compatible with ASCII, meaning that they match on the first 128 values.</span></p>
+<p><span class="sentence">Strangely, it is only 7 bits of data, even though our standard byte is 8 bits.</span> <span class="sentence">Text encoding just happens to be older than the 8 bit standard.</span></p>
+<h2 id="types">Types</h2>
+<p><span class="sentence">When we wrote our first program, we saw a surprising result.</span> <span class="sentence">To refresh your memory, it looked like this,</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="dt">int</span> main(<span class="dt">int</span> argc, <span class="dt">char</span>** argv) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="cf">return</span> <span class="ch">&#39;A&#39;</span>;</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>$ <span class="fu">cc</span> test.c</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>$ <span class="ex">./a.out</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a><span class="ex">Integer</span>: 65</span></code></pre></div>
-<p><span class="sentence">There are a few new features in the code.</span> <span class="sentence">First, we stored a binary value into the variable <code>x</code>.</span></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="dt">int</span> x = <span class="bn">0b01000001</span>;</span></code></pre></div>
-<p><span class="sentence">The <code>0b</code> prefix tells the compiler that this is a binary number, not one million and one.</span> <span class="sentence">This line defines the variable <code>x</code> to have the binary value <code>0100 0001</code>.</span> <span class="sentence">Later on in our program, if we use the variable <code>x</code>, it will be replaced by its value.</span></p>
-<p><span class="sentence">The second new feature is <code>printf</code>.</span></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>...</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>printf(<span class="st">&quot;Integer: %d</span><span class="sc">\n</span><span class="st">&quot;</span>, x);</span></code></pre></div>
-<p><span class="sentence"><code>include</code> tells the compiler that there is code somewhere else on the computer that we would like to use.</span> <span class="sentence">In this case, we would like to use <code>printf</code> from the file <code>stdio.h</code>, short for “Standard Input/Output”.</span> <span class="sentence"><code>printf</code> allows us to output text to the terminal, which you saw when you ran the program.</span></p>
-<p><span class="sentence"><code>printf</code> is a function.</span> <span class="sentence">The first argument, <code>"Integer: %d\n"</code>, describes what we want to print to the terminal.</span> <span class="sentence">The <code>%d</code> is a placeholder.</span> <span class="sentence">It will be replaced by the decimal value of the next argument to <code>printf</code>.</span> <span class="sentence">In this case, the next argument is <code>x</code>.</span></p>
-<p><span class="sentence">So when our program runs, it prints <code>Integer: &lt;decimal value of x&gt;</code>.</span> <span class="sentence">If you convert the byte <code>0100 0001</code> to decimal, you should find that it is <code>65</code>, just as our program printed out.</span></p>
-<p><span class="sentence">Let’s now tweak our program.</span></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="dt">int</span> main(<span class="dt">int</span> argc, <span class="dt">char</span>** argv) {</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>    <span class="dt">int</span> x = <span class="bn">0b01000001</span>;</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>    printf(<span class="st">&quot;Integer: %d</span><span class="sc">\n</span><span class="st">&quot;</span>, x);</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>    printf(<span class="st">&quot;Character: %c</span><span class="sc">\n</span><span class="st">&quot;</span>, x);</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">0</span>;</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>}</span></code></pre></div>
-<p><span class="sentence">We added another <code>printf</code> with a new placeholder.</span> <span class="sentence">This time we used <code>%c</code> to print the “character” or letter value of <code>x</code>.</span> <span class="sentence">If we compile and run our program,</span></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>$ <span class="fu">cc</span> types.c</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>$ <span class="ex">./a.out</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a><span class="ex">Integer</span>: 65</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a><span class="ex">Character</span>: A</span></code></pre></div>
-<p><span class="sentence">as you maybe expected, we again see that the computer thinks <code>65</code> and <code>A</code> are the same.</span></p>
-<h2 id="ascii">Ascii</h2>
-<p><span class="sentence">In RAM, we have the byte <code>0100 0001</code>.</span> <span class="sentence">We know how to use binary to interpret that byte as a regular decimal number.</span> <span class="sentence">However, we’ve seen a few times now that the computer will also interpret that exact same byte as <code>A</code> in some cases.</span> <span class="sentence">So there must be another system that converts bytes into letters.</span></p>
-<p><span class="sentence">There are many systems out there because computers have to support so many different languages.</span> <span class="sentence">However, most systems are compatible with ASCII, the “American Standard Code for Information Interchange”.</span> <span class="sentence">That means that most systems agree <code>0100 0001</code> is <code>A</code>.</span></p>
-<p><span class="sentence">ASCII is just a table that maps bytes to letters.</span> <span class="sentence">You can search for “ascii table” on the internet and find the full mapping, but you can also use the program above to try out specific values.</span></p>
-<p><span class="sentence">For each of the values below, update the program to have <code>int x = &lt;val&gt;;</code>, compile, and run.</span></p>
-<pre><code>&#39;A&#39;
-&#39;B&#39;
-&#39;Z&#39;
-97
-&#39;b&#39;</code></pre>
-<p><span class="sentence">If you play with this enough or look at the table, you might notice that the capital and lowercase letters are all in the correct order.</span> <span class="sentence">This allows you to do something silly like,</span></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="dt">int</span> x = <span class="ch">&#39;A&#39;</span> + <span class="dv">1</span>;</span></code></pre></div>
-<p><span class="sentence">Try to guess what the result of that will be and then run it.</span></p>
-<h2 id="section"></h2>
-<p><span class="sentence">Binary and ASCII are only two of the possible mappings from data stored in RAM back to meaningful data.</span> <span class="sentence">We call these mappings “types”, and they allow us program without thinking about exactly how our data is mapped into memory.</span></p>
-<p><span class="sentence">There are a few more “primitive” data types in C.</span> <span class="sentence">These are the types built-in to C that are always available for you to use.</span> <span class="sentence">If you think carefully about binary, you might notice that we don’t have negative numbers.</span> <span class="sentence">Every byte value is translated to a positive decimal number.</span></p>
-<p><span class="sentence">We also don’t have fractional numbers, like <code>1.2</code> or <code>3.5</code>.</span> <span class="sentence">Those are called “floating point” numbers and are quite tricky to map.</span> <span class="sentence">One major difficulty is that there are an infinite number of floating point numbers between any two numbers.</span> <span class="sentence">For example, we can always add a <code>1</code> to the end of <code>1.11111</code> and get a new value.</span> <span class="sentence">It is not easy to fit an infinite amount of numbers into a finite amount of memory.</span></p>
-<p><span class="sentence">Here are some of the basic C types and the systems used to map the values into memory.</span> <span class="sentence">You rarely need to know the particulars of each system, but if you are curious you should be able to find more information online for all of these.</span></p>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>$ <span class="bu">echo</span> <span class="va">$?</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="ex">65</span></span></code></pre></div>
+<p><span class="sentence">We told the program to return the letter ‘A’, but instead it returned the number 65.</span> <span class="sentence">If we use our knowledge of binary, decimal, and ASCII, we now know enough to explain the result.</span></p>
+<p><span class="sentence">Binary | Decimal | Character 0100 0001 | 65 | A</span></p>
+<p><span class="sentence">In memory, the number 65 and the letter ‘A’ both correspond to the same byte, the exact same set of charged and uncharged circuits in the hardware.</span> <span class="sentence">The only difference is how we choose to read that byte.</span> <span class="sentence">If we read it as a binary number, the value is 65.</span> <span class="sentence">But if we read it as an ASCII character, the value is the letter ‘A’.</span></p>
+<p><span class="sentence">ASCII and binary are only two of the ways that we can read bytes of data.</span> <span class="sentence">If you think carefully about binary, you might notice that we don’t have negative numbers.</span> <span class="sentence">Every byte is translated to a positive decimal number.</span> <span class="sentence">We also don’t have fractional numbers, like <code>1.2</code> or <code>3.5</code>.</span> <span class="sentence">Those are called “floating point” numbers and are quite tricky to represent.</span></p>
+<p><span class="sentence">These data types that we read straight from memory are called “primitive” types.</span> <span class="sentence">They are built-in to C, so we don’t need to worry about exactly how they work.</span> <span class="sentence">But we do need to communicate to the compiler which type it should use to read the data in memory.</span></p>
+<p><span class="sentence">We communicate this information to the compiler through the “type system”.</span> <span class="sentence">Types are how we work with the compiler to manage memory.</span> <span class="sentence">We provide the type, and the compiler takes care of reading and writing the data in memory.</span></p>
+<p><span class="sentence">Here are some of the primitive types in C.</span></p>
 <table>
 <thead>
 <tr class="header">
@@ -98,7 +62,7 @@
 <tr class="odd">
 <td>char</td>
 <td>ASCII</td>
-<td>‘A’, ‘B’, ‘c’, ‘}’</td>
+<td>‘A’, ‘9’, ‘c’, ‘}’</td>
 </tr>
 <tr class="even">
 <td>unsigned</td>
@@ -117,6 +81,18 @@
 </tr>
 </tbody>
 </table>
+<p><span class="sentence"><code>char</code> indicates that a value should be read as an ASCII letter, and <code>unsigned</code> indicates that a value should be read as a binary number.</span> <span class="sentence">The two new ones are <code>int</code> and <code>float</code>.</span> <span class="sentence"><code>int</code> is short for “integer”, or positive and negative numbers.</span> <span class="sentence"><code>float</code> is short for “floating point” which includes the rational numbers.</span></p>
+<p><span class="sentence">When we write programs, we tell C which type to use for a specific variable.</span> <span class="sentence">We “declare” a variable to have a type when we create it, like this,</span></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="dt">int</span> x = <span class="dv">10</span>;</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="dt">char</span> myVariable = <span class="ch">&#39;c&#39;</span>;</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="dt">float</span> otherVariable = <span class="fl">1.0</span>;</span></code></pre></div>
+<p><span class="sentence">C is not very strict with types though, so we can write code that looks like this,</span></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="dt">int</span> x = <span class="ch">&#39;A&#39;</span>;</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="dt">char</span> myVariable = <span class="dv">10</span>;</span></code></pre></div>
+<p><span class="sentence">But by doing that, we are losing most of the value that types provide.</span></p>
+<h2 id="section"></h2>
+<p><span class="sentence">Primitive types are useful, but they only represent single values.</span> <span class="sentence">Most useful data is composed of just more than one number or letter.</span> <span class="sentence">If you sign up for an account on a website, you typically have to put in at least your name and email, both of which have multiple characters in them.</span> <span class="sentence">You might also need to input your birthday or phone number which, again, are more than a single value.</span></p>
+<p><span class="sentence">The final tool we need is the ability to build new types out of the primitive types.</span> <span class="sentence">Once we can do that, we can represent and manipulate any type of data we want.</span></p>
             <br>
             <br>
             <section class="table-of-contents">
