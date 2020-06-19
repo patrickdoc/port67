@@ -11,23 +11,24 @@ The most common system for converting text to binary is called ASCII. ASCII is
 simply a table that maps bytes to characters. Characters include capital
 letters, lower case letters, digits, and punctuation. Here's a snippet of the table,
 
-Binary | Character
-0011 0000 | 0
-0011 0001 | 1
-0011 0010 | 2
-0011 0011 | 2
+Binary       Character
+------      -----------
+0011 0000       0
+0011 0001       1
+0011 0010       2
+0011 0011       3
 ...
-0011 1010 | :
-0011 1011 | ;
-0011 1100 | <
+0011 1010       :
+0011 1011       ;
+0011 1100       <
 ...
-0100 0001 | A
-0100 0010 | B
-0100 0011 | C
+0100 0001       A
+0100 0010       B
+0100 0011       C
 ...
-0110 0001 | a
-0110 0010 | b
-0110 0011 | c
+0110 0001       a
+0110 0010       b
+0110 0011       c
 
 There are some interesting patterns in the table, but mostly it is just an
 arbitrary definition. The basic ASCII table only defines the first 128 values.
@@ -35,7 +36,7 @@ arbitrary definition. The basic ASCII table only defines the first 128 values.
 characters used around the world. But most of them are compatible with ASCII,
 meaning that they match on the first 128 values.
 
-[1]: If you are looking closely, you'll notice that 128 is a power of 2.
+[^1]: If you are looking closely, you'll notice that 128 is a power of 2.
   Strangely, it is only 7 bits of data, even though our standard byte is 8 bits.
   Text encoding just happens to be older than the 8 bit standard.
 
@@ -61,8 +62,9 @@ We told the program to return the letter 'A', but instead it returned the
 number 65. If we use our knowledge of binary, decimal, and ASCII, we now know
 enough to explain the result.
 
-Binary | Decimal | Character
-0100 0001 | 65 | A
+Binary      Decimal   Character
+-------    --------- -----------
+0100 0001      65         A
 
 In memory, the number 65 and the letter 'A' both correspond to the same byte,
 the exact same set of charged and uncharged circuits in the hardware. The only

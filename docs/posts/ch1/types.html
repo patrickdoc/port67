@@ -31,9 +31,81 @@
         <article class="post">
             <p><span class="sentence">We can now translate from the hardware into binary, and from binary into decimal.</span> <span class="sentence">But, while numbers are useful, we also want to work with other data.</span> <span class="sentence">One of the simplest data types we want to work with is text.</span> <span class="sentence">We need a way to represent letters in memory.</span></p>
 <p><span class="sentence">The most common system for converting text to binary is called ASCII.</span> <span class="sentence">ASCII is simply a table that maps bytes to characters.</span> <span class="sentence">Characters include capital letters, lower case letters, digits, and punctuation.</span> <span class="sentence">Here’s a snippet of the table,</span></p>
-<p><span class="sentence">Binary | Character 0011 0000 | 0 0011 0001 | 1 0011 0010 | 2 0011 0011 | 2 … 0011 1010 | : 0011 1011 | ; 0011 1100 | &lt; … 0100 0001 | A 0100 0010 | B 0100 0011 | C … 0110 0001 | a 0110 0010 | b 0110 0011 | c</span></p>
-<p><span class="sentence">There are some interesting patterns in the table, but mostly it is just an arbitrary definition.</span> <span class="sentence">The basic ASCII table only defines the first 128 values.</span> <span class="sentence">[^1] Over time, new standards have been established that cover more of the characters used around the world.</span> <span class="sentence">But most of them are compatible with ASCII, meaning that they match on the first 128 values.</span></p>
-<p><span class="sentence">Strangely, it is only 7 bits of data, even though our standard byte is 8 bits.</span> <span class="sentence">Text encoding just happens to be older than the 8 bit standard.</span></p>
+<table>
+<thead>
+<tr class="header">
+<th>Binary</th>
+<th style="text-align: center;">Character</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0011 0000</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td>0011 0001</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td>0011 0010</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="even">
+<td>0011 0011</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td>0011 1010</td>
+<td style="text-align: center;">:</td>
+</tr>
+<tr class="odd">
+<td>0011 1011</td>
+<td style="text-align: center;">;</td>
+</tr>
+<tr class="even">
+<td>0011 1100</td>
+<td style="text-align: center;">&lt;</td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td>0100 0001</td>
+<td style="text-align: center;">A</td>
+</tr>
+<tr class="odd">
+<td>0100 0010</td>
+<td style="text-align: center;">B</td>
+</tr>
+<tr class="even">
+<td>0100 0011</td>
+<td style="text-align: center;">C</td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td>0110 0001</td>
+<td style="text-align: center;">a</td>
+</tr>
+<tr class="odd">
+<td>0110 0010</td>
+<td style="text-align: center;">b</td>
+</tr>
+<tr class="even">
+<td>0110 0011</td>
+<td style="text-align: center;">c</td>
+</tr>
+</tbody>
+</table>
+<p><span class="sentence">There are some interesting patterns in the table, but mostly it is just an arbitrary definition.</span> <span class="sentence">The basic ASCII table only defines the first 128 values.</span> <span class="sentence"><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Over time, new standards have been established that cover more of the characters used around the world.</span> <span class="sentence">But most of them are compatible with ASCII, meaning that they match on the first 128 values.</span></p>
 <h2 id="types">Types</h2>
 <p><span class="sentence">When we wrote our first program, we saw a surprising result.</span> <span class="sentence">To refresh your memory, it looked like this,</span></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="dt">int</span> main(<span class="dt">int</span> argc, <span class="dt">char</span>** argv) {</span>
@@ -44,7 +116,22 @@
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>$ <span class="bu">echo</span> <span class="va">$?</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="ex">65</span></span></code></pre></div>
 <p><span class="sentence">We told the program to return the letter ‘A’, but instead it returned the number 65.</span> <span class="sentence">If we use our knowledge of binary, decimal, and ASCII, we now know enough to explain the result.</span></p>
-<p><span class="sentence">Binary | Decimal | Character 0100 0001 | 65 | A</span></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Binary</th>
+<th style="text-align: center;">Decimal</th>
+<th style="text-align: center;">Character</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0100 0001</td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">A</td>
+</tr>
+</tbody>
+</table>
 <p><span class="sentence">In memory, the number 65 and the letter ‘A’ both correspond to the same byte, the exact same set of charged and uncharged circuits in the hardware.</span> <span class="sentence">The only difference is how we choose to read that byte.</span> <span class="sentence">If we read it as a binary number, the value is 65.</span> <span class="sentence">But if we read it as an ASCII character, the value is the letter ‘A’.</span></p>
 <p><span class="sentence">ASCII and binary are only two of the ways that we can read bytes of data.</span> <span class="sentence">If you think carefully about binary, you might notice that we don’t have negative numbers.</span> <span class="sentence">Every byte is translated to a positive decimal number.</span> <span class="sentence">We also don’t have fractional numbers, like <code>1.2</code> or <code>3.5</code>.</span> <span class="sentence">Those are called “floating point” numbers and are quite tricky to represent.</span></p>
 <p><span class="sentence">These data types that we read straight from memory are called “primitive” types.</span> <span class="sentence">They are built-in to C, so we don’t need to worry about exactly how they work.</span> <span class="sentence">But we do need to communicate to the compiler which type it should use to read the data in memory.</span></p>
@@ -93,6 +180,12 @@
 <h2 id="section"></h2>
 <p><span class="sentence">Primitive types are useful, but they only represent single values.</span> <span class="sentence">Most useful data is composed of just more than one number or letter.</span> <span class="sentence">If you sign up for an account on a website, you typically have to put in at least your name and email, both of which have multiple characters in them.</span> <span class="sentence">You might also need to input your birthday or phone number which, again, are more than a single value.</span></p>
 <p><span class="sentence">The final tool we need is the ability to build new types out of the primitive types.</span> <span class="sentence">Once we can do that, we can represent and manipulate any type of data we want.</span></p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p><span class="sentence">If you are looking closely, you’ll notice that 128 is a power of 2.</span> <span class="sentence">Strangely, it is only 7 bits of data, even though our standard byte is 8 bits.</span> <span class="sentence">Text encoding just happens to be older than the 8 bit standard.</span><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
             <br>
             <br>
             <section class="table-of-contents">
