@@ -34,9 +34,84 @@
 <p><span class="sentence">You can think of the cell like a light switch, either in the “on” or “off” position.</span> <span class="sentence">When writing, we can flip the switch, and when reading, we can check if the switch is currently on or off.</span> <span class="sentence">Instead of “off” and “on” though, we typically use <code>0</code> to represent the discharged state and <code>1</code> to represent the charged state.</span></p>
 <p><span class="sentence">We call a single cell of memory a “bit”, short for “binary digit”.</span> <span class="sentence">Digits are the numbers 0 to 9, but “binary” limits us to only the first two, 0 and 1.</span></p>
 <p><span class="sentence">If our memory only had one bit, there would only be two possible configurations, <code>0</code> or <code>1</code>.</span> <span class="sentence">But if we add a second bit, we have four possible configurations shown below.</span></p>
-<p><span class="sentence">Bit 1 | Bit 2 0 | 0 0 | 1 1 | 0 1 | 1</span></p>
+<table>
+<thead>
+<tr class="header">
+<th>Bit 1</th>
+<th>Bit 2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
 <p><span class="sentence">If we add a third bit, we double the number of configurations again for a total of eight.</span></p>
-<p><span class="sentence">Bit 1 | Bit 2 | Bit 3 0 | 0 | 0 0 | 0 | 1 0 | 1 | 0 0 | 1 | 1 1 | 0 | 0 1 | 0 | 1 1 | 1 | 0 1 | 1 | 1</span></p>
+<table>
+<thead>
+<tr class="header">
+<th>Bit 1</th>
+<th>Bit 2</th>
+<th>Bit 3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
 <p><span class="sentence">Each time we add a new bit of memory, we double the number of possible configurations.</span> <span class="sentence">By the time we reach 8 bits, we have 256 different combinations of 0’s and 1’s available to us.</span></p>
 <p><span class="sentence">A group of 8 bits forms a “byte”, which is our standard unit of memory.</span> <span class="sentence">Like other scientific units, we can use prefixes like “kilo-”, “mega-”, and “giga-” to represent one thousand, one million, and one billion bytes respectively.</span> <span class="sentence">The computer I am working on has 8 gigabytes of memory, which translates to 8 billion bytes or 64 billion bits.</span></p>
 <p><span class="sentence">Bytes are the only data that memory understands.</span> <span class="sentence">When we want to write a new letter into a file, it must first be translated into bytes before it is written into memory.</span> <span class="sentence">When we want to open a file, the bytes in memory must be converted back to letters before we can read them.</span></p>

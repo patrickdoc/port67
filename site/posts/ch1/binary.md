@@ -24,24 +24,26 @@ If our memory only had one bit, there would only be two possible
 configurations, `0` or `1`. But if we add a second bit, we have four possible
 configurations shown below.
 
-Bit 1 | Bit 2
-0 | 0
-0 | 1
-1 | 0
-1 | 1
+Bit 1  Bit 2
+-----  -----
+0      0
+0      1
+1      0
+1      1
 
 If we add a third bit, we double the number of configurations again for a total
 of eight.
 
-Bit 1 | Bit 2 | Bit 3
-0 | 0 | 0
-0 | 0 | 1
-0 | 1 | 0
-0 | 1 | 1
-1 | 0 | 0
-1 | 0 | 1
-1 | 1 | 0
-1 | 1 | 1
+Bit 1   Bit 2   Bit 3
+-----   -----   -----
+0       0       0
+0       0       1
+0       1       0
+0       1       1
+1       0       0
+1       0       1
+1       1       0
+1       1       1
 
 Each time we add a new bit of memory, we double the number of possible
 configurations. By the time we reach 8 bits, we have 256 different combinations
