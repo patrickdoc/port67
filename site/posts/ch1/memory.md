@@ -140,7 +140,7 @@ memory and were lost when the power went out.
 
 ##
 
-You imagination is the only limitation on how you use RAM. It is your workspace
+Your imagination is the only limitation on how you use RAM. It is your workspace
 to use however you would like when you are programming. Based on the name, we
 know that random access memory is used to store data, like any other type of
 memory. But we don't have the same tools to work with RAM that we have for the
