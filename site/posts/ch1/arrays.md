@@ -1,154 +1,228 @@
 ---
-title: "Arrays"
+title: "Composite Types"
 ---
 
-From our basic types of `char`, `unsigned`, `int`, and `float`, we can construct
-more types. The first we have access to is the "array". In C, an "array" is a
-group of values all lined up next to each other. Declaring a new array variable
-is easy:
+From our primitive types, we can build more complex types in memory. The first
+type we'll look at is the "array". An array is a collection of values that have
+the same type. For example, names are a collection of `char`s, so we can put
+them in an array.
+
+In C, we declare a new array like this,
 
 ```c
-char my_array[3];
+char name[] = {'A', 'l', 'i', 'c', 'e'};
 ```
 
-This line declares a new variable named `my_array`, which holds 3 `char`'s.
-Arrays can hold many values, but they all have to be the same type. This is due
-to the size issue that types solved in the first place. If I am going to have
-multiple values, then I definitely need to know how much space to allocate for
-each of them.
+This statement defines a new variable `name` that holds 5 `char`s.
 
-In the upcoming pictures, I am going to introduce this shorthand for all of our
-sanity.
+We can read and write values in this array by accessing a specific "index" of
+the array. The index is just the position of the element in the array, counting
+from the beginning. Perhaps surprisingly, we start counting from 0 instead of 1.
+So the first element of the array has index 0, the second has index 1, and so
+on.
+
+```c
+name[0] = 'B';
+return name[1];
+```
+
+This makes a little more sense if we look at the array in memory. In the
+interest of saving space, I am going to compress the individual bits into a
+single block like this,
 
 ```
-                char
 +---+---+---+---+   +---+---+---+---+
-| 1 | 0 | 0 | 1 |   | 1 | 0 | 0 | 0 |
+| 0 | 1 | 0 | 0 |   | 0 | 0 | 0 | 1 |
 +---+---+---+---+   +---+---+---+---+
         \                   /
          \                 /
-              +========+
-              |  char  |
-              +========+
+              +=======+
+              |  'A'  |
+              +=======+
 ```
 
-I am going to compress a type's bit representation into this smaller box so that
-I can include multiple next to each other in a reasonable amount of space.
+Just remember that each `char` is composed of 8 bits of memory, or a byte.
 
-Back to our array, what does it look like? Well, it is 3 `char`'s perfectly
-lined up in memory.
+Our `name` array now looks like this in memory.
 
 ```
-          my_array
-+========+========+========+
-|  char  |  char  |  char  |
-+========+========+========+
+                  name
++=======+=======+=======+=======+=======+
+|  'A'  |  'l'  |  'i'  |  'c'  |  'e'  |
++=======+=======+=======+=======+=======+
 ```
 
-Because we know how big a `char` is, we know how big a `my_array` is: `3 *
-sizeof(char)`. In this case, `my_array` is 3 bytes. We can even check this to
-make sure I know what I am talking about.
+All 5 characters perfectly lined up next to each other.
+
+Internally, memory is accessed using addresses. When you start writing more
+complex programs, you need to work with these addresses directly. But we won't
+be using them right now, we just need to know how they work to understand array
+indices.
+
+Here is our `name` array again, this time though, I've added fake address
+information. Our variable starts at byte address 543 and extends through byte
+547.
+
+```
+name
+V
++=======+=======+=======+=======+=======+
+|  'A'  |  'l'  |  'i'  |  'c'  |  'e'  |
++=======+=======+=======+=======+=======+
+^       ^       ^       ^       ^
+544     545     546     547     548
+```
+
+In general, the variables we declare are just names for addresses in memory.
+When you declare a new `char` variable named `my_char`, C finds an unused byte
+of memory and associates the address with `my_char`.
+
+Now the index trick is pretty simple. `name` is the address of the first
+character. To get the address of the second character, we just need to jump over
+the first one. To get the address of the third character, we need to jump over
+the first two, etc.
+
+```
+name            name[2]
+V               V
++=======+=======+=======+=======+=======+
+|  'A'  |  'l'  |  'i'  |  'c'  |  'e'  |
++=======+=======+=======+=======+=======+
+^       ^       ^       ^       ^
+544     545     546     547     548
+```
+
+We can calculate the exact address like this,
+
+```
+name[2] = name + 2*sizeof(char)
+name[2] = 544 + 2*1
+name[2] = 546
+```
+
+So the index is just a counter of how many values we need to skip over before we
+reach the one we want. Which is why we start counting from 0. When we want the
+first `char` in the array, we don't want to skip any characters.
+
+One nice feature of this system is that it doesn't matter how big the elements
+are. `char`s are only one byte, but other types are bigger. For example,
+`int`s are typically four bytes so that we can work with larger numbers; one
+byte can only hold values up to 256, but 4 bytes can hold up to 4.3 billion.
+
+Even if we change our array from `char`s to `int`s, our picture doesn't change.
+Here it is again, but with `int`s,
+
+```
+name            name[2]
+V               V
++=======+=======+=======+=======+=======+
+|  123  |  943  |   2   | 1402  |  11   |
++=======+=======+=======+=======+=======+
+^       ^       ^       ^       ^
+544     548     552     556     560
+```
+
+The addresses are now 4 apart because each `int` is 4 bytes (or 32 bits) long.
+But that doesn't change our address calculation.
+
+```
+name[2] = name + 2*sizeof(int)
+name[2] = 544 + 2*4
+name[2] = 552
+```
+
+No matter what type of objects or how many objects we store in our array, C
+always knows how to find them by jumping over the earlier ones. Because they are
+all the same size, it is easy to find any element you ask for.
+
+## Structs
+
+Arrays work well when you want to store many elements that have the same type,
+but sometimes we want to group values of different types together.
+
+Many old arcade games had high-score screens at the end. When you scored high
+enough to make it to the list, you could record your scores with 3 letters to
+identify yourself. So you might see an entry in the list like `AAA - 523` or
+`BOB - 1500`.
+
+We want to group the letters and score together so that we always can access
+them at the same time and don't mix up which letters go with which numbers.
+
+To do this, we just need to tell C about this new type so that it can map it
+into memory. We call this new type a "data structure" because it builds a new
+type out of existing types. In C, we can define a new data structure with the
+`struct` keyword.
 
 ```c
-int main(int argc, char **argv) {
-
-    char my_array[3];
-
-    printf("my_array is %d bytes long\n", sizeof(my_array));
-}
+struct HighScore {
+    char    id[3];
+    int     score;
+};
 ```
 
-The `sizeof` keyword in C takes a variable or type and returns the number of
-bytes it takes up. Running our code, we see:
-
-```bash
-$ ./a.out
-my_array is 3 bytes long
-```
-
-If you change `my_array` to be an array of `int`'s instead of `char`'s, how big
-will it be? Guess, and then check for yourself by modifying the code above.
-Next, try guessing how changing the number of elements stored will affect the
-size. Check that too.
-
-## Using Arrays
-
-At this point, you have seen enough `main` functions to replicate them on your
-own, so I am going to just give you the important lines and let you fill in the
-rest. Hopefully you have plenty of examples from previous lessons to work from
-now!
-
-We can initialize the values of an array just like so:
+We now have a convenient way to work with individual high score entries. We can
+read and write the values similar to other variables.
 
 ```c
-unsigned my_array[3] = {74, 11, 9};
+struct HighScore score1;
+score1.id[0] = 'B';
+score1.id[1] = 'O';
+score1.id[2] = 'B';
+score1.score = 1500;
 ```
 
-If we put more numbers inside the `{}`'s than we have asked for, we *might* get
-a warning. If we put fewer than we ask for, and then try to use an uninitialized
-value, we almost certainly won't. These are the dangers of C. My goal is to give
-you enough knowledge to avoid these issues most of the time and debug when you
-have to.
+Here `score1` is a variable that contains two values: an array of three `char`s
+named `id` and an `int` score.
 
-To access values, we use a very similar syntax:
+We can define a second `HighScore` variable just like the first,
 
 ```c
-unsigned first  = my_array[0];
-unsigned second = my_array[1];
-unsigned third  = my_array[2];
+struct HighScore score2;
+score2.id[0] = 'A';
+score2.id[1] = 'A';
+score2.id[2] = 'A';
+score2.score = 523;
 ```
 
-This can be a point of confusion, so let's take a second to understand it. When
-we count the elements of an array, we start at 0. Here's the picture again:
+`HighScore` works just like any other type. When we declare new variables with
+the type `struct HighScore`, C has to set aside memory to hold the values. That
+looks like this,
 
 ```
-|         my_array         |
-+========+========+========+
-|  char  |  char  |  char  |
-+========+========+========+
-|  first | second | third  |
+score1
+id                      score
+V                       V
++=======+=======+=======+=======+
+|  'B'  |  'O'  |  'B'  | 1500  |
++=======+=======+=======+=======+
+^       ^       ^       ^       ^
+544     545     546     547     551
 ```
 
-The value we give within the `[]`'s is an "index". It represents some element
-within the array. `my_array` tells us where the start, and then the index tells
-us how much to move over. Let's update our picture:
+When we ask C for `score1.score`, it has to perform a similar address
+calculation to the array calculation. We know that `score1` starts at address
+544, so we just need to know how far to jump to find the start of the `score`
+value.
+
+Our struct is laid out in memory exactly as we defined it in the code. In this
+case, it is three `char`s followed by an `int`. To find the `score` then, we
+just need to jump over the three `char`s.
 
 ```
-my_array
-   |
-   V
-   +========+========+========+
-   |  char  |  char  |  char  |
-   +========+========+========+
-                     ^
-                     |
-              my_array + 2*sizeof(char)
+score1.score = score1 + offset(score)
+score1.score = 544 + 3*sizeof(char)
+score1.score = 544 + 3*1
+score1.score = 547
 ```
 
-So our index tells the computer how much to move over. The nifty thing is that
-this syntax works even if we change types, and therefore size of elements in the
-array.
+If tomorrow we decide to make the `id` an array of `int`s instead of `char`s, we
+don't need to worry about changing the rest of our code. `score1.score` will
+still work exactly as we want it to because it knows it needs to skip three
+`int`s instead of three `char`s.
 
-```
-my_array
-   |
-   V
-   +========+========+========+
-   |   int  |   int  |   int  |
-   +========+========+========+
-                     ^
-                     |
-              my_array + 2*sizeof(int)
-```
+##
 
-As you can see, our picture is exactly the same! Because the compiler knows the
-type of the elements in the array, it can adjust however it needs to. This takes
-a lot of work off the programmer. Instead of trying to figure out how many bytes
-of an offset we need, we just write `my_array[2]` and get the third element
-every time.
-
-Hopefully the index numbers make some sense now. To get the first element of the
-array, we start at the beginning and move over `0*sizeof(type)`, where `type` is
-the type of elements in the array. To get the last value in the array, we start
-at the beginning and move over `(length - 1)*sizeof(type)`, where `length` is
-the number of elements in the array.
+With the ability to build types out of smaller types, we can work with any data
+we want. If we can define all the pieces that make up the data we are working
+with, C can map it into memory for us. Once the data is in memory, we can
+analyze it, transform it, or send it over a network to another computer.

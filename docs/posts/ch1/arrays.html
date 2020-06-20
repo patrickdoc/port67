@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+    <meta charset="UTF-8">
+    <meta name="description" content="Port67">
+    <meta name="author" content="Patrick Dougherty">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/structure.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a id="beacon" href="/">
+                <div id="home-text"> Port67 </div>
+            </a>
+        </nav>
+    </header>
+
+    <div id="page">
+        <div class="wrapper">
+            <div class="masthead">
+                <span class="title">
+                    Composite Types
+                </span>
+            </div>
+        </div>
+
+        <article class="post">
+            <p><span class="sentence">From our primitive types, we can build more complex types in memory.</span> <span class="sentence">The first type we’ll look at is the “array”.</span> <span class="sentence">An array is a collection of values that have the same type.</span> <span class="sentence">For example, names are a collection of <code>char</code>s, so we can put them in an array.</span></p>
+<p><span class="sentence">In C, we declare a new array like this,</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="dt">char</span> name[] = {<span class="ch">&#39;A&#39;</span>, <span class="ch">&#39;l&#39;</span>, <span class="ch">&#39;i&#39;</span>, <span class="ch">&#39;c&#39;</span>, <span class="ch">&#39;e&#39;</span>};</span></code></pre></div>
+<p><span class="sentence">This statement defines a new variable <code>name</code> that holds 5 <code>char</code>s.</span></p>
+<p><span class="sentence">We can read and write values in this array by accessing a specific “index” of the array.</span> <span class="sentence">The index is just the position of the element in the array, counting from the beginning.</span> <span class="sentence">Perhaps surprisingly, we start counting from 0 instead of 1.</span> <span class="sentence">So the first element of the array has index 0, the second has index 1, and so on.</span></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>name[<span class="dv">0</span>] = <span class="ch">&#39;B&#39;</span>;</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="cf">return</span> name[<span class="dv">1</span>];</span></code></pre></div>
+<p><span class="sentence">This makes a little more sense if we look at the array in memory.</span> <span class="sentence">In the interest of saving space, I am going to compress the individual bits into a single block like this,</span></p>
+<pre><code>+---+---+---+---+   +---+---+---+---+
+| 0 | 1 | 0 | 0 |   | 0 | 0 | 0 | 1 |
++---+---+---+---+   +---+---+---+---+
+        \                   /
+         \                 /
+              +=======+
+              |  &#39;A&#39;  |
+              +=======+</code></pre>
+<p><span class="sentence">Just remember that each <code>char</code> is composed of 8 bits of memory, or a byte.</span></p>
+<p><span class="sentence">Our <code>name</code> array now looks like this in memory.</span></p>
+<pre><code>                  name
++=======+=======+=======+=======+=======+
+|  &#39;A&#39;  |  &#39;l&#39;  |  &#39;i&#39;  |  &#39;c&#39;  |  &#39;e&#39;  |
++=======+=======+=======+=======+=======+</code></pre>
+<p><span class="sentence">All 5 characters perfectly lined up next to each other.</span></p>
+<p><span class="sentence">Internally, memory is accessed using addresses.</span> <span class="sentence">When you start writing more complex programs, you need to work with these addresses directly.</span> <span class="sentence">But we won’t be using them right now, we just need to know how they work to understand array indices.</span></p>
+<p><span class="sentence">Here is our <code>name</code> array again, this time though, I’ve added fake address information.</span> <span class="sentence">Our variable starts at byte address 543 and extends through byte 547.</span></p>
+<pre><code>name
+V
++=======+=======+=======+=======+=======+
+|  &#39;A&#39;  |  &#39;l&#39;  |  &#39;i&#39;  |  &#39;c&#39;  |  &#39;e&#39;  |
++=======+=======+=======+=======+=======+
+^       ^       ^       ^       ^
+544     545     546     547     548</code></pre>
+<p><span class="sentence">In general, the variables we declare are just names for addresses in memory.</span> <span class="sentence">When you declare a new <code>char</code> variable named <code>my_char</code>, C finds an unused byte of memory and associates the address with <code>my_char</code>.</span></p>
+<p><span class="sentence">Now the index trick is pretty simple.</span> <span class="sentence"><code>name</code> is the address of the first character.</span> <span class="sentence">To get the address of the second character, we just need to jump over the first one.</span> <span class="sentence">To get the address of the third character, we need to jump over the first two, etc.</span></p>
+<pre><code>name            name[2]
+V               V
++=======+=======+=======+=======+=======+
+|  &#39;A&#39;  |  &#39;l&#39;  |  &#39;i&#39;  |  &#39;c&#39;  |  &#39;e&#39;  |
++=======+=======+=======+=======+=======+
+^       ^       ^       ^       ^
+544     545     546     547     548</code></pre>
+<p><span class="sentence">We can calculate the exact address like this,</span></p>
+<pre><code>name[2] = name + 2*sizeof(char)
+name[2] = 544 + 2*1
+name[2] = 546</code></pre>
+<p><span class="sentence">So the index is just a counter of how many values we need to skip over before we reach the one we want.</span> <span class="sentence">Which is why we start counting from 0.</span> <span class="sentence">When we want the first <code>char</code> in the array, we don’t want to skip any characters.</span></p>
+<p><span class="sentence">One nice feature of this system is that it doesn’t matter how big the elements are.</span> <span class="sentence"><code>char</code>s are only one byte, but other types are bigger.</span> <span class="sentence">For example, <code>int</code>s are typically four bytes so that we can work with larger numbers; one byte can only hold values up to 256, but 4 bytes can hold up to 4.3 billion.</span></p>
+<p><span class="sentence">Even if we change our array from <code>char</code>s to <code>int</code>s, our picture doesn’t change.</span> <span class="sentence">Here it is again, but with <code>int</code>s,</span></p>
+<pre><code>name            name[2]
+V               V
++=======+=======+=======+=======+=======+
+|  123  |  943  |   2   | 1402  |  11   |
++=======+=======+=======+=======+=======+
+^       ^       ^       ^       ^
+544     548     552     556     560</code></pre>
+<p><span class="sentence">The addresses are now 4 apart because each <code>int</code> is 4 bytes (or 32 bits) long.</span> <span class="sentence">But that doesn’t change our address calculation.</span></p>
+<pre><code>name[2] = name + 2*sizeof(int)
+name[2] = 544 + 2*4
+name[2] = 552</code></pre>
+<p><span class="sentence">No matter what type of objects or how many objects we store in our array, C always knows how to find them by jumping over the earlier ones.</span> <span class="sentence">Because they are all the same size, it is easy to find any element you ask for.</span></p>
+<h2 id="structs">Structs</h2>
+<p><span class="sentence">Arrays work well when you want to store many elements that have the same type, but sometimes we want to group values of different types together.</span></p>
+<p><span class="sentence">Many old arcade games had high-score screens at the end.</span> <span class="sentence">When you scored high enough to make it to the list, you could record your scores with 3 letters to identify yourself.</span> <span class="sentence">So you might see an entry in the list like <code>AAA - 523</code> or <code>BOB - 1500</code>.</span></p>
+<p><span class="sentence">We want to group the letters and score together so that we always can access them at the same time and don’t mix up which letters go with which numbers.</span></p>
+<p><span class="sentence">To do this, we just need to tell C about this new type so that it can map it into memory.</span> <span class="sentence">We call this new type a “data structure” because it builds a new type out of existing types.</span> <span class="sentence">In C, we can define a new data structure with the <code>struct</code> keyword.</span></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">struct</span> HighScore {</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>    <span class="dt">char</span>    id[<span class="dv">3</span>];</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>    <span class="dt">int</span>     score;</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>};</span></code></pre></div>
+<p><span class="sentence">We now have a convenient way to work with individual high score entries.</span> <span class="sentence">We can read and write the values similar to other variables.</span></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">struct</span> HighScore score1;</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>score1.id[<span class="dv">0</span>] = <span class="ch">&#39;B&#39;</span>;</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>score1.id[<span class="dv">1</span>] = <span class="ch">&#39;O&#39;</span>;</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>score1.id[<span class="dv">2</span>] = <span class="ch">&#39;B&#39;</span>;</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>score1.score = <span class="dv">1500</span>;</span></code></pre></div>
+<p><span class="sentence">Here <code>score1</code> is a variable that contains two values: an array of three <code>char</code>s named <code>id</code> and an <code>int</code> score.</span></p>
+<p><span class="sentence">We can define a second <code>HighScore</code> variable just like the first,</span></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="kw">struct</span> HighScore score2;</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a>score2.id[<span class="dv">0</span>] = <span class="ch">&#39;A&#39;</span>;</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a>score2.id[<span class="dv">1</span>] = <span class="ch">&#39;A&#39;</span>;</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a>score2.id[<span class="dv">2</span>] = <span class="ch">&#39;A&#39;</span>;</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a>score2.score = <span class="dv">523</span>;</span></code></pre></div>
+<p><span class="sentence"><code>HighScore</code> works just like any other type.</span> <span class="sentence">When we declare new variables with the type <code>struct HighScore</code>, C has to set aside memory to hold the values.</span> <span class="sentence">That looks like this,</span></p>
+<pre><code>score1
+id                      score
+V                       V
++=======+=======+=======+=======+
+|  &#39;B&#39;  |  &#39;O&#39;  |  &#39;B&#39;  | 1500  |
++=======+=======+=======+=======+
+^       ^       ^       ^       ^
+544     545     546     547     551</code></pre>
+<p><span class="sentence">When we ask C for <code>score1.score</code>, it has to perform a similar address calculation to the array calculation.</span> <span class="sentence">We know that <code>score1</code> starts at address 544, so we just need to know how far to jump to find the start of the <code>score</code> value.</span></p>
+<p><span class="sentence">Our struct is laid out in memory exactly as we defined it in the code.</span> <span class="sentence">In this case, it is three <code>char</code>s followed by an <code>int</code>.</span> <span class="sentence">To find the <code>score</code> then, we just need to jump over the three <code>char</code>s.</span></p>
+<pre><code>score1.score = score1 + offset(score)
+score1.score = 544 + 3*sizeof(char)
+score1.score = 544 + 3*1
+score1.score = 547</code></pre>
+<p><span class="sentence">If tomorrow we decide to make the <code>id</code> an array of <code>int</code>s instead of <code>char</code>s, we don’t need to worry about changing the rest of our code.</span> <span class="sentence"><code>score1.score</code> will still work exactly as we want it to because it knows it needs to skip three <code>int</code>s instead of three <code>char</code>s.</span></p>
+<h2 id="section"></h2>
+<p><span class="sentence">With the ability to build types out of smaller types, we can work with any data we want.</span> <span class="sentence">If we can define all the pieces that make up the data we are working with, C can map it into memory for us.</span> <span class="sentence">Once the data is in memory, we can analyze it, transform it, or send it over a network to another computer.</span></p>
+            <br>
+            <br>
+            <section class="table-of-contents">
+                <ol>
+                </ol>
+            </section>
+        </article>
+    </div>
+
+    <footer>
+        <hr>
+        <div class="links">
+          <p>
+            ©
+            <a href="mailto:patrick.doc@port67.org">Patrick Dougherty</a>
+            -
+            <a href="https://github.com/patrickdoc/port67">source</a>
+          </p>
+        </div>
+    </footer>
+    
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+</body>
+</html>
