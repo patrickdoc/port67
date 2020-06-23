@@ -52,8 +52,8 @@
 |  &#39;A&#39;  |  &#39;l&#39;  |  &#39;i&#39;  |  &#39;c&#39;  |  &#39;e&#39;  |
 +=======+=======+=======+=======+=======+</code></pre>
 <p><span class="sentence">All 5 characters perfectly lined up next to each other.</span></p>
-<p><span class="sentence">Internally, memory is accessed using addresses.</span> <span class="sentence">When you start writing more complex programs, you need to work with these addresses directly.</span> <span class="sentence">But we won’t be using them right now, we just need to know how they work to understand array indices.</span></p>
-<p><span class="sentence">Here is our <code>name</code> array again, this time though, I’ve added fake address information.</span> <span class="sentence">Our variable starts at byte address 543 and extends through byte 547.</span></p>
+<p><span class="sentence">Internally, memory is accessed using addresses.</span> <span class="sentence">When you start writing more complex programs, you will need to work with these addresses directly.</span> <span class="sentence">But we won’t be using them right now, we just need to know how they work to understand array indices.</span></p>
+<p><span class="sentence">Here is our <code>name</code> array again, this time though, I’ve added fake address information.</span> <span class="sentence">Our variable starts at byte address 544 and extends through byte 548.</span></p>
 <pre><code>name
 V
 +=======+=======+=======+=======+=======+
@@ -84,7 +84,7 @@ V               V
 +=======+=======+=======+=======+=======+
 ^       ^       ^       ^       ^
 544     548     552     556     560</code></pre>
-<p><span class="sentence">The addresses are now 4 apart because each <code>int</code> is 4 bytes (or 32 bits) long.</span> <span class="sentence">But that doesn’t change our address calculation.</span></p>
+<p><span class="sentence">The addresses are now 4 apart because each <code>int</code> is 4 bytes long.</span> <span class="sentence">But that doesn’t change our address calculation.</span></p>
 <pre><code>name[2] = name + 2*sizeof(int)
 name[2] = 544 + 2*4
 name[2] = 552</code></pre>

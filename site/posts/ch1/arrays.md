@@ -55,13 +55,13 @@ Our `name` array now looks like this in memory.
 All 5 characters perfectly lined up next to each other.
 
 Internally, memory is accessed using addresses. When you start writing more
-complex programs, you need to work with these addresses directly. But we won't
-be using them right now, we just need to know how they work to understand array
-indices.
+complex programs, you will need to work with these addresses directly. But we
+won't be using them right now, we just need to know how they work to understand
+array indices.
 
 Here is our `name` array again, this time though, I've added fake address
-information. Our variable starts at byte address 543 and extends through byte
-547.
+information. Our variable starts at byte address 544 and extends through byte
+548.
 
 ```
 name
@@ -122,7 +122,7 @@ V               V
 544     548     552     556     560
 ```
 
-The addresses are now 4 apart because each `int` is 4 bytes (or 32 bits) long.
+The addresses are now 4 apart because each `int` is 4 bytes long.
 But that doesn't change our address calculation.
 
 ```

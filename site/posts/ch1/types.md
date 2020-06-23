@@ -1,5 +1,5 @@
 ---
-title: "Types"
+title: "Primitive Types"
 ---
 
 We can now translate from the hardware into binary, and from binary into
@@ -124,7 +124,7 @@ But by doing that, we are losing most of the value that types provide.
 ##
 
 Primitive types are useful, but they only represent single values. Most useful
-data is composed of just more than one number or letter. If you sign up for an
+data is composed of more than just one number or letter. If you sign up for an
 account on a website, you typically have to put in at least your name and email,
 both of which have multiple characters in them. You might also need to input
 your birthday or phone number which, again, are more than a single value.

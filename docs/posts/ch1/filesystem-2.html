@@ -56,8 +56,8 @@
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>$ <span class="fu">rmdir</span> projects</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="ex">rmdir</span>: failed to remove <span class="st">&#39;/home/patrick/projects&#39;</span>: Directory not empty</span></code></pre></div>
-<p><span class="sentence">The first failure tells us that <code>rmdir</code> could not remove <code>directory-that-doesnt-exist</code> because there were no files or directories with that name.</span></p>
-<p><span class="sentence">The second failure tells us that <code>rmdir</code> could not remove <code>directories-that-isnt-empty</code> because that directory still had files or other directories inside of it.</span> <span class="sentence"><code>rmdir</code> will only work on completely empty directories.</span></p>
+<p><span class="sentence">The first failure tells us that <code>rmdir</code> could not remove <code>asdf</code> because there were no files or directories with that name.</span></p>
+<p><span class="sentence">The second failure tells us that <code>rmdir</code> could not remove <code>projects</code> because that directory still had files or other directories inside of it.</span> <span class="sentence"><code>rmdir</code> will only work on completely empty directories.</span></p>
 <h2 id="files">Files</h2>
 <p><span class="sentence">Reset to your home directory and recreate the “projects” directory if you deleted it earlier.</span> <span class="sentence">Then <code>cd</code> into it.</span></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>$ <span class="bu">cd</span></span>
@@ -71,7 +71,11 @@
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>$ <span class="fu">touch</span> directory</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>$ <span class="fu">ls</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a><span class="ex">10</span>  bob.txt  directory  example.pdf  test.html</span></code></pre></div>
-<p><span class="sentence"><code>touch</code> creates an empty file with whatever name you provide.</span> <span class="sentence">There are not many restrictions on what you can name files, but I would recommend that you: - avoiding using <code>/</code> and spaces - name files descriptively</span></p>
+<p><span class="sentence"><code>touch</code> creates an empty file with whatever name you provide.</span> <span class="sentence">There are not many restrictions on what you can name files, but I would recommend that you:</span></p>
+<ul>
+<li>avoiding using <code>/</code> and spaces</li>
+<li>name files descriptively</li>
+</ul>
 <p><span class="sentence"><code>/</code> and spaces can mean different things, which can cause some confusing issues.</span> <span class="sentence">And naming a file something like “directory” is a bit misleading.</span> <span class="sentence">It is best to be as clear as possible; future you will thank you.</span></p>
 <p><span class="sentence">To remove files, use <code>rm</code>.</span></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>$ <span class="fu">rm</span> bob.txt</span>

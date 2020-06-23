@@ -71,11 +71,11 @@ rmdir: failed to remove '/home/patrick/projects': Directory not empty
 ```
 
 The first failure tells us that `rmdir` could not remove
-`directory-that-doesnt-exist` because there were no files or directories with
+`asdf` because there were no files or directories with
 that name.
 
 The second failure tells us that `rmdir` could not remove
-`directories-that-isnt-empty` because that directory still had files or other
+`projects` because that directory still had files or other
 directories inside of it. `rmdir` will only work on completely empty
 directories.
 
@@ -105,8 +105,9 @@ $ ls
 
 `touch` creates an empty file with whatever name you provide. There are not many
 restrictions on what you can name files, but I would recommend that you:
-- avoiding using `/` and spaces
-- name files descriptively
+
+* avoiding using `/` and spaces
+* name files descriptively
 
 `/` and spaces can mean different things, which can cause some confusing issues.
 And naming a file something like "directory" is a bit misleading. It is best to
