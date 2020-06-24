@@ -50,43 +50,41 @@ basic understanding of most programs.
 
 ## Where to Go From Here?
 
-If you are interested in learning more, there are many roads open to you.
+I promised both an introduction to Computer Science and a guide for where to go
+next. We've covered a bit of the first, but none of the second. Here are some of
+the roads you could follow.
 
-### Python
+### Python or JavaScript
 
 If your goal is to start programming and building things as quickly as possible,
-you can jump ahead to some of the modern programming languages that handle a lot
-of the complexity for you.
+you can jump ahead to some of the modern programming languages that are more
+user friendly and come batteries-included.
 
-Languages like Python have more guard rails to help you avoid errors in your
-program and more built-in tools that allow you to focus on what you are building
-instead of programming quirks.
+There are loads of resources available online if you want to jump in.
 
-### Bash (Systems Admin)
+### Bash and Systems Administration
 
-There is much more to learn about the file system and how your computer works
-day to day. This is less about programming and more about managing and
-operating your computer.
+We only just scratched the surface of the filesystem and running programs on
+your computer.
 
-People who do this kind of work are frequently called Systems Administrators,
-and it is their job to manage security, what software is installed, and general
-configuration.
+There is a lot to learn about managing your computer, but even more to learn
+about managing multiple computers. I regularly work with dozens of computers at
+the same time, and keeping track of all of them can be tricky.
 
 ### C
 
-If you want to keep digging deeper, we need to write a bit of C. We've seen a
-bit of how C works, but we need to write some C to see how it breaks. Most
-modern languages are built as solutions to specific problems in C. But until you
-are forced to deal with those issues, you probably won't be interested in their
-solutions.
+If you want to keep digging deeper, you need to write a bit of C. We've seen the
+basics of how it works, but we haven't seen how it breaks.
 
-### Theory
+The places where C causes problems have been one of the greatest sources of new
+ideas. Some of these problems have sparked entire new programming languages.
+Others have been the basis of programming strategies and designs that help both
+you and the computer.
 
-The final path is not really about programming or dealing with day to day
-operations of the computer. Instead it's about what a computer could do with the
-right hardware, or about how to improve our current usage of computers.
+Once you have a little more experience with C, you can go further and explore
+topics like performance, networking, the internals of your computer, algorithms,
+graphics, compilers, new programming languages, and more.
 
-People were thinking about these problems before the first computers were even
-built, and they continue to think about them today. The solutions to these
-problems often pop up in unexpected places and are useful outside of Computer
-Science.
+You are also welcome to explore one of the other topics and come back later. In
+the end, everything overlaps. So start wherever you would like because there is
+a lot to learn.
