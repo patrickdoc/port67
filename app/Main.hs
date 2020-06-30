@@ -141,7 +141,7 @@ copyStaticFiles = do
 --   defines workflow to build the website
 buildRules :: Action ()
 buildRules = do
-  indices <- buildIndex "posts/index.md"
+  indices <- buildIndex "index.md"
   copyStaticFiles
 
 -- | Opening hooks for custom readers and writers
