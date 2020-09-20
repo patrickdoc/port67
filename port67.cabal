@@ -39,6 +39,7 @@ executable build-site
   build-depends:
       aeson
     , base >=4.7 && <5
+    , base16-bytestring < 1
     , containers
     , lens
     , lens-aeson

@@ -69,7 +69,7 @@ your computer.
 
 There is a lot to learn about managing your computer, but even more to learn
 about managing multiple computers. I regularly work with dozens of computers at
-the same time, and keeping track of all of them can be tricky.
+the same time and keeping track of all of them can be tricky.
 
 ### C
 

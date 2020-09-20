@@ -11,8 +11,9 @@ import           Data.Aeson                 as A
 import           Data.Aeson.Lens
 import           Development.Shake
 import           Development.Shake.Classes
-import           Development.Shake.Forward
+import qualified Development.Shake.Command  as C
 import           Development.Shake.FilePath
+import qualified Development.Shake.Forward  as F
 import           GHC.Generics               (Generic)
 import           Slick
 import           Slick.Pandoc
@@ -137,12 +138,22 @@ copyStaticFiles = do
     void $ forP filepaths $ \filepath ->
         copyFileChanged ("site" </> filepath) (outputFolder </> filepath)
 
+-- | Generate svg graph
+buildGraph :: Action ()
+buildGraph = do
+    dots <- getDirectoryFiles "site/" ["images//*.dot"]
+    void $ forP dots $ \dot -> do
+        let input = "site" </> dot
+            output = outputFolder </> dot -<.> ".svg"
+        C.command_ [] "dot" ["-Tsvg", "-o", output, input]
+
 -- | Specific build rules for the Shake system
 --   defines workflow to build the website
 buildRules :: Action ()
 buildRules = do
   indices <- buildIndex "index.md"
   copyStaticFiles
+  buildGraph
 
 -- | Opening hooks for custom readers and writers
 mdToHTMLWithRdrWrtr'
@@ -162,5 +173,5 @@ markdownOptions = def { readerExtensions = pandocExtensions }
 
 main :: IO ()
 main = do
-  let shOpts = shakeOptions { shakeVerbosity = Chatty, shakeLintInside = ["site/"] }
-  shakeArgsForward shOpts buildRules
+  let shOpts = shakeOptions { shakeVerbosity = Verbose, shakeLintInside = ["site/"] }
+  F.shakeArgsForward shOpts buildRules
