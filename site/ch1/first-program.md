@@ -73,12 +73,12 @@ Vim, you should see something similar to what you saw in the `ls` executable.
 
 Now we can try to run our executable. When you run commands like `ls` and `pwd`,
 the terminal will look through a specific set of directories to find the
-corresponding executables. [^1] Our `a.out` executable is not in one of those
+corresponding executables. [^2] Our `a.out` executable is not in one of those
 directories, so we need to give the terminal a little extra help to find it.
 Instead of using `a.out`, we'll use `./a.out`. `.` means "the current
 directory", so `./a.out` means "the file named `a.out` in this directory".
 
-[^1]: This set of directories is called your "PATH" and can be displayed with
+[^2]: This set of directories is called your "PATH" and can be displayed with
   the command `echo $PATH`
 
 ```bash

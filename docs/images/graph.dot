@@ -49,7 +49,6 @@ digraph cstree {
 
     // PL
     c -> languages;
-    languages -> exceptions;
     languages -> oop;
     languages -> functional;
 
