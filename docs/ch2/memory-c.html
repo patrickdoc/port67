@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+    <meta charset="UTF-8">
+    <meta name="description" content="Port67">
+    <meta name="author" content="Patrick Dougherty">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/structure.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a id="beacon" href="/">
+                <div id="home-text"> Port67 </div>
+            </a>
+        </nav>
+    </header>
+
+    <div id="page">
+        <div class="wrapper">
+            <div class="masthead">
+                <span class="title">
+                    Memory in C
+                </span>
+            </div>
+        </div>
+
+        <article class="post">
+            <p><span class="sentence">C adds another layer on top of the memory system, so let’s review what we have seen so far.</span></p>
+<p><span class="sentence">Inside your computer, there is a physical component that provides random access memory.</span> <span class="sentence">While the computer is turned on, the CPU can write and read data into into the provided memory for temporary storage.</span></p>
+<p><span class="sentence">The operating system is responsible for managing access to this memory.</span> <span class="sentence">When we need to access extra memory in our program, we can request that the OS “allocate”, or make us the owner of, a new chunk of memory.</span> <span class="sentence">When we are done using that memory, we can release it back to the OS so other processes can use it.</span></p>
+<p><span class="sentence">The OS also provides other services for security and efficiency that we might accidentally run into.</span> <span class="sentence">If we try to read or write memory that we don’t have access to, the OS will prevent that from happening and crash our program to prevent any issues.</span></p>
+<p><span class="sentence">C builds on this by breaking your program’s memory into three separate pieces: stack, heap, and static memory.</span></p>
+<h2 id="the-stack">The Stack</h2>
+<p><span class="sentence">So far, we have only interacted with the “stack”.</span> <span class="sentence">The stack is C’s automatic memory management.</span> <span class="sentence">All of our programs so far have relied entirely on C to manage the memory for us.</span> <span class="sentence">Our variables are created on the stack and then destroyed when they are no longer needed.</span></p>
+<p><span class="sentence">The stack goes hand in hand with our scope rules.</span></p>
+<p><span class="sentence">When we declare a variable, it comes into scope and C allocates memory on the stack for it.</span></p>
+<p><span class="sentence">When execution reaches the end of the block, the variable goes out of scope and C releases the memory it was using.</span></p>
+<p><span class="sentence">Here is a program that fails to compile,</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>argc <span class="op">==</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> value <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> value <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> argc<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> value<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre><code>test.c:7:12: error: ‘value’ undeclared (first use in this function)
+     return value;</code></pre>
+<p><span class="sentence">Even though we declare <code>value</code> and assign it an <code>int</code>, when execution reaches <code>return</code> that variable doesn’t exist anymore.</span> <span class="sentence">Not only do the scope rules say that we can no longer access <code>value</code>, but C has released the memory associated with <code>value</code>, so we couldn’t access it even if we wanted to.</span></p>
+<h2 id="the-heap">The Heap</h2>
+<p><span class="sentence">Allocating memory on the stack requires you to know ahead of time how much memory you will need.</span> <span class="sentence">That is not always easy though.</span> <span class="sentence">Imagine you are writing a very simple chat app.</span> <span class="sentence">So simple in fact, that users are only allowed to post one <code>char</code> at a time.</span> <span class="sentence">You might start with something like this,</span></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> messages<span class="op">[?];</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>The question is what number to put where the `<span class="op">?</span>` is<span class="op">.</span> You could put a small</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>number like <span class="dv">10</span><span class="op">,</span> but then your app would only accept <span class="dv">10</span> messages and then stop</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>working<span class="op">.</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>You could also put a huge number like <span class="dv">10</span> billion<span class="op">.</span> But that isn&#39;t very satisfying</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>either<span class="op">.</span> If your app is not popular and doesn&#39;t have many messages on it<span class="op">,</span> the</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>program will hold onto much more memory than it needs<span class="op">.</span> Alternatively<span class="op">,</span> <span class="cf">if</span> your</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>app becomes extremely popular<span class="op">,</span> your app might use up all <span class="dv">10</span> billion messages and</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>then stop working<span class="op">.</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>The heap is a separate area of memory that lets us request memory only when we</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>need it<span class="op">.</span> Now your program might look like this<span class="op">,</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>```c</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> messageCount <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span><span class="op">*</span> messages <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span> <span class="op">*</span>messages <span class="op">*</span> messagesCount<span class="op">);</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>messages <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    messages<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> <span class="ch">&#39;a&#39;</span><span class="op">;</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span><span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Add space for a new message</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        messages <span class="op">=</span> realloc<span class="op">(</span>messages<span class="op">,</span> <span class="kw">sizeof</span> <span class="op">*</span>messages <span class="op">*</span> <span class="op">(</span>messageCount <span class="op">+</span> <span class="dv">1</span><span class="op">));</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>messages <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Get message from user and store it in messages array</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>        messages<span class="op">[</span>messageCount<span class="op">]</span> <span class="op">=</span> <span class="ch">&#39;a&#39;</span><span class="op">;</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>        messageCount <span class="op">=</span> messageCount <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>messageCount <span class="op">&gt;</span> <span class="dv">100</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Important!</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    free<span class="op">(</span>messages<span class="op">);</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> messageCount<span class="op">;</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><span class="sentence">This program uses memory much more efficiently.</span> <span class="sentence">We don’t guess how much memory we will need.</span> <span class="sentence">Instead, we ask for it when we need it.</span></p>
+<p><span class="sentence">There are a few new things in this program, so let’s step through them.</span></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span></code></pre></div>
+<p><span class="sentence">This tells C that we are going to use some of the tools that already exist.</span> <span class="sentence">In particular, the three new functions: <code>malloc</code>, <code>realloc</code>, and <code>free</code>.</span></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span><span class="op">*</span> messages <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span> <span class="op">*</span>messages <span class="op">*</span> messagesCount<span class="op">);</span></span></code></pre></div>
+<p><span class="sentence">We start with the familiar expression <code>char* messages</code>, which declares <code>messages</code> to be a pointer to a <code>char</code>.</span> <span class="sentence">In C, an array of <code>char</code> and a pointer to a <code>char</code> are the same thing.</span> <span class="sentence">Remember that accessing an element of an array, like <code>messages[3]</code>, is the same as starting at the address of the first element (<code>messages[0]</code>) and jumping forward 3 spaces.</span></p>
+<p><span class="sentence">Next is the new function <code>malloc</code>.</span> <span class="sentence">To use <code>malloc</code>, you input the number of bytes you would like, and the system returns a pointer to a block of memory that size.</span></p>
+<p><span class="sentence">Instead of manually providing the number of bytes you want, it is usually best to use this equation to let C figure out exactly how many you need.</span> <span class="sentence">Here is the equation with parentheses added for visual clarity,</span></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">sizeof</span><span class="op">(*</span>variable<span class="op">)</span> <span class="op">*</span> length</span></code></pre></div>
+<p><span class="sentence"><code>sizeof</code> is a built-in keyword in C that returns the number of bytes that a type requires.</span> <span class="sentence">Sometimes types can be different sizes depending on what machine you are using.</span> <span class="sentence">For example, <code>int</code> can require either 4 or 8 bytes depending on the way your computer is configured.</span> <span class="sentence">So it is best to let C handle that for you.</span> <span class="sentence">The other parameter is just how many of those you want.</span> <span class="sentence">In the example above, we start by just requesting 1 <code>char</code> worth of memory.</span></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>messages <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><span class="sentence"><code>malloc</code> can fail if you request more memory than is available on your computer at that time.</span> <span class="sentence">If it does fail, it will return the special <code>NULL</code> pointer.</span> <span class="sentence">You should always check for and handle failures to avoid crashes and unintended behavior.</span></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>messages <span class="op">=</span> realloc<span class="op">(</span>messages<span class="op">,</span> <span class="kw">sizeof</span> <span class="op">*</span>messages <span class="op">*</span> <span class="op">(</span>messageCount <span class="op">+</span> <span class="dv">1</span><span class="op">));</span></span></code></pre></div>
+<p><span class="sentence">This is similar to the original <code>malloc</code> function, but here we are asking C to make our existing block of memory larger.</span> <span class="sentence">The main difference with <code>realloc</code> is that we pass the existing pointer as the first argument.</span> <span class="sentence">The second argument works the same way.</span> <span class="sentence">We are asking for the new block to have space for one more <code>char</code> than it had before.</span></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>messages <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><span class="sentence">Again, we check for failure.</span></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>free<span class="op">(</span>messages<span class="op">);</span></span></code></pre></div>
+<p><span class="sentence">This is the final new function.</span> <span class="sentence"><code>free</code> tells C that we are done with the memory and it can be released back to the computer.</span></p>
+<p><span class="sentence">This is both a blessing and a curse.</span> <span class="sentence">By manually managing the memory, you can use it much more efficiently, requesting and releasing it exactly when you need it.</span> <span class="sentence">But you can also use it much more inefficiently if you forget to call <code>free</code>.</span> <span class="sentence">Or you can introduce bugs by <code>free</code>ing a block of memory too early.</span></p>
+<h1 id="static-memory">Static Memory</h1>
+<p><span class="sentence">The final type of memory in C is static memory.</span> <span class="sentence">This data is loaded when the program is started and deleted when the program is finished.</span> <span class="sentence">This is mostly the data that you put directly in the program source.</span></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> counter<span class="op">;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> incrementCounter<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    counter <span class="op">=</span> counter <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> counter<span class="op">;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;</span> argc<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        incrementCounter<span class="op">();</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        incrementCounter<span class="op">();</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        i <span class="op">=</span> i <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> counter<span class="op">;</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./a.out alice bob</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="va">$?</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="ex">6</span></span></code></pre></div>
+<p><span class="sentence">The variable <code>counter</code> is accessible anywhere in your program.</span> <span class="sentence">In some sense, this is like the scope rules.</span> <span class="sentence">In this case the “block” that <code>counter</code> is defined in is the entire program.</span> <span class="sentence">It is available as soon as you declare it and is available for the rest of the program.</span></p>
+<h1 id="conclusion">Conclusion</h1>
+<p><span class="sentence">Just like writing books, there are lots of different ways to write programs.</span> <span class="sentence">As you gain experience writing programs, you’ll develop habits and preferences that you might call your “style”.</span> <span class="sentence">There are lots of different styles out there, so it’s good to keep an eye out for new techniques you haven’t seen before.</span></p>
+<p><span class="sentence">You can write programs that use any and all of these types of memory.</span> <span class="sentence">They each come with their own pros and cons though, so as you practice with them try to keep track of the different problems that they either cause or solve.</span></p>
+            <br>
+            <br>
+            <section class="table-of-contents">
+                <ol>
+                </ol>
+            </section>
+        </article>
+    </div>
+
+    <footer>
+        <hr>
+        <div class="links">
+          <p>
+            ©
+            <a href="mailto:patrick.doc@port67.org">Patrick Dougherty</a>
+            -
+            <a href="https://github.com/patrickdoc/port67">source</a>
+          </p>
+        </div>
+    </footer>
+    
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+</body>
+</html>

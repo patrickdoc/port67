@@ -33,27 +33,27 @@
 <p><span class="sentence">To start building the next level, we need to figure out how these commands work.</span> <span class="sentence">We need to answer the question, what is <code>ls</code>?</span></p>
 <p><span class="sentence">We can make an educated guess based on what we know.</span> <span class="sentence">First, <code>ls</code> does not disappear when you turn off your computer.</span> <span class="sentence">Every time you open a new terminal window, you can run <code>ls</code>.</span> <span class="sentence">So <code>ls</code> must be kept in non-volatile memory somewhere.</span> <span class="sentence">Second, the only non-volatile memory we know about is the hard drive and the filesystem.</span> <span class="sentence">So <code>ls</code> must be somewhere in the filesystem.</span></p>
 <p><span class="sentence">To prove our theory we just need to find <code>ls</code>.</span> <span class="sentence">You are welcome to go looking for it, although it can be a bit hard to find if you aren’t familiar with some of the conventions.</span> <span class="sentence">If you are going to look for it, I would recommend starting in the root directory <code>/</code>.</span> <span class="sentence">If you would rather skip straight to the result, try this,</span></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>$ <span class="fu">which</span> ls</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> which ls</span></code></pre></div>
 <p><span class="sentence"><code>which</code> tells you where a command is in the filesystem.</span> <span class="sentence">If you go to the directory <code>ls</code> is in and run <code>ls</code>, you might see some other familiar commands.</span></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>$ <span class="fu">which</span> ls</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="ex">/bin/ls</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>$ <span class="bu">cd</span> /bin</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a>$ <span class="fu">ls</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true"></a><span class="ex">...</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true"></a><span class="fu">ls</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true"></a><span class="ex">...</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true"></a><span class="bu">pwd</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true"></a><span class="ex">...</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true"></a><span class="fu">rm</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true"></a><span class="fu">rmdir</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true"></a><span class="ex">...</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> which ls</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/bin/ls</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd /bin</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">pwd</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="fu">rmdir</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span></code></pre></div>
 <p><span class="sentence">All of these commands are just files.</span> <span class="sentence">And like any other file, we can try opening it with Vim.</span></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>$ <span class="ex">vim</span> /bin/ls</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> vim /bin/ls</span></code></pre></div>
 <p><span class="sentence">Most of the file will be unreadable because the data inside is for the computer to read, not humans.</span> <span class="sentence">But, there will be little bits that are readable.</span> <span class="sentence">Let’s try opening Vim with Vim.</span></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>$ <span class="fu">which</span> vim</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="ex">/usr/bin/vim</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a>$ <span class="bu">cd</span> /usr/bin</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>$ <span class="ex">vim</span> vim</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> which vim</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">/usr/bin/vim</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd /usr/bin</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> vim vim</span></code></pre></div>
 <p><span class="sentence">The file is just as unreadable as before, but try searching for something like your name.</span> <span class="sentence">Make sure you are in normal mode by pressing escape, then type <code>/Patrick</code> and press enter.</span> <span class="sentence">When I do that, I get a little error in the bottom corner,</span></p>
 <pre><code>E486: Pattern not found: Patrick</code></pre>
 <p><span class="sentence">Now try searching for <code>E486:</code>.</span> <span class="sentence">In the middle of all the garbage, you’ll find that exact warning phrase <code>E486: Pattern not found: %s</code>.</span> <span class="sentence">So this file means something, just not to us.</span></p>

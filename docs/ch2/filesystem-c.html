@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+    <meta charset="UTF-8">
+    <meta name="description" content="Port67">
+    <meta name="author" content="Patrick Dougherty">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/structure.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a id="beacon" href="/">
+                <div id="home-text"> Port67 </div>
+            </a>
+        </nav>
+    </header>
+
+    <div id="page">
+        <div class="wrapper">
+            <div class="masthead">
+                <span class="title">
+                    Filesystem Programming
+                </span>
+            </div>
+        </div>
+
+        <article class="post">
+            <p><span class="sentence">There is a command line program named <code>cat</code>, that prints the contents of a file to <code>stdout</code>.</span> <span class="sentence">If we create a basic skeleton program named <code>test.c</code>, then <code>cat</code> might look like this,</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat test.c</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">int</span> main<span class="er">(</span><span class="ex">int</span> argc, char <span class="pp">**</span>argv<span class="kw">)</span> <span class="kw">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="kw">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">---</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">We</span> are going to write our own version of <span class="kw">`</span><span class="fu">cat</span><span class="kw">`</span> to practice working with</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">`</span><span class="ex">stdio</span><span class="kw">`</span>.</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ex">If</span> you look at the <span class="kw">`</span><span class="fu">man</span><span class="kw">`</span> page for <span class="kw">`</span><span class="ex">stdio</span><span class="kw">`</span>, it tells you that you need to add</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="kw">`</span><span class="co">#include &lt;stdio.h&gt;</span><span class="kw">`</span> to your program to work with these functions. We also need</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">the</span> user to provide a file name on the command line, so we<span class="st">&#39;ll check that there</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="st">are enough arguments.</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="st">```c</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="st">#include &lt;stdio.h&gt;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="st">int main(int argc, char **argv) {</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="st">    if (argc &lt; 2) {</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="st">        return 1;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="st">    }</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="st">    return 0;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="st">}</span></span></code></pre></div>
+<p><span class="sentence">Just like we had a pair of <code>malloc</code> and <code>free</code> for creating and destroying memory, we have a pair of <code>fopen</code> and <code>fclose</code> for creating and destroying streams.</span> <span class="sentence">We can get the function signatures from the <code>man</code> pages.</span></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> man fopen</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">SYNOPSIS</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>       <span class="co">#include &lt;stdio.h&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>       <span class="ex">FILE</span> <span class="pp">*</span>fopen<span class="er">(</span><span class="ex">const</span> char <span class="pp">*</span>pathname, const char <span class="pp">*</span>mode<span class="kw">);</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="ex">RETURN</span> VALUE</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>       <span class="ex">Upon</span>  successful  completion fopen<span class="er">(</span><span class="kw">)</span><span class="ex">,</span> fdopen<span class="er">(</span><span class="kw">)</span> <span class="ex">and</span> freopen<span class="er">(</span><span class="kw">)</span> <span class="cf">return</span> <span class="ex">a</span> FILE pointer.  Otherwise, NULL is returned and errno is set</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>       <span class="ex">to</span> indicate the error.</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> man fclose</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ex">SYNOPSIS</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>       <span class="co">#include &lt;stdio.h&gt;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>       <span class="ex">int</span> fclose<span class="er">(</span><span class="ex">FILE</span> <span class="pp">*</span>stream<span class="kw">);</span></span></code></pre></div>
+<p><span class="sentence">The <code>mode</code> argument in <code>fopen</code> describes how we are going to use the stream.</span> <span class="sentence">The options are described in the <code>man</code> page for <code>fopen</code>, but we’ll be using <code>"r"</code> because we are only interested in reading the source file.</span></p>
+<p><span class="sentence">Adding the open and close to our program we now have,</span></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">**</span>argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>argc <span class="op">&lt;</span> <span class="dv">2</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">FILE</span> <span class="op">*</span>source <span class="op">=</span> fopen<span class="op">(</span>argv<span class="op">[</span><span class="dv">1</span><span class="op">],</span> <span class="st">&quot;r&quot;</span><span class="op">);</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>source <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    fclose<span class="op">(</span>source<span class="op">);</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><span class="sentence">The value returned from <code>fopen</code> is of type <code>FILE *</code>.</span> <span class="sentence">This is the type of our streams.</span> <span class="sentence">Our program doesn’t know what a <code>FILE</code> is, so we can’t work with one directly.</span> <span class="sentence">But, that doesn’t stop us from storing a pointer to a <code>FILE</code>.</span> <span class="sentence">All of the <code>stdio</code> functions accept a <code>FILE *</code>, which tells them which <code>FILE</code> we are working with.</span> <span class="sentence">Internally, they access the raw <code>FILE</code>, and then return a result to us.</span></p>
+<p><span class="sentence">Just like with <code>malloc</code>, we need to verify that the call to <code>fopen</code> succeeded, so we check if <code>FILE *</code> is null before continuing.</span> <span class="sentence">If <code>fopen</code> succeeded, we need to make sure we call <code>fclose()</code> on the <code>FILE</code> when we are done with it.</span></p>
+<p><span class="sentence">All that is left now is to read data from the source and write it to <code>stdout</code>.</span> <span class="sentence">For that, we need two new functions: <code>fgetc</code> and <code>fputc</code>.</span></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> man fgetc</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">SYNOPSIS</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>       <span class="co">#include &lt;stdio.h&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>       <span class="ex">int</span> fgetc<span class="er">(</span><span class="ex">FILE</span> <span class="pp">*</span>stream<span class="kw">);</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">RETURN</span> VALUE</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>       <span class="fu">fgetc()</span><span class="ex">,</span> getc<span class="er">(</span><span class="kw">)</span> <span class="ex">and</span> getchar<span class="er">(</span><span class="kw">)</span> <span class="cf">return</span> <span class="ex">the</span> character read as an unsigned char cast to an int or EOF on end of file or error.</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> man fputc</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="ex">SYNOPSIS</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>       <span class="co">#include &lt;stdio.h&gt;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>       <span class="ex">int</span> fputc<span class="er">(</span><span class="ex">int</span> c, FILE <span class="pp">*</span>stream<span class="kw">);</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="ex">RETURN</span> VALUE</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>       <span class="fu">fputc()</span><span class="ex">,</span> putc<span class="er">(</span><span class="kw">)</span> <span class="ex">and</span> putchar<span class="er">(</span><span class="kw">)</span> <span class="cf">return</span> <span class="ex">the</span> character written as an unsigned char cast to an int or EOF on error.</span></code></pre></div>
+<p><span class="sentence">These two functions are very similar, the only difference is that we have to tell <code>fputc</code> the character we want written to the stream.</span></p>
+<p><span class="sentence">The core of our program will now be a simple loop: - Call <code>int c = fgetc(source)</code> to read a character from the source stream - Check if <code>c == EOF</code> - If yes, end loop - If no, call <code>fputc(c, stdout)</code>, loop</span></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">**</span>argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>argc <span class="op">&lt;</span> <span class="dv">2</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">FILE</span> <span class="op">*</span>source <span class="op">=</span> fopen<span class="op">(</span>argv<span class="op">[</span><span class="dv">1</span><span class="op">],</span> <span class="st">&quot;r&quot;</span><span class="op">);</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>source <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> c <span class="op">=</span> fgetc<span class="op">(</span>source<span class="op">);</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>c <span class="op">!=</span> EOF<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        fputc<span class="op">(</span>c<span class="op">,</span> stdout<span class="op">);</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        c <span class="op">=</span> fgetc<span class="op">(</span>source<span class="op">);</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    fclose<span class="op">(</span>source<span class="op">);</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><span class="sentence">And that’s it!</span> <span class="sentence">Try it out a bit to see it in action.</span></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./a.out test.c</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#include &lt;stdio.h&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">....</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./a.out</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="va">$?</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">1</span></span></code></pre></div>
+<h2 id="printf">printf</h2>
+<p><span class="sentence">Now that we can write to the terminal, we should make our errors more informative.</span> <span class="sentence">For that we’ll need what might be the most useful function in programming: <code>printf</code>.</span></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> man printf</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">SYNOPSIS</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>       <span class="co">#include &lt;stdio.h&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>       <span class="ex">int</span> printf<span class="er">(</span><span class="ex">const</span> char <span class="pp">*</span>format, ...<span class="kw">);</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>       <span class="ex">int</span> fprintf<span class="er">(</span><span class="ex">FILE</span> <span class="pp">*</span>stream, const char <span class="pp">*</span>format, ...<span class="kw">);</span></span></code></pre></div>
+<p><span class="sentence">The basic usage of <code>fprintf</code> takes a stream and a string, and writes the string to the stream.</span> <span class="sentence">For example,</span></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>argc <span class="op">&lt;</span> <span class="dv">2</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">&quot;Expected at least 2 arguments</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">);</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./a.out</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Expected</span> at least 2 arguments</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./a.out test.c</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#include &lt;stdio.h&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span></code></pre></div>
+<p><span class="sentence">This is a significantly better experience for the user than having to check <code>echo $?</code> every time.</span> <span class="sentence">But we can do slightly better.</span></p>
+<p><span class="sentence">The second “f” in <code>fprintf</code> stands for “format”.</span> <span class="sentence">The string that we provide to <code>fprintf</code> can include placeholders that will be filled by variables.</span> <span class="sentence">These placeholders look like <code>%</code> followed by a letter that indicates the type of the variable.</span> <span class="sentence">For example, - <code>%d</code> for <code>int</code>s - <code>%c</code> for <code>char</code>s - <code>%s</code> for <code>char *</code>s, otherwise known as strings</span></p>
+<p><span class="sentence">We can update our <code>fprintf</code> call to include the number of arguments given,</span></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>argc <span class="op">&lt;</span> <span class="dv">2</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>        fprintf<span class="op">(</span>stderr<span class="op">,</span> <span class="st">&quot;Expected at least 2 arguments, only %d given</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> argc<span class="op">);</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./a.out</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Expected</span> at least 2 arguments, only 1 given</span></code></pre></div>
+<p><span class="sentence"><code>printf</code> is the same as <code>fprintf</code>, but it does not accept a <code>FILE *</code> argument because it always prints to <code>stdout</code>.</span></p>
+<h2 id="perror">perror</h2>
+<p><span class="sentence">If you look at the “RETURN” section of the <code>man</code> page for <code>fopen</code>, it says,</span></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">RETURN</span> VALUE</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>       <span class="ex">Upon</span>  successful  completion ....  Otherwise, NULL is returned and errno is set</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>       <span class="ex">to</span> indicate the error.</span></code></pre></div>
+<p><span class="sentence">Many standard library functions record why they failed in a global variable named <code>errno</code>.</span> <span class="sentence">This variable is just a number though, so it is not immediately useful to us.</span> <span class="sentence">The function <code>perror</code> handles both converting that number into a useful string and printing it.</span></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">DESCRIPTION</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>       <span class="ex">The</span> perror<span class="er">(</span><span class="kw">)</span> <span class="kw">function</span><span class="fu"> produces</span> <span class="ex">a</span> message on standard error describing the last error encountered during a call to a system or li‐</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>       <span class="ex">brary</span> function.</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>       <span class="ex">First</span> <span class="er">(</span><span class="cf">if</span> <span class="ex">s</span> is not NULL and <span class="pp">*</span>s is not a null byte <span class="er">(</span><span class="st">&#39;\0&#39;</span><span class="kw">))</span><span class="ex">,</span> the argument string s is printed, followed by a  colon  and  a  blank.</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>       <span class="ex">Then</span> an error message corresponding to the current value of errno and a new-line.</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>       <span class="ex">To</span> be of most use, the argument string should include the name of the function that incurred the error.</span></code></pre></div>
+<p><span class="sentence">This will help us detect any failures from <code>fopen</code>.</span></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>    <span class="dt">FILE</span> <span class="op">*</span>source <span class="op">=</span> fopen<span class="op">(</span>argv<span class="op">[</span><span class="dv">1</span><span class="op">],</span> <span class="st">&quot;r&quot;</span><span class="op">);</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>source <span class="op">==</span> NULL<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        perror<span class="op">(</span>argv<span class="op">[</span><span class="dv">1</span><span class="op">]);</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./a.out fake-file.txt</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fake-file.txt:</span> No such file or directory</span></code></pre></div>
+<p><span class="sentence">Interestingly, if we try the same thing with <code>cat</code>,</span></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cat fake-file.txt</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="ex">cat:</span> fake-file.txt: No such file or directory</span></code></pre></div>
+<p><span class="sentence">Which looks awfully similar.</span></p>
+<h2 id="going-further">Going Further</h2>
+<p><span class="sentence">We can make small changes to our program to make it do exciting things.</span></p>
+<p><span class="sentence">First, try changing the program to read from <code>stdin</code> and write to the file provided on the command line.</span> <span class="sentence">You’ll need to change your call to <code>fopen</code> to indicate that you are going to write to the file.</span> <span class="sentence">To do that, replace <code>"r"</code> with <code>"w"</code>.</span> <span class="sentence">NOTE: this will erase any file that already exists with that name, so be careful!</span></p>
+<p><span class="sentence">When you run your program, it will wait for input from you.</span> <span class="sentence">After you type some characters, you will need a way to indicate <code>EOF</code>, otherwise you will be stuck in the loop forever.</span> <span class="sentence">Ctrl-D (control + d key at the same time) should cause your loop to complete successfully.</span></p>
+<p><span class="sentence">Second, try changing the program to mimic the <code>cp</code> or “copy” program.</span> <span class="sentence">It accepts exactly 2 arguments, a source file and a destination file.</span> <span class="sentence">After the program runs, the contents of the destination file should exactly match the source file.</span></p>
+<p><span class="sentence">Try to be diligent about reporting errors.</span> <span class="sentence">It helps the user of the program see how it is intended to be used, but more importantly it helps you find and fix issues quickly.</span></p>
+            <br>
+            <br>
+            <section class="table-of-contents">
+                <ol>
+                </ol>
+            </section>
+        </article>
+    </div>
+
+    <footer>
+        <hr>
+        <div class="links">
+          <p>
+            ©
+            <a href="mailto:patrick.doc@port67.org">Patrick Dougherty</a>
+            -
+            <a href="https://github.com/patrickdoc/port67">source</a>
+          </p>
+        </div>
+    </footer>
+    
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+</body>
+</html>

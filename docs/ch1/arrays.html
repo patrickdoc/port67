@@ -31,11 +31,11 @@
         <article class="post">
             <p><span class="sentence">From our primitive types, we can build more complex types in memory.</span> <span class="sentence">The first type we’ll look at is the “array”.</span> <span class="sentence">An array is a collection of values that have the same type.</span> <span class="sentence">For example, names are a collection of <code>char</code>s, so we can put them in an array.</span></p>
 <p><span class="sentence">In C, we declare a new array like this,</span></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="dt">char</span> name[] = {<span class="ch">&#39;A&#39;</span>, <span class="ch">&#39;l&#39;</span>, <span class="ch">&#39;i&#39;</span>, <span class="ch">&#39;c&#39;</span>, <span class="ch">&#39;e&#39;</span>};</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> name<span class="op">[]</span> <span class="op">=</span> <span class="op">{</span><span class="ch">&#39;A&#39;</span><span class="op">,</span> <span class="ch">&#39;l&#39;</span><span class="op">,</span> <span class="ch">&#39;i&#39;</span><span class="op">,</span> <span class="ch">&#39;c&#39;</span><span class="op">,</span> <span class="ch">&#39;e&#39;</span><span class="op">};</span></span></code></pre></div>
 <p><span class="sentence">This statement defines a new variable <code>name</code> that holds 5 <code>char</code>s.</span></p>
 <p><span class="sentence">We can read and write values in this array by accessing a specific “index” of the array.</span> <span class="sentence">The index is just the position of the element in the array, counting from the beginning.</span> <span class="sentence">Perhaps surprisingly, we start counting from 0 instead of 1.</span> <span class="sentence">So the first element of the array has index 0, the second has index 1, and so on.</span></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>name[<span class="dv">0</span>] = <span class="ch">&#39;B&#39;</span>;</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="cf">return</span> name[<span class="dv">1</span>];</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>name<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> <span class="ch">&#39;B&#39;</span><span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">return</span> name<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span></code></pre></div>
 <p><span class="sentence">This makes a little more sense if we look at the array in memory.</span> <span class="sentence">In the interest of saving space, I am going to compress the individual bits into a single block like this,</span></p>
 <pre><code>+---+---+---+---+   +---+---+---+---+
 | 0 | 1 | 0 | 0 |   | 0 | 0 | 0 | 1 |
@@ -94,23 +94,23 @@ name[2] = 552</code></pre>
 <p><span class="sentence">Many old arcade games had high-score screens at the end.</span> <span class="sentence">When you scored high enough to make it to the list, you could record your scores with 3 letters to identify yourself.</span> <span class="sentence">So you might see an entry in the list like <code>AAA - 523</code> or <code>BOB - 1500</code>.</span></p>
 <p><span class="sentence">We want to group the letters and score together so that we always can access them at the same time and don’t mix up which letters go with which numbers.</span></p>
 <p><span class="sentence">To do this, we just need to tell C about this new type so that it can map it into memory.</span> <span class="sentence">We call this new type a “data structure” because it builds a new type out of existing types.</span> <span class="sentence">In C, we can define a new data structure with the <code>struct</code> keyword.</span></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">struct</span> HighScore {</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>    <span class="dt">char</span>    id[<span class="dv">3</span>];</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a>    <span class="dt">int</span>     score;</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a>};</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> HighScore <span class="op">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span>    id<span class="op">[</span><span class="dv">3</span><span class="op">];</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span>     score<span class="op">;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
 <p><span class="sentence">We now have a convenient way to work with individual high score entries.</span> <span class="sentence">We can read and write the values similar to other variables.</span></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">struct</span> HighScore score1;</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>score1.id[<span class="dv">0</span>] = <span class="ch">&#39;B&#39;</span>;</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>score1.id[<span class="dv">1</span>] = <span class="ch">&#39;O&#39;</span>;</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>score1.id[<span class="dv">2</span>] = <span class="ch">&#39;B&#39;</span>;</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>score1.score = <span class="dv">1500</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> HighScore score1<span class="op">;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>score1<span class="op">.</span>id<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> <span class="ch">&#39;B&#39;</span><span class="op">;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>score1<span class="op">.</span>id<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> <span class="ch">&#39;O&#39;</span><span class="op">;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>score1<span class="op">.</span>id<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="ch">&#39;B&#39;</span><span class="op">;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>score1<span class="op">.</span>score <span class="op">=</span> <span class="dv">1500</span><span class="op">;</span></span></code></pre></div>
 <p><span class="sentence">Here <code>score1</code> is a variable that contains two values: an array of three <code>char</code>s named <code>id</code> and an <code>int</code> score.</span></p>
 <p><span class="sentence">We can define a second <code>HighScore</code> variable just like the first,</span></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="kw">struct</span> HighScore score2;</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a>score2.id[<span class="dv">0</span>] = <span class="ch">&#39;A&#39;</span>;</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a>score2.id[<span class="dv">1</span>] = <span class="ch">&#39;A&#39;</span>;</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a>score2.id[<span class="dv">2</span>] = <span class="ch">&#39;A&#39;</span>;</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a>score2.score = <span class="dv">523</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> HighScore score2<span class="op">;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>score2<span class="op">.</span>id<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> <span class="ch">&#39;A&#39;</span><span class="op">;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>score2<span class="op">.</span>id<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> <span class="ch">&#39;A&#39;</span><span class="op">;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>score2<span class="op">.</span>id<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> <span class="ch">&#39;A&#39;</span><span class="op">;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>score2<span class="op">.</span>score <span class="op">=</span> <span class="dv">523</span><span class="op">;</span></span></code></pre></div>
 <p><span class="sentence"><code>HighScore</code> works just like any other type.</span> <span class="sentence">When we declare new variables with the type <code>struct HighScore</code>, C has to set aside memory to hold the values.</span> <span class="sentence">That looks like this,</span></p>
 <pre><code>score1
 id                      score

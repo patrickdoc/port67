@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+    <meta charset="UTF-8">
+    <meta name="description" content="Port67">
+    <meta name="author" content="Patrick Dougherty">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/structure.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a id="beacon" href="/">
+                <div id="home-text"> Port67 </div>
+            </a>
+        </nav>
+    </header>
+
+    <div id="page">
+        <div class="wrapper">
+            <div class="masthead">
+                <span class="title">
+                    Filesystem
+                </span>
+            </div>
+        </div>
+
+        <article class="post">
+            <p><span class="sentence">From here on out, our programs are going to get significantly more interesting.</span> <span class="sentence">Instead of just returning a number from our programs, we are going to interact with other parts of your computer, starting with the filesystem.</span></p>
+<p><span class="sentence">So far we’ve worked with the filesystem through the command line, using commands like <code>ls</code>, <code>cd</code>, and <code>vim</code>.</span> <span class="sentence">We’ve also seen that these commands are just files themselves, although they are full of binary data instead of letters, numbers, and spaces.</span></p>
+<p><span class="sentence">To work with files from our programs, we are going to need a clearer picture of C’s model of files.</span> <span class="sentence">Whenever we are looking for this information, one reliable source of information is the <code>man</code> (short for manual) pages.</span> <span class="sentence">These can be accessed either with the <code>man</code> command or online.</span> <span class="sentence">For example,</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> man malloc</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">NAME</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>       <span class="ex">malloc,</span> free, calloc, realloc <span class="at">-</span> allocate and free dynamic memory</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">SYNOPSIS</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>       <span class="co">#include &lt;stdlib.h&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>       <span class="ex">void</span> <span class="pp">*</span>malloc<span class="er">(</span><span class="ex">size_t</span> size<span class="kw">);</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>       <span class="ex">void</span> free<span class="er">(</span><span class="ex">void</span> <span class="pp">*</span>ptr<span class="kw">);</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>       <span class="ex">...</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">DESCRIPTION</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>       <span class="ex">The</span>  malloc<span class="er">(</span><span class="kw">)</span>  <span class="kw">function</span><span class="fu">  allocates</span>  <span class="fu">size</span> bytes and returns a pointer to the allocated memory.  The memory is not initialized.  If</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>       <span class="fu">size</span> is 0, then malloc<span class="er">(</span><span class="kw">)</span> <span class="ex">returns</span> either NULL, or a unique pointer value that can later be successfully passed to free<span class="er">(</span><span class="kw">)</span><span class="bu">.</span></span></code></pre></div>
+<p><span class="sentence">You can scroll up and down to read the page from the command line with <code>k</code> and <code>j</code> like in Vim.</span> <span class="sentence">To get back to the command line, press <code>q</code>.</span></p>
+<p><span class="sentence">This page is a concise summary of all the memory topics we just covered.</span> <span class="sentence">It shows you how to include the code you need to run these functions; it shows you the function signatures for how to use them; and it even explains the various return codes for how to handle success and failure.</span></p>
+<p><span class="sentence">To work with the filesystem, we are going to use the functions in <code>stdio</code>, which is short for “Standard Input and Output”.</span> <span class="sentence">Input is how you pass information into a program, and output is how the program passes information back to you or the computer.</span> <span class="sentence">This information is primarily going to be held in files, although we need to slightly extend our definition of files to cover some of the common ways <code>stdio</code> is used.</span></p>
+<p><span class="sentence">Here’s what the <code>man</code> pages say about <code>stdio</code>.</span></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> man stdio</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">DESCRIPTION</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>       <span class="ex">The</span>  standard I/O library provides a simple and efficient buffered stream I/O interface.  Input and output is mapped into logical</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>       <span class="ex">data</span> streams and the physical I/O characteristics are concealed.</span></code></pre></div>
+<p><span class="sentence">There are a lot of unfamiliar topics there, but we are going to focus on the second sentence,</span></p>
+<pre><code>Input and output is mapped into logical data streams and the physical I/O
+characteristics are concealed.</code></pre>
+<p><span class="sentence">A “logical data stream” is just a sequence of data that can be read one-by-one.</span> <span class="sentence">For a regular text file, the data stream would just be all the characters listed out in order, including all the letters, spaces, and punctuation.</span></p>
+<p><span class="sentence">By thinking of files as “logical data streams” instead of regular files, we get to play an interesting trick.</span> <span class="sentence">Suppose I asked you to read a book to me.</span> <span class="sentence">You would start at the beginning, read chapter 1, chapter 2, etc, and then get to the end and say “The End!” or something because the book was over.</span> <span class="sentence">The end is well defined, so when you reach the last page, we both know the book is over.</span></p>
+<p><span class="sentence">However, suppose I asked you to read a text conversation to me.</span> <span class="sentence">You might read a few texts back and forth, and then say “the other person is still typing”.</span> <span class="sentence">The conversation isn’t over, but you don’t have more data yet.</span> <span class="sentence">You can’t predict what the other person is going to say, so we both just have to wait around until you get a response.</span></p>
+<p><span class="sentence">This is an example of the “physical I/O characteristics” that are concealed.</span> <span class="sentence">The data stream might be connected to a file stored on your hard drive; it might be connected to the terminal waiting for you to type; or it might be connected to something like your mouse!</span></p>
+<p><span class="sentence">No matter what the stream is connected to, we will interact with it the same way.</span> <span class="sentence">Similar to allocating memory, we are responsible for creating the stream, and then destroying it when we are done.</span> <span class="sentence">For memory, we <code>malloc</code>’d the memory when we needed it and <code>free</code>’d it when we were done.</span> <span class="sentence">For streams, we will “open” the stream when we need it and “close” it when we are done.</span></p>
+<p><span class="sentence">If we have a stream opened for a regular file, we can can read, write, and edit it just like we do in Vim.</span> <span class="sentence">In fact, our stream has a “position indicator” very similar to the cursor in Vim.</span> <span class="sentence">If we want to write “hello” at the end of a stream, we first need to move the position indicator to the end of the file.</span> <span class="sentence">If we then want to read the first word of the file, we need to move the position indicator back to the beginning.</span></p>
+<p><span class="sentence">When you run a program, there are three streams automatically created for you.</span> <span class="sentence">Standard input, or <code>stdin</code>, is a source of input for your program.</span> <span class="sentence">You can read from <code>stdin</code> to get data from users or other programs.</span> <span class="sentence">Standard output, or <code>stdout</code>, is a destination for data that you want to send.</span> <span class="sentence">When you run your program from the command line, the data you send to <code>stdout</code> will be printed in the terminal.</span> <span class="sentence">Standard error, or <code>stderr</code>, is another destination that you can send data to.</span> <span class="sentence">It also will be displayed in the terminal, but it is generally used to report issues instead of regular information.</span></p>
+            <br>
+            <br>
+            <section class="table-of-contents">
+                <ol>
+                </ol>
+            </section>
+        </article>
+    </div>
+
+    <footer>
+        <hr>
+        <div class="links">
+          <p>
+            ©
+            <a href="mailto:patrick.doc@port67.org">Patrick Dougherty</a>
+            -
+            <a href="https://github.com/patrickdoc/port67">source</a>
+          </p>
+        </div>
+    </footer>
+    
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+</body>
+</html>

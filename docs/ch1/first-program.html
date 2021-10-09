@@ -37,71 +37,71 @@
 <h2 id="a-simple-program">A Simple Program</h2>
 <p><span class="sentence">Writing your first program is remarkably easy once you have the tools.</span> <span class="sentence">You only need two: Vim and <code>cc</code>, short for “C compiler”.</span></p>
 <p><span class="sentence">First, we need to write the program.</span> <span class="sentence">(This is the last time I’ll include commands for setting up your directories.</span> <span class="sentence">Adding it here for one last refresher.)</span></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>$ <span class="bu">cd</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>$ <span class="bu">cd</span> projects</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>$ <span class="fu">mkdir</span> C</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>$ <span class="bu">cd</span> C</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>$ <span class="ex">vim</span> test.c</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd projects</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mkdir C</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd C</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> vim test.c</span></code></pre></div>
 <p><span class="sentence">Inside <code>test.c</code> we are going to write the simplest C program we can.</span> <span class="sentence">Replace <code>55</code> below with your favorite number.</span></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="dt">int</span> main(<span class="dt">int</span> argc, <span class="dt">char</span>** argv) {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>    <span class="cf">return</span> <span class="dv">55</span>;</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">55</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p><span class="sentence">While it is not immediately clear how this program works, it is at least a bit more readable than <code>ls</code> was.</span> <span class="sentence">We’ll come back to what everything means here, but, for now, let’s compile your first program.</span></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>$ <span class="fu">cc</span> test.c</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>$ <span class="fu">ls</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="ex">a.out</span>   test.c</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cc test.c</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">a.out</span>   test.c</span></code></pre></div>
 <p><span class="sentence"><code>cc</code> generated the executable <code>a.out</code> from our program.</span> <span class="sentence">If you open <code>a.out</code> in Vim, you should see something similar to what you saw in the <code>ls</code> executable.</span></p>
 <p><span class="sentence">Now we can try to run our executable.</span> <span class="sentence">When you run commands like <code>ls</code> and <code>pwd</code>, the terminal will look through a specific set of directories to find the corresponding executables.</span> <span class="sentence"><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Our <code>a.out</code> executable is not in one of those directories, so we need to give the terminal a little extra help to find it.</span> <span class="sentence">Instead of using <code>a.out</code>, we’ll use <code>./a.out</code>.</span> <span class="sentence"><code>.</code> means “the current directory”, so <code>./a.out</code> means “the file named <code>a.out</code> in this directory”.</span></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>$ <span class="ex">./a.out</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./a.out</span></code></pre></div>
 <p><span class="sentence">Our program is not very impressive.</span> <span class="sentence">There are no obvious signs that it did anything.</span> <span class="sentence">One way that we can prove to ourselves that it ran though is to check the “exit code”.</span> <span class="sentence">Whenever a program runs in the terminal, it finishes by <code>return</code>ing a number that is typically used to indicate if the program was successful or not.</span> <span class="sentence">In our case, that number will be whatever you replaced <code>55</code> with in the program above.</span></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>$ <span class="ex">./a.out</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>$ <span class="bu">echo</span> <span class="va">$?</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="ex">55</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./a.out</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="va">$?</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">55</span></span></code></pre></div>
 <p><span class="sentence">The command <code>echo $?</code> displays the exit code of the previous command.</span></p>
 <p><span class="sentence">Feel free to experiment by changing the number in the program, recompiling, rerunning, and displaying the exit code.</span></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>$ <span class="ex">vim</span> test.c</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>$ <span class="fu">cc</span> test.c</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>$ <span class="ex">./a.out</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>$ <span class="bu">echo</span> <span class="va">$?</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> vim test.c</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cc test.c</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./a.out</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="va">$?</span></span></code></pre></div>
 <h2 id="assembly">Assembly</h2>
 <p><span class="sentence">The compiler does not actually translate directly from the programming language to instructions for the computer.</span> <span class="sentence">There is an intermediate stage called “Assembly”, which is the closest we can get to pure instructions for the computer.</span></p>
 <p><span class="sentence">We can use the <code>-S</code> flag to ask <code>cc</code> to stop after translating from C to Assembly so that we can look at it.</span></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>$ <span class="fu">cc</span> -S test.c</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>$ <span class="fu">ls</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="ex">a.out</span>  test.c  test.s</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cc <span class="at">-S</span> test.c</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">a.out</span>  test.c  test.s</span></code></pre></div>
 <p><span class="sentence">Now we can open our Assembly file <code>test.s</code>, and we see something like this,</span></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode as"><code class="sourceCode actionscript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>    .<span class="fu">file</span>    <span class="st">&quot;test.c&quot;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a>    .<span class="fu">text</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a>    .<span class="fu">globl</span>   main</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>    .<span class="fu">type</span>    main, @function</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a>main:</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a>.<span class="fu">LFB0</span>:</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a>    .<span class="fu">cfi_startproc</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a>    pushq   %rbp</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a>    .<span class="fu">cfi_def_cfa_offset</span> <span class="dv">16</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a>    .<span class="fu">cfi_offset</span> <span class="dv">6</span>, <span class="dv">-16</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a>    movq    %rsp, %rbp</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a>    .<span class="fu">cfi_def_cfa_register</span> <span class="dv">6</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a>    movl    %edi, <span class="dv">-4</span>(%rbp)</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true"></a>    movq    %rsi, <span class="dv">-16</span>(%rbp)</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true"></a>    movl    $<span class="dv">55</span>, %eax</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true"></a>    popq    %rbp</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true"></a>    .<span class="fu">cfi_def_cfa</span> <span class="dv">7</span>, <span class="dv">8</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true"></a>    ret</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true"></a>    .<span class="fu">cfi_endproc</span></span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true"></a>.<span class="fu">LFE0</span>:</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true"></a>    .<span class="fu">size</span>    main, .-main</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true"></a>    .<span class="fu">ident</span>   <span class="st">&quot;GCC: (Debian 8.3.0-6) 8.3.0&quot;</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true"></a>    .<span class="fu">section</span>    .<span class="fu">note</span>.<span class="fu">GNU</span>-stack,<span class="st">&quot;&quot;</span>,@progbits</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode as"><code class="sourceCode actionscript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">file</span>    <span class="st">&quot;test.c&quot;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">text</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">globl</span>   main</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">type</span>    main<span class="op">,</span> @function</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>main<span class="op">:</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="op">.</span><span class="fu">LFB0</span><span class="op">:</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">cfi_startproc</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    pushq   <span class="op">%</span>rbp</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">cfi_def_cfa_offset</span> <span class="dv">16</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">cfi_offset</span> <span class="dv">6</span><span class="op">,</span> <span class="op">-</span><span class="dv">16</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    movq    <span class="op">%</span>rsp<span class="op">,</span> <span class="op">%</span>rbp</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">cfi_def_cfa_register</span> <span class="dv">6</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    movl    <span class="op">%</span>edi<span class="op">,</span> <span class="op">-</span><span class="dv">4</span><span class="op">(%</span>rbp<span class="op">)</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    movq    <span class="op">%</span>rsi<span class="op">,</span> <span class="op">-</span><span class="dv">16</span><span class="op">(%</span>rbp<span class="op">)</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    movl    $<span class="dv">55</span><span class="op">,</span> <span class="op">%</span>eax</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    popq    <span class="op">%</span>rbp</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">cfi_def_cfa</span> <span class="dv">7</span><span class="op">,</span> <span class="dv">8</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    ret</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">cfi_endproc</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="op">.</span><span class="fu">LFE0</span><span class="op">:</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">size</span>    main<span class="op">,</span> <span class="op">.-</span>main</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">ident</span>   <span class="st">&quot;GCC: (Debian 8.3.0-6) 8.3.0&quot;</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">section</span>    <span class="op">.</span><span class="fu">note</span><span class="op">.</span><span class="fu">GNU</span><span class="op">-</span>stack<span class="op">,</span><span class="st">&quot;&quot;</span><span class="op">,</span>@progbits</span></code></pre></div>
 <p><span class="sentence">This is where the instructions become computer specific, so your results may look different from mine.</span> <span class="sentence">If we trim it down to the bare minimum it should be closer though.</span></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode as"><code class="sourceCode actionscript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>main:</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>    pushq   %rbp</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>    movq    %rsp, %rbp</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>    movl    %edi, <span class="dv">-4</span>(%rbp)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>    movq    %rsi, <span class="dv">-16</span>(%rbp)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>    movl    $<span class="dv">55</span>, %eax</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>    popq    %rbp</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>    ret</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode as"><code class="sourceCode actionscript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>main<span class="op">:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    pushq   <span class="op">%</span>rbp</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    movq    <span class="op">%</span>rsp<span class="op">,</span> <span class="op">%</span>rbp</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    movl    <span class="op">%</span>edi<span class="op">,</span> <span class="op">-</span><span class="dv">4</span><span class="op">(%</span>rbp<span class="op">)</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    movq    <span class="op">%</span>rsi<span class="op">,</span> <span class="op">-</span><span class="dv">16</span><span class="op">(%</span>rbp<span class="op">)</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    movl    $<span class="dv">55</span><span class="op">,</span> <span class="op">%</span>eax</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    popq    <span class="op">%</span>rbp</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    ret</span></code></pre></div>
 <p><span class="sentence">These are the types of instructions that run your entire computer.</span> <span class="sentence">They are all very small and mostly just about shuffling numbers around.</span> <span class="sentence">Our <code>return 55;</code> becomes two simple instructions.</span></p>
 <p><span class="sentence">First, <code>movl    $55, %eax</code>.</span> <span class="sentence">This instruction tells the CPU to move the number <code>55</code> to the special location named <code>eax</code>.</span> <span class="sentence">If you replaced <code>55</code> with your favorite number, you would see that number here instead.</span></p>
 <p><span class="sentence">Second, <code>ret</code>.</span> <span class="sentence">This signals that the program is done.</span></p>
@@ -110,13 +110,13 @@
 <p><span class="sentence">For example, one surprising fact about the CPU is that it only works with numbers.</span></p>
 <p><span class="sentence">As an experiment, edit your <code>test.c</code> file to return <code>'A'</code> instead of your favorite number.</span> <span class="sentence">Then pause and make a guess as to what you will see if you recreate the Assembly or compile and run your program.</span></p>
 <p><span class="sentence">Once you have your guess and have changed your file, either regenerate the assembly,</span></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>$ <span class="fu">cc</span> -S test.c</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a>$ <span class="ex">vim</span> test.s</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cc <span class="at">-S</span> test.c</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> vim test.s</span></code></pre></div>
 <p><span class="sentence">or recompile and run to see the result.</span></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>$ <span class="fu">cc</span> test.c</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>$ <span class="ex">./a.out</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>$ <span class="bu">echo</span> <span class="va">$?</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a><span class="ex">65</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cc test.c</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./a.out</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="va">$?</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ex">65</span></span></code></pre></div>
 <p><span class="sentence">You probably did not guess that <code>65</code> would be the result.</span> <span class="sentence">You might ask, why 65?</span> <span class="sentence">Why not 64, or 66, or 1542?</span> <span class="sentence">The answer is mostly because someone decided that’s how it would be many years ago.</span> <span class="sentence">But to understand why we have to convert <code>'A'</code> to a letter at all, we need to cover our final topic.</span></p>
 <section class="footnotes" role="doc-endnotes">
 <hr />

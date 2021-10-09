@@ -108,13 +108,13 @@
 <p><span class="sentence">There are some interesting patterns in the table, but mostly it is just an arbitrary definition.</span> <span class="sentence">The basic ASCII table only defines the first 128 values.</span> <span class="sentence"><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Over time, new standards have been established that cover more of the characters used around the world.</span> <span class="sentence">But most of them are compatible with ASCII, meaning that they match on the first 128 values.</span></p>
 <h2 id="types">Types</h2>
 <p><span class="sentence">When we wrote our first program, we saw a surprising result.</span> <span class="sentence">To refresh your memory, it looked like this,</span></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="dt">int</span> main(<span class="dt">int</span> argc, <span class="dt">char</span>** argv) {</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>    <span class="cf">return</span> <span class="ch">&#39;A&#39;</span>;</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>$ <span class="fu">cc</span> test.c</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>$ <span class="ex">./a.out</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true"></a>$ <span class="bu">echo</span> <span class="va">$?</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true"></a><span class="ex">65</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ch">&#39;A&#39;</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cc test.c</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./a.out</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="va">$?</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="ex">65</span></span></code></pre></div>
 <p><span class="sentence">We told the program to return the letter ‘A’, but instead it returned the number 65.</span> <span class="sentence">If we use our knowledge of binary, decimal, and ASCII, we now know enough to explain the result.</span></p>
 <table>
 <thead>
@@ -170,12 +170,12 @@
 </table>
 <p><span class="sentence"><code>char</code> indicates that a value should be read as an ASCII letter, and <code>unsigned</code> indicates that a value should be read as a binary number.</span> <span class="sentence">The two new ones are <code>int</code> and <code>float</code>.</span> <span class="sentence"><code>int</code> is short for “integer”, or positive and negative numbers.</span> <span class="sentence"><code>float</code> is short for “floating point” which includes the rational numbers.</span></p>
 <p><span class="sentence">When we write programs, we tell C which type to use for a specific variable.</span> <span class="sentence">We “declare” a variable to have a type when we create it, like this,</span></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="dt">int</span> x = <span class="dv">10</span>;</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="dt">char</span> myVariable = <span class="ch">&#39;c&#39;</span>;</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="dt">float</span> otherVariable = <span class="fl">1.0</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> myVariable <span class="op">=</span> <span class="ch">&#39;c&#39;</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> otherVariable <span class="op">=</span> <span class="fl">1.0</span><span class="op">;</span></span></code></pre></div>
 <p><span class="sentence">C is not very strict with types though, so we can write code that looks like this,</span></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="dt">int</span> x = <span class="ch">&#39;A&#39;</span>;</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="dt">char</span> myVariable = <span class="dv">10</span>;</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> x <span class="op">=</span> <span class="ch">&#39;A&#39;</span><span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> myVariable <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span></code></pre></div>
 <p><span class="sentence">But by doing that, we are losing most of the value that types provide.</span></p>
 <h2 id="section"></h2>
 <p><span class="sentence">Primitive types are useful, but they only represent single values.</span> <span class="sentence">Most useful data is composed of more than just one number or letter.</span> <span class="sentence">If you sign up for an account on a website, you typically have to put in at least your name and email, both of which have multiple characters in them.</span> <span class="sentence">You might also need to input your birthday or phone number which, again, are more than a single value.</span></p>

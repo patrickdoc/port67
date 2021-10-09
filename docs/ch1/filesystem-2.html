@@ -35,42 +35,42 @@
 <p><span class="sentence">Returning to where we left off, let’s open a terminal and run <code>cd</code> – short for “change directory” – to move to our “home” directory.</span> <span class="sentence">Your home directory and everything inside it belongs to you.</span> <span class="sentence">You are free to create, destroy, or edit anything you find there.</span></p>
 <h2 id="directories">Directories</h2>
 <p><span class="sentence">We don’t want to accidentally delete or change anyone’s important files, so we’ll start by creating a directory to play in.</span> <span class="sentence">I’m going to call my directory “projects”, but if that name is already taken on your computer, feel free to use something else.</span></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>$ <span class="bu">cd</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>$ <span class="fu">ls</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a><span class="ex">Applications</span>  Documents  Pictures</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="ex">Desktop</span>       Downloads</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>$ <span class="fu">mkdir</span> projects</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>$ <span class="fu">ls</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a><span class="ex">Applications</span>  Documents  Pictures</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a><span class="ex">Desktop</span>       Downloads  projects</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Applications</span>  Documents  Pictures</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Desktop</span>       Downloads</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mkdir projects</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">Applications</span>  Documents  Pictures</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Desktop</span>       Downloads  projects</span></code></pre></div>
 <p><span class="sentence">Following the pattern of simple command names, <code>mkdir</code> makes a new directory for you.</span></p>
 <p><span class="sentence">Try running that <code>mkdir</code> command again exactly as you did the first time.</span></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>$ <span class="fu">mkdir</span> projects</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a><span class="ex">mkdir</span>: cannot create directory ‘/home/patrick/projects’: File exists</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mkdir projects</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mkdir:</span> cannot create directory ‘/home/patrick/projects’: File exists</span></code></pre></div>
 <p><span class="sentence">This time, <code>mkdir</code> fails and prints an error.</span> <span class="sentence">It was unable to make the directory I asked for (<code>/home/patrick/projects</code>) because it already existed (<code>File exists</code>).</span> <span class="sentence">If you saw this error the first time you ran the command, check what directories already exist with <code>ls</code> and then pick a name that isn’t being used.</span></p>
 <p><span class="sentence">To remove a directory, run <code>rmdir</code>.</span></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>$ <span class="fu">rmdir</span> projects</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rmdir projects</span></code></pre></div>
 <p><span class="sentence">This command fails in two common ways:</span></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>$ <span class="fu">rmdir</span> asdf</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a><span class="ex">rmdir</span>: failed to remove <span class="st">&#39;/home/patrick/asdf&#39;</span>: No such file or directory</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true"></a>$ <span class="fu">rmdir</span> projects</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true"></a><span class="ex">rmdir</span>: failed to remove <span class="st">&#39;/home/patrick/projects&#39;</span>: Directory not empty</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rmdir asdf</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">rmdir:</span> failed to remove <span class="st">&#39;/home/patrick/asdf&#39;</span>: No such file or directory</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rmdir projects</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">rmdir:</span> failed to remove <span class="st">&#39;/home/patrick/projects&#39;</span>: Directory not empty</span></code></pre></div>
 <p><span class="sentence">The first failure tells us that <code>rmdir</code> could not remove <code>asdf</code> because there were no files or directories with that name.</span></p>
 <p><span class="sentence">The second failure tells us that <code>rmdir</code> could not remove <code>projects</code> because that directory still had files or other directories inside of it.</span> <span class="sentence"><code>rmdir</code> will only work on completely empty directories.</span></p>
 <h2 id="files">Files</h2>
 <p><span class="sentence">Reset to your home directory and recreate the “projects” directory if you deleted it earlier.</span> <span class="sentence">Then <code>cd</code> into it.</span></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>$ <span class="bu">cd</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>$ <span class="fu">mkdir</span> projects</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>$ <span class="bu">cd</span> projects</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> mkdir projects</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cd projects</span></code></pre></div>
 <p><span class="sentence">Now that we have a directory to work in, we can start working with files.</span> <span class="sentence">First, we can create them with <code>touch</code>.</span></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>$ <span class="fu">touch</span> bob.txt</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>$ <span class="fu">touch</span> test.html</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>$ <span class="fu">touch</span> example.pdf</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>$ <span class="fu">touch</span> 10</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>$ <span class="fu">touch</span> directory</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>$ <span class="fu">ls</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true"></a><span class="ex">10</span>  bob.txt  directory  example.pdf  test.html</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> touch bob.txt</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> touch test.html</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> touch example.pdf</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> touch 10</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> touch directory</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">10</span>  bob.txt  directory  example.pdf  test.html</span></code></pre></div>
 <p><span class="sentence"><code>touch</code> creates an empty file with whatever name you provide.</span> <span class="sentence">There are not many restrictions on what you can name files, but I would recommend that you:</span></p>
 <ul>
 <li>avoiding using <code>/</code> and spaces</li>
@@ -78,12 +78,12 @@
 </ul>
 <p><span class="sentence"><code>/</code> and spaces can mean different things, which can cause some confusing issues.</span> <span class="sentence">And naming a file something like “directory” is a bit misleading.</span> <span class="sentence">It is best to be as clear as possible; future you will thank you.</span></p>
 <p><span class="sentence">To remove files, use <code>rm</code>.</span></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>$ <span class="fu">rm</span> bob.txt</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>$ <span class="fu">rm</span> test.html</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>$ <span class="fu">rm</span> example.pdf</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>$ <span class="fu">rm</span> 10</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>$ <span class="fu">rm</span> directory</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>$ <span class="fu">ls</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rm bob.txt</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rm test.html</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rm example.pdf</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rm 10</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> rm directory</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ls</span></code></pre></div>
 <p><span class="sentence">Again, please be careful with <code>rm</code>.</span> <span class="sentence">There are no warnings or backups, the file is gone forever.</span></p>
 <h2 id="your-toolbox">Your Toolbox</h2>
 <p><span class="sentence">With two tweaks, you will know everything you need to know about the filesystem.</span></p>

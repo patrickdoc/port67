@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+    <meta charset="UTF-8">
+    <meta name="description" content="Port67">
+    <meta name="author" content="Patrick Dougherty">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/structure.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a id="beacon" href="/">
+                <div id="home-text"> Port67 </div>
+            </a>
+        </nav>
+    </header>
+
+    <div id="page">
+        <div class="wrapper">
+            <div class="masthead">
+                <span class="title">
+                    Memory
+                </span>
+            </div>
+        </div>
+
+        <article class="post">
+            <p><span class="sentence">Every process on your computer requires memory.</span> <span class="sentence">Your web browser, music player, and text editor all need to store some data in memory while they are running.</span> <span class="sentence">But there is only a finite amount of memory available, so it must be managed.</span></p>
+<p><span class="sentence">The operating system is responsible for managing access to and ownership of memory.</span> <span class="sentence">Your computer probably has a few billion bytes of memory in RAM, but let’s pretend it only has 8 bytes.</span></p>
+<p><span class="sentence">When your computer starts up, the operating system needs to keep some of that memory for itself.</span></p>
+<pre><code>+=======+=======+=======+=======+=======+=======+=======+=======+
+| (OS)  | (OS)  |       |       |       |       |       |       |
++=======+=======+=======+=======+=======+=======+=======+=======+
+^       ^       ^       ^       ^       ^       ^       ^
+0       1       2       3       4       5       6       7</code></pre>
+<p><span class="sentence">Here I am listing the owner of the byte inside the box.</span> <span class="sentence">So the operating system owns the first two bytes (0 and 1).</span></p>
+<p><span class="sentence">Now, if a process <code>A</code> starts up, it can request memory from the operating system.</span> <span class="sentence">Suppose it needs 4 bytes to run correctly.</span> <span class="sentence">It sends a request to the operating system for 4 bytes of memory, and the operating system will send back a block of 4 bytes.</span></p>
+<pre><code>+=======+=======+=======+=======+=======+=======+=======+=======+
+| (OS)  | (OS)  |       |  (A)  |  (A)  |  (A)  |  (A)  |       |
++=======+=======+=======+=======+=======+=======+=======+=======+
+^       ^       ^       ^       ^       ^       ^       ^
+0       1       2       3       4       5       6       7</code></pre>
+<p><span class="sentence">Process <code>A</code> can now store any data it wants in bytes 3 - 6.</span> <span class="sentence">However, it cannot access bytes 0, 1, 2, or 7.</span> <span class="sentence">If it tries to read or write a byte it does not own, the operating system will block the access and crash the program.</span></p>
+<p><span class="sentence">This is an important feature.</span> <span class="sentence">Imagine if you were typing in your text editor, and it caused your music player to skip to the next song.</span> <span class="sentence">Or, even worse, if you were typing in a password in your browser and a different process stole the password.</span> <span class="sentence">Maintaining isolation between different sections of memory is critical for your computer to operate securely and reliably.</span></p>
+<p><span class="sentence">Now imagine process <code>B</code> starts up and requests 4 bytes of memory from the operating system.</span> <span class="sentence">Unfortunately, it doesn’t have 4 bytes to give.</span> <span class="sentence">The OS needs 2 bytes for itself and <code>A</code> is already using 4.</span> <span class="sentence">So the OS responds to <code>B</code>’s request for 4 bytes with a failure, and <code>B</code> is responsible for deciding what to do next.</span></p>
+<p><span class="sentence"><code>B</code> might be able to get by with just 2 bytes, so it might send another request to the operating system for 2 bytes instead of 4.</span> <span class="sentence">At this point, there’s a problem.</span> <span class="sentence">The operating system <em>has</em> 2 bytes that it can give to <code>B</code>, but they aren’t next to each other.</span></p>
+<p><span class="sentence">This problem is called “fragmentation”.</span> <span class="sentence">There are multiple fragments, or small chunks, of memory, that could be combined into larger chunks if they were moved around.</span></p>
+<p><span class="sentence">To solve the problem, the operating system might shuffle memory around to look like this,</span></p>
+<pre><code>+=======+=======+=======+=======+=======+=======+=======+=======+
+| (OS)  | (OS)  |  (A)  |  (A)  |  (A)  |  (A)  |       |       |
++=======+=======+=======+=======+=======+=======+=======+=======+
+^       ^       ^       ^       ^       ^       ^       ^
+0       1       2       3       4       5       6       7</code></pre>
+<p><span class="sentence">and then give bytes 6 and 7 to <code>B</code>.</span></p>
+<p><span class="sentence">It is easy to see that moving <code>A</code>’s memory will open up enough space for <code>B</code> to get the 2 bytes it needs, but actually performing that change is difficult.</span> <span class="sentence">The operating system needs to move <code>A</code>’s memory <em>without telling <code>A</code></em>.</span></p>
+<p><span class="sentence">Memory management is a difficult task, but the operating system mostly handles it for you.</span> <span class="sentence">The main responsibility you have as a programmer is to tell the operating system when you are done with the memory so that it can be used by other processes.</span></p>
+            <br>
+            <br>
+            <section class="table-of-contents">
+                <ol>
+                </ol>
+            </section>
+        </article>
+    </div>
+
+    <footer>
+        <hr>
+        <div class="links">
+          <p>
+            ©
+            <a href="mailto:patrick.doc@port67.org">Patrick Dougherty</a>
+            -
+            <a href="https://github.com/patrickdoc/port67">source</a>
+          </p>
+        </div>
+    </footer>
+    
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+</body>
+</html>

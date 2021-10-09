@@ -8,21 +8,30 @@ digraph cstree {
     // Root topics
     terminal[rank=min];
 
+    terminal -> editors;
+    terminal -> filesystem;
+    filesystem -> "configuration management";
+    "package manager" -> "configuration management";
+
+    // Git
+    terminal -> git;
+    git -> github;
+    github -> foss;
+
     // Base
     terminal -> c;
-    c -> virtualization;
-    c -> networking;
-    c -> "concurrency/parallelism";
+    c -> architecture;
 
     // Cloud
     networking -> cloud;
     virtualization -> cloud;
+    virtualization -> containers;
 
     // Sys admin
     terminal -> "package manager";
 
     // Backend
-    "concurrency/parallelism" -> server;
+    architecture -> server;
     networking -> server;
     server -> distributed;
     
@@ -31,8 +40,7 @@ digraph cstree {
     terminal -> "html/css";
     "html/css" -> website;
     c -> cryptography;
-    cryptography -> ssl;
-    ssl -> website;
+    cryptography -> website;
 
     // Web app
     "package manager" -> database;
@@ -41,7 +49,7 @@ digraph cstree {
     ui -> "web app";
 
     // Embedded
-    c -> embedded;
+    architecture -> embedded;
     embedded -> "internet of things";
     networking -> "internet of things";
     embedded -> asics;
@@ -49,10 +57,10 @@ digraph cstree {
 
     // PL
     c -> languages;
-    languages -> oop;
-    languages -> functional;
+    languages -> ides;
 
     // Compilers
+    architecture -> compilers;
     languages -> compilers;
     semantics -> compilers;
     "type theory" -> compilers;
@@ -62,159 +70,33 @@ digraph cstree {
     networking -> js;
     js -> ui;
 
-    //Britannica
-    // Architecture
-    // Computational
+    architecture -> virtualization;
+    architecture -> networking;
+    architecture -> graphics;
+    "linear algebra" -> graphics;
+
+    // Things to hit
+    // AI (ml, computer vision)
+    // algorithms
+    // compression
+    // stats
     // Graphics
-    // HCI
-    // Information management
-    // AI
-    // Networking
-    // OS
-    // Parallel
-    // Platform
-    // PL
-    // Security
-    // Software Eng
-    // Social
-
-    // Wikipedia
-    // Algorithms
-    // Data Structs
-    // Compilers
-    // Formal semantics
-    // Type theory
-    // Reverse engineering
+    // Computational
+    // Platform (like console vs mobile vs windows..)
+    // Professional (Dev + QA + Ops)
+    // Design
     // quantum
-
-    //c -> sets[lhead=cluster_data_structs];
-    //c -> compilers[lhead=cluster_pl];
-    //c -> embedded;
-    //c -> servers[lhead=cluster_networks];
-    //c -> caching[lhead=cluster_architecture];
-    //c -> syscalls[lhead=cluster_os];
-
-    //intro -> shell[lhead=cluster_sysadmin];
-    //intro -> c;
-    //intro -> sql[lhead=cluster_dbs];
-    //intro -> logic[lhead=cluster_theory];
-
-    //subgraph cluster_app_dev {
-    //    label = "Application Development";
-    //    verification;
-    //    testing[test=bob blorb=bob];
-
-    //    subgraph cluster_frontend {
-    //        label = "Frontend Development";
-    //        "html/css" -> js;
-    //        js -> rest;
-    //    }
-
-    //    subgraph cluster_backend {
-    //        label = "Backend Development";
-    //        distributed;
-    //        distributed -> cap;
-    //        distributed -> mapreduce;
-    //        "monolith vs. microservice";
-    //        "serialization/deserialization" -> messaging;
-    //    }
-    //}
-
-    //subgraph cluster_architecture {
-    //    label = "Architecture";
-    //    caching;
-    //    isa;
-    //    "parallel/concurrent";
-    //    quantum;
-    //}
-    //"parallel/concurrent" -> graphics;
-
-    //subgraph cluster_data_structs {
-    //    label = "Data Structures";
-    //    compression;
-    //    graphs;
-    //    hashing;
-    //    sets;
-    //}
-
-    //subgraph cluster_dbs {
-    //    label = "Databases";
-    //    nosql;
-    //    sql;
-    //}
-
-    //subgraph cluster_foss {
-    //    label = "Free/Open Source Software";
-    //    licenses;
-    //    "github/gitlab";
-    //}
-
-
-    //subgraph cluster_networks {
-    //    label = "Networks";
-    //    cryptography;
-    //    endianness;
-    //    internet;
-    //    servers;
-    //}
-
-    //// OSTEP!
-    //subgraph cluster_os {
-    //    label = "Operating Systems";
-    //    "processes/threads" -> virtualization;
-    //    scheduling;
-    //    syscalls;
-    //}
-
-    //subgraph cluster_pl {
-    //    label = "Programming Languages";
-    //    compilers;
-    //    dsls;
-    //    exceptions;
-    //    functional;
-    //    gc;
-    //    modularity;
-    //    oop;
-    //    "access modifiers";
-    //}
-
-    //subgraph cluster_prog_tools {
-    //    label = "Programming Envs/Tools";
-    //    ides;
-    //    git;
-    //}
-    //git -> licenses[lhead=cluster_foss];
-
-    //subgraph cluster_sysadmin {
-    //    label = "Systems Admin";
-    //    shell;
-    //    "advanced filesystem";
-    //    "package manager";
-    //    "personal os" -> "configuration management";
-    //    "personal os" -> "desktop environments";
-    //    "personal os" -> partitioning;
-    //    editors;
-    //}
-
-    //subgraph cluster_theory {
-    //    label = "Theory";
-    //    logic -> automata
-    //    automata -> computability;
-    //    "computational complexity" -> "p/np";
-    //    "type theory";
-    //}
-
-    // asics
-    // fpgas
-    // containers
-    // graphics
-    // mapreduce
-    // ssh
-    //"newer language" -> compilers[style=dotted];
-    //"newer language" -> ides[style=dotted];
-    //"newer language" -> ml[lhead=cluster_ai];
+    // logic
+    // advanced filesystem
+    // configuration management
+    // personal os
+    // desktop environment
+    // partitioning
+    // automata
+    // computability
+    // computational complexity
+    // p/np
     // algebra (like coq)
-    // fft
     // digital signal processing
     // sci/data vis
     // 3-sat
@@ -224,10 +106,5 @@ digraph cstree {
     // elliptic curves
     // numerical algorithms
     // discrete math
-
-    //subgraph cluster_ai {
-    //    label = "Artificial Intelligence";
-    //    ml;
-    //    "computer vision";
-    //}
+    // X vs Wayland
 }

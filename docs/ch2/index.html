@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+    <meta charset="UTF-8">
+    <meta name="description" content="Port67">
+    <meta name="author" content="Patrick Dougherty">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/structure.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a id="beacon" href="/">
+                <div id="home-text"> Port67 </div>
+            </a>
+        </nav>
+    </header>
+
+    <div id="page">
+        <div class="wrapper">
+            <div class="masthead">
+                <span class="title">
+                    APIs
+                </span>
+            </div>
+        </div>
+
+        <article class="post">
+            <p><span class="sentence">Computers look like just one machine, especially as they get smaller and smaller.</span> <span class="sentence">However, they are composed of a few discrete parts.</span> <span class="sentence">We’ve already seen the hard drive for non-volatile storage, the RAM for volatile storage, and the CPU for processing instructions.</span> <span class="sentence">But there can also be other components, like graphics cards, sound cards, or networking cards.</span></p>
+<p><span class="sentence">Each of these components provide different functionality to the computer and require their own specific code to handle the communication with the CPU.</span> <span class="sentence">Storing data in RAM is a fairly different process from storing it on the hard drive.</span></p>
+<p><span class="sentence">Luckily, we don’t need to know very much about the inner workings of these components.</span> <span class="sentence">The “operating system”, like Windows, MacOS, or a variety of Linux, provides an abstraction layer that let’s you spend more time thinking about “what” you want to do instead of the particulars of “how” you want to do it.</span></p>
+<p><span class="sentence">Taking the hard drive as an example, we can see one of these abstraction layers in action.</span></p>
+<p><span class="sentence">From the hard drive’s perspective, it provides “block” storage.</span> <span class="sentence">That is, it allows the CPU to read or write about 500 kilobytes of data at a time.</span> <span class="sentence">While a restriction like that makes the hardware easier to contruct and the communication more straightforward, it doesn’t lead to a great user experience.</span> <span class="sentence">Songs and books and videos wouldn’t fit in just one block, so you the programmer would have to manage breaking them up into smaller blocks to send them to the hard drive for storage and then reassembling them into a single piece of media for use.</span></p>
+<p><span class="sentence">The operating system steps in here to solve many of these problems for you.</span> <span class="sentence">It provides the file system to handle all the underlying block work.</span> <span class="sentence">That way you can work with an abstract “file” and not worry about the specifics of how the hard drive works.</span></p>
+<p><span class="sentence">The file system then provides an “Application Programming Interface”, or API, for you to write programs with.</span> <span class="sentence">The API is mostly just a bundle of commands that you can send to the file system to create, read, write, or delete files.</span></p>
+<p><span class="sentence">That means for each component there are two things to learn.</span> <span class="sentence">First, you have to understand the abstraction layer.</span> <span class="sentence">What problem is it solving?</span> <span class="sentence">How is it intended to be used?</span> <span class="sentence">Second, you have to learn the particulars of the API.</span> <span class="sentence">How do you create and manipulate new data?</span> <span class="sentence">What are the different options available to you?</span></p>
+<p><span class="sentence">Keeping all of these layers separate in your mind can be difficult and even more trouble than it is worth at times.</span> <span class="sentence">However, if you can successfully do it, you can often pinpoint issues that come up with your programs.</span> <span class="sentence">You also get a better view on the possibilities for new ideas.</span> <span class="sentence">You can quickly get to the details of creating a new type of hard drive or a new type of file.</span></p>
+<p><span class="sentence">The various APIs for memory, storage, and networking form the foundations of programming.</span> <span class="sentence">So we are going to cover the theory behind the APIs as well as the practical usage of them.</span> <span class="sentence">Later on, we can go back and dig deeper into how the lower layers like the file system and operating system actually work.</span></p>
+            <br>
+            <br>
+            <section class="table-of-contents">
+                <ol>
+                    <li>
+        <a href="/./ch2/basic-c.html">C</a>
+        <ol>
+        </ol>
+    </li>
+    <li>
+        <a href="/./ch2/basic-c-2.html">C 2</a>
+        <ol>
+        </ol>
+    </li>
+    <li>
+        <a href="/./ch2/basic-c-3.html">C 3: Pointers</a>
+        <ol>
+        </ol>
+    </li>
+    <li>
+        <a href="/./ch2/basic-c-4.html">C 4: Scope</a>
+        <ol>
+        </ol>
+    </li>
+    <li>
+        <a href="/./ch2/memory-theory.html">Memory</a>
+        <ol>
+        </ol>
+    </li>
+    <li>
+        <a href="/./ch2/memory-c.html">Memory in C</a>
+        <ol>
+        </ol>
+    </li>
+    <li>
+        <a href="/./ch2/filesystem-theory.html">Filesystem</a>
+        <ol>
+        </ol>
+    </li>
+    <li>
+        <a href="/./ch2/filesystem-c.html">Filesystem Programming</a>
+        <ol>
+        </ol>
+    </li>
+</ol>
+            </section>
+        </article>
+    </div>
+
+    <footer>
+        <hr>
+        <div class="links">
+          <p>
+            ©
+            <a href="mailto:patrick.doc@port67.org">Patrick Dougherty</a>
+            -
+            <a href="https://github.com/patrickdoc/port67">source</a>
+          </p>
+        </div>
+    </footer>
+    
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+</body>
+</html>
