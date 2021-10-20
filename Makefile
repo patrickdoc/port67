@@ -12,7 +12,7 @@ refresh:
 
 # Targets for the underlying generation code
 lib:
-		cabal install
+		cabal install --overwrite-policy=always
 
 test:
 		cabal test
