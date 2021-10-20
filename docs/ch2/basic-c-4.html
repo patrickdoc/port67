@@ -23,7 +23,7 @@
         <div class="wrapper">
             <div class="masthead">
                 <span class="title">
-                    C 4: Scope
+                    C Scope
                 </span>
             </div>
         </div>
@@ -42,7 +42,8 @@
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">test.c:2:9:</span> error: ‘x’ undeclared <span class="er">(</span><span class="ex">first</span> use in this function<span class="kw">)</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>     <span class="cf">if</span> <span class="kw">(</span><span class="ex">x</span> == 2<span class="kw">)</span> <span class="kw">{</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>         <span class="ex">^</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">test.c:2:9:</span> note: each undeclared identifier is reported only once for each function it appears in</span></code></pre></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="ex">test.c:2:9:</span> note: each undeclared identifier is reported only once for each</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            <span class="kw">function</span><span class="fu"> it</span> <span class="ex">appears</span> in</span></code></pre></div>
 <p><span class="sentence">The compiler doesn’t know what <code>x</code> is until <em>after</em> the <code>if</code> block, so we can’t use it yet.</span></p>
 <p><span class="sentence">You will get a similar message if you use a function before you define it.</span></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
@@ -55,9 +56,11 @@
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cc test.c</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">test.c:</span> In function ‘main’:</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">test.c:2:13:</span> warning: implicit declaration of function ‘f’ [-Wimplicit-function-declaration]</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>     <span class="ex">int</span> x = f<span class="er">(</span><span class="ex">argc</span><span class="kw">);</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>             <span class="ex">^</span></span></code></pre></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">test.c:2:13:</span> warning: implicit declaration of function ‘f’</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>             <span class="ex">[-Wimplicit-function-declaration]</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>     <span class="ex">int</span> x = f<span class="er">(</span><span class="ex">argc</span><span class="kw">);</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>             <span class="ex">^</span></span></code></pre></div>
 <p><span class="sentence">Two interesting things to note.</span> <span class="sentence">First, this is only a warning, not an error.</span> <span class="sentence">Warnings in C approximately mean that you are relying on non-standard behavior.</span> <span class="sentence">It isn’t technically an error, but it is generally unwise to rely on this working exactly as you would expect.</span></p>
 <p><span class="sentence">C warnings are often very helpful, so I would recommend enabling all of them when you are compiling, like this,</span></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cc <span class="at">-Wall</span> test.c</span></code></pre></div>
@@ -141,7 +144,7 @@
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">;</span></span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p><span class="sentence">We’ll get an error.</span></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cc <span class="at">-Wall</span> test.c </span>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> cc <span class="at">-Wall</span> test.c</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="ex">test.c:</span> In function ‘timesTwo’:</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="ex">test.c:2:12:</span> error: ‘x’ undeclared <span class="er">(</span><span class="ex">first</span> use in this function<span class="kw">)</span></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>     <span class="cf">return</span> <span class="ex">x</span> <span class="pp">*</span> 2<span class="kw">;</span></span>
@@ -156,7 +159,7 @@
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> timesTwo<span class="op">(</span>x<span class="op">);</span></span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">;</span></span>
 <span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<h1 id="naming-variables">Naming Variables</h1>
+<h2 id="naming-variables">Naming Variables</h2>
 <p><span class="sentence">Picking good names for variables can be difficult.</span> <span class="sentence">You are free to name them whatever you want, but I would recommend you make them descriptive and avoid shadowing if possible.</span> <span class="sentence">Repeating variable names can have surprising consequences.</span> <span class="sentence">Compare these two programs,</span></p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> x <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
