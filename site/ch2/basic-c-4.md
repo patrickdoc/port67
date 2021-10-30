@@ -3,10 +3,10 @@ title: "C Scope"
 subFiles: []
 ---
 
-The last bit of C syntax we need to understand is "scope". When you declare
-variables, they are only available at certain places in the program. The most
-basic rule is that variables must be defined before they can be used. For
-example, this program will throw an error when you try to compile it,
+When you declare variables, they are only available at certain places in the
+program, called their "scope". The most basic rule is that variables must be
+defined before they can be used. For example, this program will throw an error
+when you try to compile it,
 
 ```c
 int main(int argc, char** argv) {
@@ -212,7 +212,7 @@ int main(int argc, char** argv) {
 }
 ```
 
-And decide to move `x = 2` to its own separate function like this,
+And decide to move `x * 2` to its own separate function like this,
 
 ```c
 int timesTwo() {

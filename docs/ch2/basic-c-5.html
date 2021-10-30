@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head profile="http://www.w3.org/2005/10/profile">
+    <meta charset="UTF-8">
+    <meta name="description" content="Port67">
+    <meta name="author" content="Patrick Dougherty">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="stylesheet" href="/css/structure.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a id="beacon" href="/">
+                <div id="home-text"> Port67 </div>
+            </a>
+        </nav>
+    </header>
+
+    <div id="page">
+        <div class="wrapper">
+            <div class="masthead">
+                <span class="title">
+                    C Pointers
+                </span>
+            </div>
+        </div>
+
+        <article class="post">
+            <p><span class="sentence">There’s one piece of our basic C program template that we haven’t addressed yet: <code>char** argv</code>.</span></p>
+<p><span class="sentence">Suppose we wrote this bit of code,</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> letter <span class="op">=</span> <span class="ch">&#39;Z&#39;</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><span class="sentence">It might look like this in memory,</span></p>
+<pre><code>     letter
+        V
++=======+=======+=======+=======+
+|  ---  |  &#39;Z&#39;  |  ---  |  ---  |
++=======+=======+=======+=======+
+^       ^       ^       ^
+0       1       2       3</code></pre>
+<p><span class="sentence">Here we have 4 bytes of memory, where byte 1 contains ‘Z’.</span></p>
+<p><span class="sentence">If we use the variable <code>letter</code> in our program, C will get the value, <code>'Z'</code>, and substitute that into our program for us.</span> <span class="sentence">So if we added this line to our program,</span></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> letter <span class="op">=</span> <span class="ch">&#39;Z&#39;</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> otherLetter <span class="op">=</span> letter<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><span class="sentence">C might update memory to look like this,</span></p>
+<pre><code>     letter         otherLetter
+        V               V
++=======+=======+=======+=======+
+|  ---  |  &#39;Z&#39;  |  ---  |  &#39;Z&#39;  |
++=======+=======+=======+=======+
+^       ^       ^       ^
+0       1       2       3</code></pre>
+<p><span class="sentence">If we were to change the value of <code>letter</code>, <code>otherLetter</code> would still be <code>'Z'</code>.</span></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> letter <span class="op">=</span> <span class="ch">&#39;Z&#39;</span><span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> otherLetter <span class="op">=</span> letter<span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    letter <span class="op">=</span> <span class="ch">&#39;A&#39;</span><span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><span class="sentence">And memory would look like this,</span></p>
+<pre><code>     letter         otherLetter
+        V               V
++=======+=======+=======+=======+
+|  ---  |  &#39;A&#39;  |  ---  |  &#39;Z&#39;  |
++=======+=======+=======+=======+
+^       ^       ^       ^
+0       1       2       3</code></pre>
+<p><span class="sentence">So far, so good.</span> <span class="sentence">Things are working as expect them to.</span></p>
+<p><span class="sentence">We can do something a bit trickier though.</span> <span class="sentence">The byte numbers in the picture above aren’t just for show.</span> <span class="sentence">They are called “addresses”.</span> <span class="sentence">Each byte of memory has a unique address, independent of the value stored in that byte.</span></p>
+<p><span class="sentence">C allows us to access the address of a variable with <code>&amp;</code>.</span> <span class="sentence">So while <code>letter</code> is <code>'A'</code>, <code>&amp;letter</code> is <code>1</code>.</span></p>
+<p><span class="sentence">This can be confusing because now each variable has two potential values.</span> <span class="sentence">We could be talking about the address, or we could be talking about the value stored there.</span></p>
+<p><span class="sentence">Luckily, the type system helps us out here.</span></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> letter <span class="op">=</span> <span class="ch">&#39;Z&#39;</span><span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span><span class="op">*</span> letterAddress <span class="op">=</span> <span class="op">&amp;</span>letter<span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><span class="sentence"><code>letterAddress</code> has type <code>char*</code> instead of <code>char</code>.</span> <span class="sentence">We read <code>char*</code> as “char pointer” or “pointer to a char”.</span> <span class="sentence">It indicates that the variable holds the <em>address</em> of a <code>char</code> instead of an actual <code>char</code>.</span></p>
+<p><span class="sentence">And again, in memory,</span></p>
+<pre><code>     letter         letterAddress
+        V               V
++=======+=======+=======+=======+
+|  ---  |  &#39;Z&#39;  |  ---  |   1   |
++=======+=======+=======+=======+
+^       ^       ^       ^
+0       1       2       3</code></pre>
+<p><span class="sentence">We also have to be able to go the other direction.</span> <span class="sentence">Instead of going from variable to address, we have to go from address back to the variable.</span> <span class="sentence">Just like we have <code>&amp;</code> to go from <code>char</code> to <code>char*</code>, we have <code>*</code> to go from <code>char*</code> to <code>char</code>.</span></p>
+<p><span class="sentence">Here is <code>*</code> in action,</span></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> letter <span class="op">=</span> <span class="ch">&#39;Z&#39;</span><span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span><span class="op">*</span> letterAddress <span class="op">=</span> <span class="op">&amp;</span>letter<span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> otherLetter <span class="op">=</span> <span class="op">*</span>letterAddress<span class="op">;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre><code>   letter  otherLetter  letterAddress
+        V       V       V
++=======+=======+=======+=======+
+|  ---  |  &#39;Z&#39;  |  &#39;Z&#39;  |   1   |
++=======+=======+=======+=======+
+^       ^       ^       ^
+0       1       2       3</code></pre>
+<p><span class="sentence">It is slightly unfortunate that <code>*</code> plays two different roles because it makes it a bit harder to know which one you are working with.</span> <span class="sentence">In types, it indicates that the variable holds an address instead of a value.</span> <span class="sentence">When used with a variable, it gets the value stored at the address in the variable.</span></p>
+<p><span class="sentence">Each variable now has three possible values, so let’s list them all out so you can verify each one.</span></p>
+<p><span class="sentence">Given,</span></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> letter <span class="op">=</span> <span class="ch">&#39;Z&#39;</span><span class="op">;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span><span class="op">*</span> letterAddress <span class="op">=</span> <span class="op">&amp;</span>letter<span class="op">;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> otherLetter <span class="op">=</span> <span class="op">*</span>letterAddress<span class="op">;</span></span></code></pre></div>
+<p><span class="sentence">We have the following 9 possible values,</span></p>
+<pre><code>letter = &#39;Z&#39;
+&amp;letter = 1
+*letter = ERROR
+letterAddress = 1
+&amp;letterAddress = 3
+*letterAddress = &#39;Z&#39;
+otherLetter = &#39;Z&#39;
+&amp;otherLetter = 2
+*otherLetter = ERROR</code></pre>
+<p><span class="sentence"><code>*letter</code> and <code>*otherLetter</code> will cause errors if you try to use them because <code>'Z'</code> is not a valid memory address.</span> <span class="sentence">If you try to access an invalid address, your program will crash to prevent bad things from happening to the rest of your computer.</span></p>
+<p><span class="sentence">Our original question was about <code>char**</code> though, not just <code>char*</code>.</span> <span class="sentence">A <code>char**</code> is a pointer to a pointer to a <code>char</code>.</span> <span class="sentence">Put another way, it is the address of a <code>char*</code>.</span> <span class="sentence">We could, for example, declare a new <code>char**</code> like this,</span></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> letter <span class="op">=</span> <span class="ch">&#39;A&#39;</span><span class="op">;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span><span class="op">*</span> letterAddress <span class="op">=</span> <span class="op">&amp;</span>letter<span class="op">;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span><span class="op">**</span> letterAddressAddress <span class="op">=</span> <span class="op">&amp;</span>letterAddress<span class="op">;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><span class="sentence">Which might then look like this in memory,</span></p>
+<pre><code>   letter letterAddress letterAddressAddress
+        V       V       V
++=======+=======+=======+=======+
+|  ---  |  &#39;B&#39;  |   1   |   2   |
++=======+=======+=======+=======+
+^       ^       ^       ^
+0       1       2       3</code></pre>
+<p><span class="sentence">This might seem a little silly right now, but pointers are surprisingly powerful.</span> <span class="sentence">They allow us to use memory very efficiently and process data quickly.</span></p>
+<p><span class="sentence">We’ll get plenty of practice and explore uses of pointers in the upcoming topics.</span> <span class="sentence">But until then, it would be good practice to read through this program and make sure you understand all of the final values in memory.</span></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> letter <span class="op">=</span> <span class="ch">&#39;A&#39;</span><span class="op">;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span><span class="op">*</span> letterAddress <span class="op">=</span> <span class="op">&amp;</span>letter<span class="op">;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">char</span> otherLetter <span class="op">=</span> letter<span class="op">;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    letter <span class="op">=</span> <span class="ch">&#39;Z&#39;</span><span class="op">;</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    otherLetter <span class="op">=</span> <span class="op">*</span>letterAddress<span class="op">;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">*</span>letterAddress <span class="op">=</span> <span class="ch">&#39;B&#39;</span><span class="op">;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre><code>   letter  otherLetter  letterAddress
+        V       V       V
++=======+=======+=======+=======+
+|  ---  |  &#39;B&#39;  |  &#39;Z&#39;  |   1   |
++=======+=======+=======+=======+
+^       ^       ^       ^
+0       1       2       3</code></pre>
+            <br>
+            <br>
+            <section class="table-of-contents">
+                <ol>
+                </ol>
+            </section>
+        </article>
+    </div>
+
+    <footer>
+        <hr>
+        <div class="links">
+          <p>
+            ©
+            <a href="mailto:patrick.doc@port67.org">Patrick Dougherty</a>
+            -
+            <a href="https://github.com/patrickdoc/port67">source</a>
+          </p>
+        </div>
+    </footer>
+    
+    <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Lora&display=swap" rel="stylesheet">
+</body>
+</html>

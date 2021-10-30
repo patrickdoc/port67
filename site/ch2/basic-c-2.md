@@ -3,8 +3,87 @@ title: "C Control Flow"
 subFiles: []
 ---
 
-There are other tools built into C that let us affect the control flow. We'll
-cover a few here and pick up the rest along the way.
+Our basic program is very boring. No matter what we do, it always returns 0. We
+can make it slightly more dynamic by reacting to the number of arguments passed
+in from the command line.
+
+```c
+int main(int argc, char** argv) {
+    return argc;
+}
+```
+
+Now, instead of always returning 0, the program returns the number of arguments
+that we passed in.
+
+```bash
+$ ./a.out
+$ echo $?
+1
+$ ./a.out arg1
+$ echo $?
+2
+$ ./a.out arg1 arg2
+$ echo $?
+3
+```
+
+We can take it a step further by examining the value before we return it. C
+provides us with tools to affect the "control flow" of the program. You can
+imagine that there is a little arrow pointing at the current line of code that
+is running. Generally, the arrow just moves down one line at a time. But, we can
+cause the arrow to skip lines or move backwards depending on what we want the
+program to do.
+
+We can modify our program slightly to treat input different. If `argc` is 1, we
+will return 100, otherwise we will return `argc`.
+
+```c
+int main(int argc, char** argv) {
+    if (argc == 1) {
+        return 100;
+    } else {
+        return argc;
+    }
+}
+```
+
+The program will run almost exactly as we specified it: if `argc` is equal to 1
+return 100, otherwise return `argc`.
+
+Stepping through it, we start with `(argc == 1)`. `==` compares the values on
+the left and right side. If they are the same, it evaluates to `true`. If they
+are not the same, it evaluates to `false`.
+
+`if (true)` will execute the code between the next braces `{}`. `if (false)` will skip that code.
+
+`else` does the opposite of `if`. When `if` runs, `else` does not run. When `if`
+does not run, `else` runs.
+
+When there are no arguments provided to the program, `argc` will be 1. So `argc
+== 1` evaluates `true`, and we run the code inside the `{}` after `if` which
+returns 100 and ends the program.
+
+```bash
+$ ./a.out
+$ echo $?
+100
+```
+
+When there are arguments provided the the program, `argc` will *not* be 1. The
+code in `{}` after `if` will be skipped, and the code in the `{}` after
+`else` will run.
+
+```bash
+$ ./a.out arg1
+$ echo $?
+2
+$ ./a.out arg1 arg2
+$ echo $?
+3
+```
+
+---
 
 We can change the value of a variable during our program. For example, we could
 subtract 1 from `argc`,
@@ -13,6 +92,7 @@ subtract 1 from `argc`,
 int main(int argc, char** argv) {
     argc = argc - 1;
     return argc;
+}
 ```
 
 When we run it, we see that the value returned is 1 less than before,
@@ -97,7 +177,7 @@ like `if`, so we execute the code inside the body. `result` is multipled by 2 to
 become 4, and now we go back to the start of the `while` loop.
 
 So we check the condition. `argc` is still 2, 2 is still > 1, so we execute the
-body, and check the condition...
+body and check the condition...
 
 We forgot to substract 1 from `argc`. So our comparison of `argc > 1` will
 *always* be true. Our program will continue looping infinitely because we
@@ -132,152 +212,4 @@ $ echo $?
 $ ./a.out arg1 arg2
 $ echo $?
 8
-```
-
----
-
-One last tool allows us to reuse code and provide structure to our program. We
-can create functions that allow us to call the same exact code without
-copy-pasting it multiple times.
-
-Let's write a program that returns `argc`, except when `argc` is 2 or 3. When
-`argc` is 2 or 3, it should return 2^2 (2 times 2) and 3^3. We might
-write the program like this,
-
-```c
-int main(int argc, char** argv) {
-
-    if (argc == 2) {
-        int result = 2;
-        while (argc > 1) {
-            result = result * 2;
-            argc = argc - 1;
-        }
-        return result;
-    } else if (argc == 3) {
-        int result = 3;
-
-        while (argc > 1) {
-            result = result * 3;
-            argc = argc - 1;
-        }
-        return result;
-    } else {
-        return argc;
-    }
-}
-```
-
-In general, programmers don't like repeating code. Partly because we like being
-lazy, but also because it is too easy to create problems by copy-pasting
-incorrectly. We can avoid copy-pasting by creating a new function. Given an
-integer x, it should return x^x.
-
-We know what the function should do, so we can write the "signature" that
-describes the function,
-
-```c
-int power(int x) {
-}
-```
-
-We don't have the body of the function yet, but what we have looks similar to
-`main`. Our function returns an `int`, it is named `power`, and it requires an
-`int` as input. We can use `x` inside the body of the function just like we use
-`argc`. So our function might look like this,
-
-```c
-int power(int x) {
-    int result = x;
-    int counter = x;
-
-    while (counter > 1) {
-        result = result * x;
-        counter = counter - 1;
-    }
-
-    return result;
-}
-```
-
-You should be able to match up the variables in the `power` function with the
-variables that we used in `main`. The biggest difference is that here we are
-using `x` instead of the plain `2` or `3` that we used above.
-
-To use our new function, we "call" it in the body of `main`.
-
-```c
-int power(int x) {
-    int result = x;
-    int counter = x;
-
-    while (counter > 1) {
-        result = result * x;
-        counter = counter - 1;
-    }
-
-    return result;
-}
-
-int main(int argc, char** argv) {
-    if (argc == 2) {
-        int value = power(2);
-        return value;
-    } else if (argc == 3) {
-        int value = power(3);
-        return value;
-    } else {
-        return argc;
-    }
-}
-```
-
-Now, when the program reaches `power(2)`, it jumps up into the `power` function,
-and sets `x` equal to 2. It runs the body of the function, calculates that 2^2
-is 4, and then returns 4. When it returns, the program jumps back to where it
-was in the `main` function. `power(2)` is evaluated as 4, so `value` is set
-to 4.
-
-To save a bit of space, we can just return the result of the function
-directly. `return power(2)` is the same as `return 4`.
-
-```c
-int power(int x) {
-    int result = x;
-    int counter = x;
-
-    while (counter > 1) {
-        result = result * x;
-        counter = counter - 1;
-    }
-
-    return result;
-}
-
-int main(int argc, char** argv) {
-    if (argc == 2) {
-        return power(2);
-    } else if (argc == 3) {
-        return power(3);
-    } else {
-        return argc;
-    }
-}
-```
-
-Verifying that it works,
-
-```bash
-$ ./a.out
-$ echo $?
-1
-$ ./a.out arg1
-$ echo $?
-4
-$ ./a.out arg1 arg2
-$ echo $?
-27
-$ ./a.out arg1 arg2 arg3
-$ echo $?
-4
 ```

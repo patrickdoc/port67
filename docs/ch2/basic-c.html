@@ -29,7 +29,7 @@
         </div>
 
         <article class="post">
-            <p><span class="sentence">Time to become familiar with C syntax.</span> <span class="sentence">Syntax is the set of rules that define how we write programs in a given language.</span> <span class="sentence">Here is the starting point for most of the C programs we are going to write,</span></p>
+            <p><span class="sentence">Here is the starting point for most of the C programs we are going to write,</span></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
@@ -48,48 +48,9 @@
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># argv[0] = ./a.out</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># argv[1] = arg1</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># argv[2] = arg2</span></span></code></pre></div>
-<p><span class="sentence">After the <code>argc</code> and <code>argv</code> arguments comes an opening brace <code>{</code>.</span> <span class="sentence">Everything from <code>{</code> to its matching close brace <code>}</code> is called the “body” of the function.</span> <span class="sentence">The body contains the code that gets executed when the program starts.</span></p>
+<p><span class="sentence">After the <code>argc</code> and <code>argv</code> arguments comes an opening brace <code>{</code>.</span> <span class="sentence">Everything from <code>{</code> to its matching close brace <code>}</code> is called the “body” of the function.</span> <span class="sentence">The body contains the code that gets executed whenever the function is run.</span></p>
 <p><span class="sentence">In our case, the body of <code>main</code> is just <code>return 0</code>.</span> <span class="sentence"><code>return</code> stops execution of the body and sends the value out of the function.</span> <span class="sentence">The value returned from <code>main</code> is often called the “return code” or “exit code” of the program because it is the final result of executing the program.</span> <span class="sentence">Once a value is returned from <code>main</code>, the program is complete.</span></p>
 <p><span class="sentence">Finally, we have the closing <code>}</code> to indicate the end of the <code>main</code> function.</span></p>
-<hr />
-<p><span class="sentence">Our basic program is very boring.</span> <span class="sentence">No matter what we do, it always returns 0.</span> <span class="sentence">We can make it slightly more dynamic by reacting to the number of arguments passed in from the command line.</span></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> argc<span class="op">;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p><span class="sentence">Now, instead of always returning 0, the program returns the number of arguments that we passed in.</span></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./a.out</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="va">$?</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">1</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./a.out arg1</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="va">$?</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">2</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./a.out arg1 arg2</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="va">$?</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ex">3</span></span></code></pre></div>
-<p><span class="sentence">We can take it a step further by examining the value before we return it.</span> <span class="sentence">C provides us with basic math tools which we can use to affect the “control flow” of the program.</span> <span class="sentence">You can imagine that there is a little arrow pointing at the current line of code that is running.</span> <span class="sentence">Generally, the arrow just moves down one line at a time.</span> <span class="sentence">But, we can cause the arrow to skip lines or move backwards depending on what we want the program to do.</span></p>
-<p><span class="sentence">We can modify our program slightly to treat input different.</span> <span class="sentence">If <code>argc</code> is 1, we will return 100, otherwise we will return <code>argc</code>.</span></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>argc <span class="op">==</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">100</span><span class="op">;</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> argc<span class="op">;</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p><span class="sentence">The program will run almost exactly as we specified it: if <code>argc</code> is equal to 1 return 100, otherwise return <code>argc</code>.</span></p>
-<p><span class="sentence">Stepping through it, we start with <code>(argc == 1)</code>.</span> <span class="sentence"><code>==</code> compares the values on the left and right side.</span> <span class="sentence">If they are the same, it return <code>true</code>.</span> <span class="sentence">If they are not the same, it returns <code>false</code>.</span></p>
-<p><span class="sentence"><code>if (true)</code> will execute the code between the next braces <code>{}</code>; <code>if (false)</code> will skip that code.</span> <span class="sentence">When there are no arguments provided to the program, <code>argc</code> will be 1.</span> <span class="sentence">So <code>argc == 1</code> returns <code>true</code>, and we run the <code>return 100</code> line which returns the value 100 and ends the program.</span></p>
-<p><span class="sentence"><code>else</code> does the opposite of <code>if</code>.</span> <span class="sentence">When <code>if</code> runs, <code>else</code> does not run.</span> <span class="sentence">When <code>if</code> does not run, <code>else</code> runs.</span> <span class="sentence">When there are arguments provided the the program, <code>argc</code> will <em>not</em> be 1.</span> <span class="sentence">The code in the <code>{}</code> after <code>if</code> will be skipped, and the code in the <code>{}</code> after <code>else</code> will run.</span></p>
-<p><span class="sentence">Testing our program to verify it works,</span></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./a.out</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="va">$?</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">100</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./a.out arg1</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="va">$?</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="ex">2</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> ./a.out arg1 arg2</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> echo <span class="va">$?</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="ex">3</span></span></code></pre></div>
-<p><span class="sentence">As expected, with no additional arguments, the program returns 100.</span> <span class="sentence">But if there are additional arguments, it just prints <code>argc</code>.</span></p>
             <br>
             <br>
             <section class="table-of-contents">

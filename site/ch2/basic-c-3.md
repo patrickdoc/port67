@@ -1,231 +1,138 @@
 ---
-title: "C Pointers"
+title: "C Functions"
 subFiles: []
 ---
 
-There's one piece of our basic C program template that we haven't addressed yet:
-`char** argv`.
+One last tool allows us to reuse code and provide structure to our program. We
+can create functions that allow us to call the same exact code without
+copy-pasting it multiple times.
 
-Suppose we wrote this bit of code,
-
-```c
-int main(int argc, char** argv) {
-    char letter = 'Z';
-    return 0;
-}
-```
-
-It might look like this in memory,
-
-```
-     letter
-        V
-+=======+=======+=======+=======+
-|  ---  |  'Z'  |  ---  |  ---  |
-+=======+=======+=======+=======+
-^       ^       ^       ^
-0       1       2       3
-```
-
-Here we have 4 bytes of memory, where byte 1 contains 'Z'.
-
-If we use the variable `letter` in our program, C will get the value, `'Z'`, and
-substitute that into our program for us. So if we added this line to our
-program,
+Let's write a program that returns `argc`, except when `argc` is 2 or 3. When
+`argc` is 2 or 3, it should return 2^2 (2 times 2) and 3^3 (3 times 3 times 3). We might
+write the program like this,
 
 ```c
 int main(int argc, char** argv) {
-    char letter = 'Z';
-    char otherLetter = letter;
-    return 0;
+
+    if (argc == 2) {
+        int result = 2;
+        while (argc > 1) {
+            result = result * 2;
+            argc = argc - 1;
+        }
+        return result;
+    } else if (argc == 3) {
+        int result = 3;
+
+        while (argc > 1) {
+            result = result * 3;
+            argc = argc - 1;
+        }
+        return result;
+    } else {
+        return argc;
+    }
 }
 ```
 
-C might update memory to look like this,
+In general, programmers don't like repeating code. Partly because we like being
+lazy, but also because it is too easy to create problems by copy-pasting
+incorrectly. We can avoid copy-pasting by creating a new function. Given an
+integer x, it should return x^x.
 
-```
-     letter         otherLetter
-        V               V
-+=======+=======+=======+=======+
-|  ---  |  'Z'  |  ---  |  'Z'  |
-+=======+=======+=======+=======+
-^       ^       ^       ^
-0       1       2       3
+We know what the function should do, so we can write the "signature" that
+describes the function,
+
+```c
+int power(int x) {
+}
 ```
 
-If we were to change the value of `letter`, `otherLetter` would still be `'Z'`.
+We don't have the body of the function yet, but what we have looks similar to
+`main`. Our function returns an `int`, it is named `power`, and it requires an
+`int` as input. We can use `x` inside the body of the function just like we use
+`argc`. So our function might look like this,
+
+```c
+int power(int x) {
+    int result = x;
+    int counter = x;
+
+    while (counter > 1) {
+        result = result * x;
+        counter = counter - 1;
+    }
+
+    return result;
+}
+```
+
+You should be able to match up the variables in the `power` function with the
+variables that we used in `main`. The biggest difference is that here we are
+using `x` instead of the plain `2` or `3` that we used above.
+
+To use our new function, we "call" it in the body of `main`.
+
+```c
+int power(int x) {
+    int result = x;
+    int counter = x;
+
+    while (counter > 1) {
+        result = result * x;
+        counter = counter - 1;
+    }
+
+    return result;
+}
+
+int main(int argc, char** argv) {
+    if (argc == 2) {
+        int value = power(2);
+        return value;
+    } else if (argc == 3) {
+        int value = power(3);
+        return value;
+    } else {
+        return argc;
+    }
+}
+```
+
+Now, when the program reaches `power(2)`, it jumps up into the `power` function,
+and sets `x` equal to 2. It runs the body of the function, calculates that 2^2
+is 4, and then returns 4. When it returns, the program jumps back to where it
+was in the `main` function. `power(2)` is evaluated as 4, so `value` is set
+to 4.
+
+To save a bit of space, we can just return the result of the function
+directly. `return power(2)` is the same as `return 4`.
 
 ```c
 int main(int argc, char** argv) {
-    char letter = 'Z';
-    char otherLetter = letter;
-    letter = 'A';
-    return 0;
+    if (argc == 2) {
+        return power(2);
+    } else if (argc == 3) {
+        return power(3);
+    } else {
+        return argc;
+    }
 }
 ```
 
-And memory would look like this,
+Verifying that it works,
 
-```
-     letter         otherLetter
-        V               V
-+=======+=======+=======+=======+
-|  ---  |  'A'  |  ---  |  'Z'  |
-+=======+=======+=======+=======+
-^       ^       ^       ^
-0       1       2       3
-```
-
-So far, so good. Things are working as expect them to.
-
-We can do something a bit trickier though. The byte numbers in the picture above
-aren't just for show. They are called "addresses". Each byte of memory has a
-unique address, independent of the value stored in that byte.
-
-C allows us to access the address of a variable with `&`. So while `letter` is
-`'A'`, `&letter` is `1`.
-
-This can be confusing because now each variable has two potential values. We
-could be talking about the address, or we could be talking about the value
-stored there.
-
-Luckily, the type system helps us out here.
-
-```c
-int main(int argc, char** argv) {
-    char letter = 'Z';
-    char* letterAddress = &letter;
-    return 0;
-}
-```
-
-`letterAddress` has type `char*` instead of `char`. We read `char*` as "char
-pointer" or "pointer to a char". It indicates that the variable holds the
-_address_ of a `char` instead of an actual `char`.
-
-And again, in memory,
-
-```
-     letter         letterAddress
-        V               V
-+=======+=======+=======+=======+
-|  ---  |  'Z'  |  ---  |   1   |
-+=======+=======+=======+=======+
-^       ^       ^       ^
-0       1       2       3
-```
-
-We also have to be able to go the other direction. Instead of going
-from variable to address, we have to go from address back to the variable.
-Just like we have `&` to go from `char` to `char*`, we have `*` to go from
-`char*` to `char`.
-
-Here is `*` in action,
-
-```c
-int main(int argc, char** argv) {
-    char letter = 'Z';
-    char* letterAddress = &letter;
-    char otherLetter = *letterAddress;
-    return 0;
-}
-```
-
-```
-   letter  otherLetter  letterAddress
-        V       V       V
-+=======+=======+=======+=======+
-|  ---  |  'Z'  |  'Z'  |   1   |
-+=======+=======+=======+=======+
-^       ^       ^       ^
-0       1       2       3
-```
-
-It is slightly unfortunate that `*` plays two different roles because it makes
-it a bit harder to know which one you are working with. In types, it indicates
-that the variable holds an address instead of a value. When used with a
-variable, it gets the value stored at the address in the variable.
-
-Each variable now has three possible values, so let's list them all out so you
-can verify each one.
-
-Given,
-
-```c
-char letter = 'Z';
-char* letterAddress = &letter;
-char otherLetter = *letterAddress;
-```
-
-We have the following 9 possible values,
-
-```
-letter = 'Z'
-&letter = 1
-*letter = ERROR
-letterAddress = 1
-&letterAddress = 3
-*letterAddress = 'Z'
-otherLetter = 'Z'
-&otherLetter = 2
-*otherLetter = ERROR
-```
-
-`*letter` and `*otherLetter` will cause errors if you try to use them because
-`'Z'` is not a valid memory address. If you try to access an invalid address,
-your program will crash to prevent bad things from happening to the rest of your
-computer.
-
-Our original question was about `char**` though, not just `char*`. A `char**` is
-a pointer to a pointer to a `char`. Put another way, it is the address of a
-`char*`. We could, for example, declare a new `char**` like this,
-
-```c
-int main(int argc, char** argv) {
-    char letter = 'A';
-    char* letterAddress = &letter;
-    char** letterAddressAddress = &letterAddress;
-}
-```
-
-Which might then look like this in memory,
-
-```
-   letter letterAddress letterAddressAddress
-        V       V       V
-+=======+=======+=======+=======+
-|  ---  |  'B'  |   1   |   2   |
-+=======+=======+=======+=======+
-^       ^       ^       ^
-0       1       2       3
-```
-
-This might seem a little silly right now, but pointers are surprisingly
-powerful. They allow us to use memory very efficiently and process data
-quickly.
-
-We'll get plenty of practice and explore uses of pointers in the upcoming
-topics. But until then, it would be good practice to read through this program
-and make sure you understand all of the final values in memory.
-
-```c
-int main(int argc, char** argv) {
-    char letter = 'A';
-    char* letterAddress = &letter;
-    char otherLetter = letter;
-    letter = 'Z';
-    otherLetter = *letterAddress;
-    *letterAddress = 'B';
-    return 0;
-}
-```
-
-```
-   letter  otherLetter  letterAddress
-        V       V       V
-+=======+=======+=======+=======+
-|  ---  |  'B'  |  'Z'  |   1   |
-+=======+=======+=======+=======+
-^       ^       ^       ^
-0       1       2       3
+```bash
+$ ./a.out
+$ echo $?
+1
+$ ./a.out arg1
+$ echo $?
+4
+$ ./a.out arg1 arg2
+$ echo $?
+27
+$ ./a.out arg1 arg2 arg3
+$ echo $?
+4
 ```

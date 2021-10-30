@@ -29,7 +29,7 @@
         </div>
 
         <article class="post">
-            <p><span class="sentence">The last bit of C syntax we need to understand is “scope”.</span> <span class="sentence">When you declare variables, they are only available at certain places in the program.</span> <span class="sentence">The most basic rule is that variables must be defined before they can be used.</span> <span class="sentence">For example, this program will throw an error when you try to compile it,</span></p>
+            <p><span class="sentence">When you declare variables, they are only available at certain places in the program, called their “scope”.</span> <span class="sentence">The most basic rule is that variables must be defined before they can be used.</span> <span class="sentence">For example, this program will throw an error when you try to compile it,</span></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span><span class="op">**</span> argv<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>x <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span><span class="op">;</span></span>
@@ -133,7 +133,7 @@
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x <span class="op">*</span> <span class="dv">2</span><span class="op">;</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">;</span></span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p><span class="sentence">And decide to move <code>x = 2</code> to its own separate function like this,</span></p>
+<p><span class="sentence">And decide to move <code>x * 2</code> to its own separate function like this,</span></p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> timesTwo<span class="op">()</span> <span class="op">{</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> <span class="dv">2</span><span class="op">;</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
